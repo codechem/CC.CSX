@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuites time="0.003" tests="1" failures="0">
+  <testsuite id="0" name="/home/halicea/projects/cc/html-render/tests/CC.CSX.Tests/bin/Debug/net8.0/CC.CSX.Tests.dll" tests="1" failures="0" time="0.003">
+    <testcase classname="CC.CSX.Tests.GeneralRenderingTests" name="CC.CSX.Tests.GeneralRenderingTests.Indent_Should_BeRespected" time="0.0030617" />
+  </testsuite>
+</testsuites>
