@@ -1,5 +1,5 @@
-using System.Text;
 namespace CC.CSX;
+using System.Text;
 
 /// <summary>
 /// An abstract class that represents a node or a node attribute, that can be rendered to HTML.
@@ -132,12 +132,25 @@ public class HtmlClassAttribute : HtmlAttribute
     public HtmlClassAttribute(params string[] classes) : base("class", string.Join(" ", classes)) { }
 }
 
+public static class HtmlNodeExtensions
+{
+    public static void ApplyWhen(this HtmlNode node, Func<HtmlNode, bool> condition, Action<HtmlNode> action)
+        => node.When(condition).ApplyEach(action);
 
-public static class HtmlNodeExtensions{
-    public static void Apply(this HtmlNode node, Action<HtmlNode> action){
-        action(node);
-        foreach(var child in node.Children){
-            child.Apply(action);
-        }
+    public static void Apply(this HtmlNode node, Action<HtmlNode> action)
+        => node.When(_ => true).ApplyEach(action);
+
+    public static IEnumerable<HtmlNode> When(this HtmlNode node, Func<HtmlNode, bool> condition)
+    {
+        if (condition.Invoke(node))
+            yield return node;
+        foreach (var child in node.Children.Where(condition))
+            yield return child;
+    }
+
+    public static void ApplyEach(this IEnumerable<HtmlNode> nodes, Action<HtmlNode> action)
+    {
+        foreach (var node in nodes)
+            action(node);
     }
 }
