@@ -21,7 +21,9 @@ test job:
   script:
     - dotnet test --logger "junit;LogFilePath=Report.xml"
   artifacts:
-    - ./tests/CC.CSX.Tests/Report.xml
+    paths:
+      - ./tests/CC.CSX.Tests/Report.xml
+
 
 
 
