@@ -5,7 +5,7 @@ stages:
 build job:
   stage: build
   tags: 
-    - costas-docker
+    - costa-docker
   environment:
     name: staging
   script:
@@ -15,7 +15,7 @@ test job:
   variables:
     GIT_CLEAN_FLAGS: none
   tags:
-    - costas-docker
+    - costa-docker
   environment:
     name: staging
   script:
@@ -26,7 +26,7 @@ test job:
 pack job:
   stage: publish
   tags:
-    - costas-docker
+    - costa-docker
   script:
     - dotnet pack -o ./package
 
