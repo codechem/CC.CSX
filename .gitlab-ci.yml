@@ -19,7 +19,7 @@ test job:
   environment:
     name: staging
   script:
-    - dotnet test --logger "junit;LogFilePath=Report.xml"
+    - dotnet --no-build test --logger "junit;LogFilePath=Report.xml"
   artifacts:
     paths:
       - ./tests/CC.CSX.Tests/Report.xml
