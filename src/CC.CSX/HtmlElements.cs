@@ -1,8 +1,8 @@
 namespace CC.CSX;
 using Keys = CC.CSX.HtmlElementKeys;
-public static class HtmlElements
+public static partial class HtmlElements
 {
-    public static Shallow Shallow(params HtmlItem[] children) => new Shallow(children);
+    public static ShallowNode Shallow(params HtmlItem[] children) => new ShallowNode(children);
     public static HtmlNode A(params HtmlItem[] children) => new HtmlNode(Keys.a, children);
     public static HtmlNode Abbr(params HtmlItem[] children) => new HtmlNode(Keys.abbr, children);
     public static HtmlNode Address(params HtmlItem[] children) => new HtmlNode(Keys.address, children);
