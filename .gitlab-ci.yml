@@ -9,7 +9,7 @@ build job:
   environment:
     name: staging
   script:
-    - dotnet build -configuration Release
+    - dotnet build --configuration Release
 test job:
   stage: test
   variables:
