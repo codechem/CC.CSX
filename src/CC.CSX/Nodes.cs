@@ -1,12 +1,19 @@
 namespace CC.CSX;
-using System.Text;
 
+using System.Collections;
+using System.Text;
+using System.Text.Json.Serialization;
 /// <summary>
 /// An abstract class that represents a node or a node attribute, that can be rendered to HTML.
 /// </summary>
 public abstract class HtmlItem
 {
+    ///<summary>
+    /// The name of the node or attribute.
+    ///</summary>
     public string Name { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? Value { get; set; }
     public HtmlItem(string name) => Name = name;
     public HtmlItem(string name, string? value)
@@ -28,7 +35,7 @@ public abstract class HtmlItem
 /// <summary>
 /// represents a regular HTML element
 /// </summary>
-public class HtmlNode : HtmlItem
+public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
 {
     public List<HtmlNode> Children { get; set; } = new();
     public List<HtmlAttribute> Attributes { get; set; } = new();
@@ -47,9 +54,17 @@ public class HtmlNode : HtmlItem
         return this;
     }
 
+    static void MaybeCr(StringBuilder sb)
+    {
+        if(RenderOptions.Indent > 0 && sb.Length > 0 && sb[sb.Length-1] != '\n'){
+            sb.AppendLine();
+        }
+    }
+
     public override string ToString(int indent = 0)
     {
         var sb = new StringBuilder();
+
         sb.Append($"{new string(' ', indent)}<{Name}");
         if (Attributes.Any())
         {
@@ -57,20 +72,25 @@ public class HtmlNode : HtmlItem
             sb.Append(string.Join(" ", Attributes));
         }
         sb.Append(">");
+        MaybeCr(sb);
         foreach (var child in Children)
         {
-            if (RenderOptions.Indent > 0)
-                sb.AppendLine();
             sb.Append(child?.ToString(indent + RenderOptions.Indent));
+            MaybeCr(sb);
         }
-
-        if (RenderOptions.Indent > 0)
-            sb.AppendLine();
+        MaybeCr(sb);
         sb.Append($"{new string(' ', indent)}</{Name}>");
         return sb.ToString();
     }
 
     public override string ToString() => ToString(0);
+
+    public IEnumerator<HtmlNode> GetEnumerator()
+    {
+        return this.When(x => true).GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => this.When(x => true).GetEnumerator();
 }
 public class HtmlAttribute : HtmlItem
 {
@@ -144,8 +164,9 @@ public static class HtmlNodeExtensions
     {
         if (condition.Invoke(node))
             yield return node;
-        foreach (var child in node.Children.Where(condition))
-            yield return child;
+        foreach (var child in node.Children)
+            foreach (var res in When(child, condition))
+                yield return res;
     }
 
     public static void ApplyEach(this IEnumerable<HtmlNode> nodes, Action<HtmlNode> action)

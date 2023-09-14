@@ -1,12 +1,13 @@
 # CC.CSX Package
+- [Repo Link](https://github.com/codechem/CC.CSX)
 
 Provides the ability to represent and render HTML code in declarative fashion
 
 The idea is to have strongly typed and readable structure,
-for the developer to be able to easily navigate and manipulate the output.
+for the developer to be able to easily navigate and manipulate the output similar like [JSX](https://legacy.reactjs.org/docs/introducing-jsx.html) in the javascript world.
 
-There are no type definitions, no unnecessary quotes, so the structure
-can be easily readable.
+By using implicit operators there is not need to use `new HtmlNode`,
+or unnecessary quotes and brackets, so the layout is easily readable.
 
 An Example:
 
@@ -18,11 +19,8 @@ Div((style, "background:silver;"),
     P("Some content here")))
 ```
 
-## Why CC.CSX
-
-Since the ideas is very similar to JSX
-
 ## How to use
+
 Main usage would be as a Html Response builder.
 
 ```csharp
@@ -44,21 +42,19 @@ app.MapGet("/test", () => Results.Extensions.Html(MainPage(
     )));
 ```
 
-</hr>
-
 Because just by using pure methods, in the style of JSX.
 Future work will include optimizations and performance improvements.
 Code: github.com/codechem/cc.csx
 
 ## How it works
-As you may have noticed, there is no type declaration anywhere, but that does 
-not mean we are not using strong types. 
 
-The strings, and tuples are being used in the example above are converted to `HtmlAttribute`, and `HtmlNode` through implicit operators.
+As you may have noticed, there is no type declaration anywhere, but that does
+not mean we are not using strong types.
+
+The strings, and tuples are being used in the
+example above are converted to `HtmlAttribute`, and `HtmlNode` through implicit operators.
 instances so proper serialization can be performed.
 
+Contributions or ideas are welcome.
 
-Contributions are welcome.
-
-With love,
-CodeChem team
+With 💚 from [CodeChem](https://www.codechem.com)

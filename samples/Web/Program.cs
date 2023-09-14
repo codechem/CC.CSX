@@ -8,8 +8,5 @@ var app = builder.Build();
 var samples = TodoGenerator.GenerateTodos().ToArray();
 var todos = app.MapGroup("/todos");
 var Master = (HtmlNode node) => Html(Body(H1("Sample todos"), node));
-
-todos.MapGet("/", () => Master(
-    Ul(samples.Select(todo => 
-        Li(todo.Title)).ToArray())));
+var node = Li("test");
 app.Run();
