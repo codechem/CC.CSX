@@ -5,8 +5,11 @@ stages:
 
 build job:
   stage: build
+  tags: 
+    costas
   environment:
     name: staging
   script:
     - echo "hello world"
+
 
