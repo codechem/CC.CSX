@@ -10,6 +10,16 @@ build job:
   environment:
     name: staging
   script:
-    - echo "hello world"
+    - dotnet build
+test job:
+  stage: test
+  tag:
+    - costas
+  environment:
+    name: staging
+
+  script:
+    - dotnet test
+
 
 
