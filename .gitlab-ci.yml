@@ -6,7 +6,7 @@ stages:
 build job:
   stage: build
   tags: 
-    costas
+    - costas
   environment:
     name: staging
   script:
