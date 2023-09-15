@@ -5,7 +5,7 @@ stages:
 build job:
   stage: build
   tags: 
-    - costa-docker
+    - cc-docker
   environment:
     name: staging
   script:
@@ -15,20 +15,27 @@ test job:
   variables:
     GIT_CLEAN_FLAGS: none
   tags:
-    - costa-docker
+    - cc-docker
   environment:
     name: staging
   script:
     - dotnet test --no-build --configuration Release --logger "junit;LogFilePath=Report.xml"
   artifacts:
-    paths:
-      - ./tests/CC.CSX.Tests/Report.xml
-pack job:
+    reports:
+      junit: ./tests/CC.CSX.Tests/Report.xml
+package job:
   stage: publish
   tags:
-    - costa-docker
+    - cc-docker
   script:
     - dotnet pack -o ./package
+  artifacts:
+    paths:
+      - ./package/**/*
+
+publish job:
+  stage: publish
+
 
 
 
