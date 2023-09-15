@@ -5,7 +5,7 @@ stages:
 build job:
   stage: build
   tags: 
-    - cc-docker
+    - costa-docker
   environment:
     name: staging
   script:
