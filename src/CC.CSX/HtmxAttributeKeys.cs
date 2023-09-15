@@ -147,4 +147,3 @@ public class HtmxAttributeKeys
     ///</summary>
     public const string hxValidate = "hx-validate";
 }
-

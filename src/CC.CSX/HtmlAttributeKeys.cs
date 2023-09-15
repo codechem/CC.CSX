@@ -1,5 +1,4 @@
 namespace CC.CSX;
-
 public static class HtmlAttributeKeys
 {
     ///<summary>

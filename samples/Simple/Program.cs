@@ -5,10 +5,10 @@ using static CC.CSX.HtmxAttributeKeys;
 
 var node = Template(
   Script(@"
-        function hello() {
-           alert('hello');
-        }
-        // window.addEventListener('load', hello);"),
+  function hello() {
+    alert('hello');
+  }
+  // window.addEventListener('load', hello);"),
   Div(
     H1((id, "test"), (hxPut, "https://google.com"), "Hello world", "Zdravo"),
     MainConent(),
@@ -17,15 +17,17 @@ var node = Template(
 
 node.ApplyWhen(x => true, x =>
 {
-    x.Attributes.ForEach(x=>Print(x.Name + (x?.Value??"N/A")));
+    x.Attributes.ForEach(x => Print(x.Name + (x?.Value ?? "N/A")));
     x.Value = x?.Value?.ToUpper();
 });
-Console.WriteLine(node.When(x=>x is HtmlNode node && node.Attributes.Any(x=>x.Name == "style")).Count());
+
+Console.WriteLine(node.When(x => x is HtmlNode node && node.Attributes.Any(x => x.Name == "style")).Count());
 Print(node);
 
 HtmlNode Scripts(params HtmlNode[] children) => Head(children);
 
-HtmlNode MainConent() => Article((id, "article-1"),
+HtmlNode MainConent() => Article(
+    (id, "article-1"),
     (hxGet, "/articles/1"),
     (hxSwap, "outerHTML"),
     (hxTrigger, "load"),

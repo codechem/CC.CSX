@@ -2,8 +2,12 @@ namespace CC.CSX;
 using Keys = CC.CSX.HtmlElementKeys;
 public static partial class HtmlElements
 {
-    public static ShallowNode Shallow(params HtmlItem[] children) => new ShallowNode(children);
-    public static HtmlNode A(params HtmlItem[] children) => new HtmlNode(Keys.a, children);
+    public static HtmlNode A(HtmlAttribute[] attrs, HtmlNode[] children) => new HtmlNode(Keys.a, attrs, children);
+    public static HtmlNode A(HtmlNode[] children) => new HtmlNode(Keys.a, null, children);
+    public static HtmlNode A(HtmlAttribute[] attrs) => new HtmlNode(Keys.abbr, attrs);
+    public static HtmlNode A(params HtmlItem[] items) => new HtmlNode(Keys.a, items);
+
+    public static Fragment Shallow(params HtmlItem[] children) => new Fragment(children);
     public static HtmlNode Abbr(params HtmlItem[] children) => new HtmlNode(Keys.abbr, children);
     public static HtmlNode Address(params HtmlItem[] children) => new HtmlNode(Keys.address, children);
     public static HtmlNode Area(params HtmlItem[] children) => new HtmlNode(Keys.area, children);
