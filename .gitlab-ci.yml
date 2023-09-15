@@ -15,7 +15,7 @@ test job:
   variables:
     GIT_CLEAN_FLAGS: none
   tags:
-    - cc-docker
+    - costa-docker
   environment:
     name: staging
   script:
@@ -26,7 +26,8 @@ test job:
 package job:
   stage: publish
   tags:
-    - cc-docker
+    - costa-docker
+
   script:
     - dotnet pack -o ./package
   artifacts:
