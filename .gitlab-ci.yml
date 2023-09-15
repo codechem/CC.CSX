@@ -35,7 +35,9 @@ package job:
 
 publish job:
   stage: publish
-
+  script: 
+    - export
+  # script: dotnet nuget push src/CC.CSX/bin/Release/CC.CSX.0.1.5.nupkg --api-key ${NUGET_API_KEY} -s https://api.nuget.org/v3/index.json
 
 
 
