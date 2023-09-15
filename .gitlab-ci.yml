@@ -1,11 +1,11 @@
+tags:
+  - costa-docker
 stages:
   - build
   - test
   - publish
 build job:
   stage: build
-  tags: 
-    - costa-docker
   environment:
     name: staging
   script:
@@ -14,8 +14,6 @@ test job:
   stage: test
   variables:
     GIT_CLEAN_FLAGS: none
-  tags:
-    - costa-docker
   environment:
     name: staging
   script:
@@ -25,9 +23,6 @@ test job:
       junit: ./tests/CC.CSX.Tests/Report.xml
 package job:
   stage: publish
-  tags:
-    - costa-docker
-
   script:
     - dotnet pack -o ./package
   artifacts:
