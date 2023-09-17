@@ -5,19 +5,40 @@ using System.Text;
 
 /// <summary>
 /// represents a regular HTML element
+/// if the name contains a #, it is split into the name and the id
 /// </summary>
 public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
 {
+    /// <summary>
+    /// the optional id of the element
+    /// </summary>
+    public string? Id { get; set; }
     public List<HtmlNode> Children { get; set; } = new();
     public List<HtmlAttribute> Attributes { get; set; } = new();
 
-    public static implicit operator HtmlNode(string value) => new HtmlTextNode(value);
+    public static implicit operator HtmlNode(string value)
+        => new HtmlTextNode(value);
 
-    public HtmlNode(string name, HtmlAttribute[]? attributes=null, HtmlNode[]? children=null) : base(name)
+
+    public HtmlNode(string name,
+            IEnumerable<HtmlAttribute>? attributes = null,
+            IEnumerable<HtmlNode>? children = null) : base(name)
     {
-        if(children is not null) Children = children.ToList();
-        if(attributes is not null) Attributes = attributes.ToList();
+        if (name.Contains("#"))
+        {
+            var parts = name.Split('#');
+            Name = parts[0];
+            Id = parts[1];
+        }
+        else
+        {
+            Name = name;
+        }
+
+        if (children is not null) Children = children.ToList();
+        if (attributes is not null) Attributes = attributes.ToList();
     }
+
     public HtmlNode(string name, params HtmlItem[] children) : base(name)
     {
         Children = children.OfType<HtmlNode>().ToList();
@@ -75,13 +96,16 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
 
 public static class HtmlNodeExtensions
 {
-    public static void ApplyWhen(this HtmlNode node, Func<HtmlNode, bool> condition, Action<HtmlNode> action)
+    public static void ApplyWhen(this HtmlNode node,
+            Func<HtmlNode, bool> condition,
+            Action<HtmlNode> action)
         => node.When(condition).ApplyEach(action);
 
     public static void Apply(this HtmlNode node, Action<HtmlNode> action)
         => node.When(_ => true).ApplyEach(action);
 
-    public static IEnumerable<HtmlNode> When(this HtmlNode node, Func<HtmlNode, bool> condition)
+    public static IEnumerable<HtmlNode> When(this HtmlNode node,
+            Func<HtmlNode, bool> condition)
     {
         if (condition.Invoke(node))
             yield return node;
@@ -90,7 +114,8 @@ public static class HtmlNodeExtensions
                 yield return res;
     }
 
-    public static void ApplyEach(this IEnumerable<HtmlNode> nodes, Action<HtmlNode> action)
+    public static void ApplyEach(this IEnumerable<HtmlNode> nodes,
+            Action<HtmlNode> action)
     {
         foreach (var node in nodes)
             action(node);

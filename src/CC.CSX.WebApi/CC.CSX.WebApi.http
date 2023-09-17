@@ -1,6 +1,0 @@
-@CC.CSX.WebApi_HostAddress = http://localhost:5208
-
-GET {{CC.CSX.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

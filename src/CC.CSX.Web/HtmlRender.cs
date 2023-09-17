@@ -1,4 +1,0 @@
-namespace CC.CSX.Web
-{
-    
-}

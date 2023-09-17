@@ -1,12 +1,11 @@
 namespace CC.CSX.Tests;
-using ha = CC.CSX.HtmlAttributeKeys;
+using static CC.CSX.HtmlAttributeKeys;
 public class GeneralRenderingTests
 {
     [Fact]
     public void Indent_Should_BeRespected()
     {
         RenderOptions.Indent = 0;
-        int[] a = [1, 2, 3, 4];
         var sut = Div(A(Label("test")));
         var expected = "<div><a><label>test</label></a></div>";
         Assert.Equal(expected, sut.ToString());
@@ -25,7 +24,9 @@ public class GeneralRenderingTests
     [Fact]
     public void AllCreationMethodsShouldWorkProperly()
     {
-        var attrsOnly2 = A(href("https://google.com"), @class("test", "something else"));
-        Console.WriteLine(attrsOnly2);
+        RenderOptions.Indent = 0;
+        var attrsOnly2 = A(href("https://google.com"), @class("test"));
+        var attrsOnly1 = A((href, "https://google.com"), (@class, "test"));
+        Assert.Equal(attrsOnly1.ToString(), attrsOnly2.ToString());
     }
 }

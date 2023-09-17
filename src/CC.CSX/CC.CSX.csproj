@@ -9,7 +9,7 @@
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PackageId>CC.CSX</PackageId>
-        <Version>0.1.5</Version>
+        <Version>0.1.6</Version>
         <Authors>Costa Halicea</Authors>
         <Company>CodeChem</Company>
         <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>

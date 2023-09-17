@@ -1,10 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>CC.CSX.Web</RootNamespace>
-    <LangVersion>preview</LangVersion>
-    <EnablePreviewFeatures>true</EnablePreviewFeatures>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>CC.CSX.Web</RootNamespace>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>preview</LangVersion>
+        <EnablePreviewFeatures>true</EnablePreviewFeatures>
+        <PackageId>CC.CSX.Web</PackageId>
+        <IsPackable>true</IsPackable>
+        <Version>0.1.7</Version>
+        <Authors>Costa Halicea</Authors>
+        <Company>CodeChem</Company>
+        <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
+        <Description>CC.CSX.Web extends CC.CSX with methods for easy creation of Html responses in APIs</Description>
+        <RepositoryUrl>https://github.com/codechem/CC.CSX</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <GenerateRequiresPreviewFeaturesAttribute>False</GenerateRequiresPreviewFeaturesAttribute>
+        <PackRelease>true</PackRelease>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="\" />
+        <None Include="../../LICENSE.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="CC.CSX" Version="0.1.6" />
+    </ItemGroup>
 </Project>

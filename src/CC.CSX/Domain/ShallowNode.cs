@@ -5,7 +5,8 @@ namespace CC.CSX;
 /// </summary>
 public class Fragment : HtmlNode
 {
-    public Fragment(params HtmlItem[] children) : base("shallow", children) { }
+    public Fragment(params HtmlNode[] children) : base("shallow", children) { }
+    public Fragment(IEnumerable<HtmlNode> children) : base("shallow", children:children) { }
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

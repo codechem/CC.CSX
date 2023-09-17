@@ -1,6 +1,6 @@
 namespace CC.CSX;
 
-public class HtmxAttributeKeys
+public partial class HtmxAttributeKeys
 {
     ///<summary>
     ///  add or remove progressive enhancement for links and forms
@@ -97,7 +97,7 @@ public class HtmxAttributeKeys
     //<summary>
     // -elt the element to snapshot and restore during history navigation
     ///</summary>
-    public const string hxHistoryElt="hx-history-elt";
+    public const string hxHistoryElt = "hx-history-elt";
     ///<summary>
     // include additional data in requests
     ///</summary>
