@@ -19,7 +19,6 @@ public abstract class HtmlItem
         Name = name;
         Value = value;
     }
-
     public static implicit operator HtmlItem(string value) => new HtmlTextNode(value);
     public static implicit operator HtmlItem((string key, string? value) tuple) => new HtmlAttribute(tuple.key, tuple.value);
     /// <summary>

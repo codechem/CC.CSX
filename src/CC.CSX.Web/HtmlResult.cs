@@ -12,7 +12,11 @@ public static class HtmlExtensions
     public static HtmlResult ToResponse(this HtmlNode node) => new HtmlResult(node);
 }
 
+#if NET7_0_OR_GREATER
 public class HtmlResult : IResult, IEndpointMetadataProvider
+#else
+public class HtmlResult : IResult
+#endif
 {
     private readonly HtmlNode _node;
     public HtmlResult(HtmlNode node) => _node = node;

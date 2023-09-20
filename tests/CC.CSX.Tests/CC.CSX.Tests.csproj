@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
+    <ProjectReference Include="..\..\src\CC.CSX.Htmx\CC.CSX.Htmx.csproj" />
   </ItemGroup>
 
 </Project>

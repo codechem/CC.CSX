@@ -1,19 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <OutputType>Library</OutputType>
         <TargetFrameworks>net6;net7;net8</TargetFrameworks>
-        <RootNamespace>CC.CSX.Web</RootNamespace>
-        <Nullable>enable</Nullable>
+        <RootNamespace>CC.CSX.Htmx</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
-        <PackageId>CC.CSX.Web</PackageId>
-        <IsPackable>true</IsPackable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <PackageId>CC.CSX.Htmx</PackageId>
+        <PackageTags>htmx;hypertext;html;web;render;ssr;server side rendering;htmx;c# ui;razor alternative;c# html templates;declarative ui;</PackageTags>
         <Version>0.1.10</Version>
         <Authors>Costa Halicea</Authors>
         <Company>CodeChem</Company>
         <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
-        <Description>CC.CSX.Web extends CC.CSX with methods for easy creation of Html responses in APIs</Description>
+        <Description>CC.CSX.Htmx extends CC.CSX with tags methods for Htmx </Description>
         <RepositoryUrl>https://github.com/codechem/CC.CSX</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>

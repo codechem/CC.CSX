@@ -13,12 +13,15 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
     /// the optional id of the element
     /// </summary>
     public string? Id { get; set; }
+
+    ///<summary>
+    /// the children of the element
+    /// </summary>
     public List<HtmlNode> Children { get; set; } = new();
     public List<HtmlAttribute> Attributes { get; set; } = new();
 
     public static implicit operator HtmlNode(string value)
         => new HtmlTextNode(value);
-
 
     public HtmlNode(string name,
             IEnumerable<HtmlAttribute>? attributes = null,
@@ -45,6 +48,12 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
         Attributes = children.OfType<HtmlAttribute>().ToList();
     }
 
+    public HtmlNode(string name, IEnumerable<HtmlItem> children) : base(name)
+    {
+        Children = children.OfType<HtmlNode>().ToList();
+        Attributes = children.OfType<HtmlAttribute>().ToList();
+    }
+
     public HtmlNode(string name, string value) : base(name, value) { }
 
     public HtmlNode Add(params HtmlItem[] children)
@@ -65,8 +74,8 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
     public override string ToString(int indent = 0)
     {
         var sb = new StringBuilder();
-
-        sb.Append($"{new string(' ', indent)}<{Name}");
+        var indentStr = new string(' ', indent);
+        sb.Append($"{indentStr}<{Name}");
         if (Attributes.Any())
         {
             sb.Append(" ");
@@ -86,38 +95,7 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
 
     public override string ToString() => ToString(0);
 
-    public IEnumerator<HtmlNode> GetEnumerator()
-    {
-        return this.When(x => true).GetEnumerator();
-    }
+    public IEnumerator<HtmlNode> GetEnumerator() => this.When(x => true).GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => this.When(x => true).GetEnumerator();
-}
-
-public static class HtmlNodeExtensions
-{
-    public static void ApplyWhen(this HtmlNode node,
-            Func<HtmlNode, bool> condition,
-            Action<HtmlNode> action)
-        => node.When(condition).ApplyEach(action);
-
-    public static void Apply(this HtmlNode node, Action<HtmlNode> action)
-        => node.When(_ => true).ApplyEach(action);
-
-    public static IEnumerable<HtmlNode> When(this HtmlNode node,
-            Func<HtmlNode, bool> condition)
-    {
-        if (condition.Invoke(node))
-            yield return node;
-        foreach (var child in node.Children)
-            foreach (var res in When(child, condition))
-                yield return res;
-    }
-
-    public static void ApplyEach(this IEnumerable<HtmlNode> nodes,
-            Action<HtmlNode> action)
-    {
-        foreach (var node in nodes)
-            action(node);
-    }
 }

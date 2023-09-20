@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFrameworks>net6;net7;net8</TargetFrameworks>
         <RootNamespace>CC.CSX</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -9,7 +9,9 @@
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PackageId>CC.CSX</PackageId>
-        <Version>0.1.6</Version>
+        <IsPackable>true</IsPackable>
+        <PackageTags>html;web;render;ssr;server side rendering;htmx;c# ui;razor alternative;c# html templates;declarative ui;</PackageTags>
+        <Version>0.1.10</Version>
         <Authors>Costa Halicea</Authors>
         <Company>CodeChem</Company>
         <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>

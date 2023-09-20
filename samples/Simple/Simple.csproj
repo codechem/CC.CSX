@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net8</TargetFramework>
+        <IsPackable>false</IsPackable>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
@@ -9,6 +10,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CC.CSX" Version="0.1.6" />
+        <PackageReference Include="CC.CSX" Version="0.1.8" />
     </ItemGroup>
 </Project>

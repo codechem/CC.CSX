@@ -7,7 +7,7 @@ public static partial class HtmlElements
     public static HtmlNode A(HtmlAttribute[] attrs) => new HtmlNode(Keys.abbr, attrs);
     public static HtmlNode A(params HtmlItem[] items) => new HtmlNode(Keys.a, items);
 
-    public static Fragment Shallow(params HtmlItem[] children) => new Fragment(children);
+    public static Fragment Fragment(params HtmlNode[] children) => new Fragment(children);
     public static HtmlNode Abbr(params HtmlItem[] children) => new HtmlNode(Keys.abbr, children);
     public static HtmlNode Address(params HtmlItem[] children) => new HtmlNode(Keys.address, children);
     public static HtmlNode Area(params HtmlItem[] children) => new HtmlNode(Keys.area, children);

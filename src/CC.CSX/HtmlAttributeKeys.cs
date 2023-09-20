@@ -657,4 +657,6 @@ public static class HtmlAttributeKeys
     /// <textarea>	Specifies how the text in a text area is to be wrapped when submitted in a form
     ///</summary>
     public const string wrap = "wrap";
+
+    public const string httpEquiv = "http-equiv";
 }

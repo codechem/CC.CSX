@@ -2,6 +2,15 @@
 
 ### Links
 - [Repo Link](https://github.com/codechem/CC.CSX)
+
+### Packages
+
+There are three packages packaged in this repo:
+
+- [CC.CSX](https://www.nuget.org/packages/CC.CSX) providing the core functionality explained bellow in this document
+- [CC.CSX.Web](https://www.nuget.org/packages/CC.CSX.Web) useful extensions for using the core package in ASP.NET Core
+- [CC.CSX.Htmx](https://www.nuget.org/packages/CC.CSX.Htmx) collection of attribute methods for [HTMX](https://htmx.org/)
+
 # About
 *`CC.CSX`* provides the ability to define and render HTML structure in 
 a declarative fashion by just using pure C#.
@@ -63,8 +72,10 @@ and finally, the result is following:
 
 Main usage would be as a Html Response builder.
 
-*For this you also need to install `CC.CSX.Web` package from Nuget in order to 
-have the `ToResult()` extension available.*
+For this you also need to install the [CC.CSX.Web](https://www.nuget.org/packages/CC.CSX.Web) 
+package from Nuget in order to
+have the `ToResponse()` extension available. You may also need the [CC.CSX.Htmx](https://www.nuget.org/packages/CC.CSX.Htmx)
+package for additional Htmx related attributes if needed.
 
 ```cs
 app.MapGet("/test", () => MainPage(
@@ -74,15 +85,15 @@ app.MapGet("/test", () => MainPage(
     A((href, "/contact"), "Contact")),
   Article(
     H1("Hello, World!",
-      (hxGet, $"/api/1/halicea/short-meeting/occupied/{DateTime.Now.ToString("yyyy-MM-dd")}"),
-      (hxSwap, "outerHTML"),
-      (hxTarget, "#results")),
+      hxGet($"/api/1/halicea/short-meeting/occupied/{DateTime.Now.ToString("yyyy-MM-dd")}"),
+      hxSwap("outerHTML"),
+      hxTarget("#results")),
     Button("Click me!",
-      (hxGet, "/api/1/halicea/short-meeting/occupied/2021-10-10"),
-      (hxSwap, "outerHTML"),
-      (hxTarget, "#results")),
+      hxGet("/api/1/halicea/short-meeting/occupied/2021-10-10"),
+      hxSwap("outerHTML"),
+      hxTarget("#results")),
     P("Welcome to your new app."),
-    Code((id, "results")),
+    Code(id("results")),
     P("This is a test of the new CC.CSX library."))).ToResult());
 ```
 

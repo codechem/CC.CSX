@@ -2,13 +2,13 @@ namespace Web;
 
 public class Todo
 {
-    public int Id { get; set; }
+    public int Id { get; set; } = 0;
 
     public string? Title { get; set; }
 
-    public DateOnly? DueBy { get; set; }
+    public DateTime? DueBy { get; set; }
 
-    public bool IsComplete { get; set; }
+    public bool IsComplete { get; set; } = false;
 }
 
 static class TodoGenerator
@@ -51,7 +51,7 @@ static class TodoGenerator
                 DueBy = Random.Shared.Next(-200, 365) switch
                 {
                     < 0 => null,
-                    var days => DateOnly.FromDateTime(DateTime.Now.AddDays(days))
+                    var days => DateTime.Now.AddDays(days)
                 }
             };
         }
