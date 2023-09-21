@@ -1,62 +1,70 @@
-# CC.CSX Package
+# CC.CSX
 
-### Links
+## Links
+
 - [Repo Link](https://github.com/codechem/CC.CSX)
-
-### Packages
 
 There are three packages packaged in this repo:
 
-- [CC.CSX](https://www.nuget.org/packages/CC.CSX) providing the core functionality explained bellow in this document
-- [CC.CSX.Web](https://www.nuget.org/packages/CC.CSX.Web) useful extensions for using the core package in ASP.NET Core
-- [CC.CSX.Htmx](https://www.nuget.org/packages/CC.CSX.Htmx) collection of attribute methods for [HTMX](https://htmx.org/)
+- [CC.CSX](https://www.nuget.org/packages/CC.CSX) providing the core
+functionality explained bellow in this document
+- [CC.CSX.Web](https://www.nuget.org/packages/CC.CSX.Web) useful extensions
+for using the core package in ASP.NET Core
+- [CC.CSX.Htmx](https://www.nuget.org/packages/CC.CSX.Htmx) collection of
+attribute methods for [HTMX](https://htmx.org/)
 
-# About
-*`CC.CSX`* provides the ability to define and render HTML structure in 
+## About
+
+*`CC.CSX`* provides the ability to define and generate, a HTML structure in
 a declarative fashion by just using pure C#.
 
 The idea is to have strongly typed and readable structure,
-for the developer to be able to easily navigate and manipulate the output, 
-similar like [JSX](https://legacy.reactjs.org/docs/introducing-jsx.html) 
-in the JS world.
+so the developer is be able to easily navigate and manipulate the final output.
+It is similar like [JSX](https://legacy.reactjs.org/docs/introducing-jsx.html)
+in the JS world, or even more similar
+to [hiccup](https://github.com/weavejester/hiccup) in `clojure`.
 
-By using implicit operators there is not need to use `new HtmlNode`,
+By using implicit operators there is no need to use `new HtmlNode`,
 or unnecessary quotes and brackets, so the layout is easily readable.
 
-- Any attribute is a tuple of two strings(key and the value), 
-  - `using static CC.CSX.HtmlAttributeKeys` imports all the attribute 
-    keys existing in Html
-- Every Html element has its defined method with the same name as the Element
-  - `using CC.CSX.HtmlElements` imports all the methods that create Html Elements.
-    method that can be used
+- Any attribute is a tuple of two strings (key and the value),
+  - `using static CC.CSX.HtmlAttributeKeys` imports all the attribute
+    keys existing in HTML
+
+- Every HTML element has its defined method with the same name as the Element
+  - `using CC.CSX.HtmlElements` imports all the methods that create HTML Elements.
 
 Take a look at the following example:
 
-```cs
+```c
 Div((style, "background:silver;"),
   "Hello HTML",
   H1("Hello world"),
   Article((id, "article-1"),
     P("Some content here")))
 ```
-or also the alternative flavor if you like it more.
+
+You can also use the alternative flavor if you like it more.
 (Instead of using the import `using static CC.CSX.HtmlAttributeKeys` if you import
-`using static CC.CSX.HtmlAttributes` you will get the same html output with)
+`using static CC.CSX.HtmlAttributes` you will get the same html output with).
+In case there is some custom attribute the you want to use, just
+use a tuple pair `("hello", "attribute")`.
 
 ```cs
 Div(style("background:silver;"),
   "Hello HTML",
-  H1("Hello world"),
+  H1(("hello", "world"), 
+    "Hello world"),
   Article(id("article-1"),
     P("Some content here")))
 ```
 
-and finally, the result is following:
+Finally, the result is following:
 
 ```html
 <div style="background:silver;">
   Hello HTML
-  <h1>
+  <h1 hello="world">
     Hello world
   </h1>
   <article id="article-1">
@@ -67,12 +75,11 @@ and finally, the result is following:
 </div>
 ```
 
-
 ## How to use
 
 Main usage would be as a Html Response builder.
 
-For this you also need to install the [CC.CSX.Web](https://www.nuget.org/packages/CC.CSX.Web) 
+For this you also need to install the [CC.CSX.Web](https://www.nuget.org/packages/CC.CSX.Web)
 package from Nuget in order to
 have the `ToResponse()` extension available. You may also need the [CC.CSX.Htmx](https://www.nuget.org/packages/CC.CSX.Htmx)
 package for additional Htmx related attributes if needed.
@@ -99,16 +106,17 @@ app.MapGet("/test", () => MainPage(
 
 Because just by using pure methods, in the style of JSX.
 Future work will include optimizations and performance improvements.
-Code: github.com/codechem/cc.csx
+
+Code: https://github.com/codechem/cc.csx
 
 ## How it works
 
 As you may have noticed, there is no type declaration anywhere, but that does
 not mean we are not using strong types.
-
-The strings, and tuples are being used in the
-example above are converted to `HtmlAttribute`, and `HtmlNode` through implicit operators.
-instances so proper serialization can be performed.
+The `strings`, and tuples are being used in the example above,
+are converted to `HtmlAttribute`, and `HtmlNode` through implicit operators.
+But anyway, most of the Html elements and attributes are simple static
+methods that return `HtmlNode` or `HtmlAttribute` instances.
 
 Contributions or ideas are welcome.
 
