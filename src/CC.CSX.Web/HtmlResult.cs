@@ -23,7 +23,9 @@ public class HtmlResult : IResult
 
     public Task ExecuteAsync(HttpContext httpContext)
     {
-        var content = _node.ToString();
+        var sb = new StringBuilder();
+        _node.AppendTo(ref sb);
+        var content = sb.ToString();
         httpContext.Response.ContentType = MediaTypeNames.Text.Html;
         httpContext.Response.ContentLength = Encoding.UTF8.GetByteCount(content);
         return httpContext.Response.WriteAsync(content);

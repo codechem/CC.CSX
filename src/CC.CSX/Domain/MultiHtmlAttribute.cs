@@ -1,6 +1,8 @@
 namespace CC.CSX;
 
 using System.Collections;
+using System.Text;
+
 public class MultiHtmlAttribute : HtmlAttribute, IList<HtmlAttribute>
 {
     public List<HtmlAttribute> Attributes { get; set; } = new();
@@ -41,4 +43,14 @@ public class MultiHtmlAttribute : HtmlAttribute, IList<HtmlAttribute>
 
     public override string ToString(int indent = 0) => string.Join(" ", Attributes.Select(a => a.ToString(indent)));
     public override string ToString() => ToString(0);
+    private const char space = ' ';
+    public override void AppendTo(ref StringBuilder sb, int indent = 0)
+    {
+        foreach (var attr in Attributes)
+        {
+            attr.AppendTo(ref sb, indent);
+            sb.Append(space);
+        }
+        sb.Remove(sb.Length - 1, 1);
+    }
 }

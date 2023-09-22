@@ -9,7 +9,7 @@
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
         <PackageId>CC.CSX.Web</PackageId>
         <IsPackable>true</IsPackable>
-        <Version>0.1.10</Version>
+        <Version>0.1.11</Version>
         <Authors>Costa Halicea</Authors>
         <Company>CodeChem</Company>
         <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
@@ -25,6 +25,6 @@
         <None Include="../../LICENSE.md" Pack="true" PackagePath="\" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="CC.CSX" Version="0.1.10" />
+      <PackageReference Include="CC.CSX" Version="0.1.11" />
     </ItemGroup>
 </Project>

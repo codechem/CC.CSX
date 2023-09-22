@@ -74,8 +74,8 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
     public override string ToString(int indent = 0)
     {
         var sb = new StringBuilder();
-        var indentStr = new string(' ', indent);
-        sb.Append($"{indentStr}<{Name}");
+
+        sb.Append($"{new string(' ', indent)}<{Name}");
         if (Attributes.Any())
         {
             sb.Append(" ");
@@ -91,6 +91,32 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
         MaybeCr(sb);
         sb.Append($"{new string(' ', indent)}</{Name}>");
         return sb.ToString();
+    }
+
+    public const char openTag = '<';
+    public const char closeTag = '>';
+    public const char space = ' ';
+    public const char backslash = '/';
+    public override void AppendTo(ref StringBuilder sb, int indent = 0){
+        var indentStr = new string(' ', indent);
+        sb.Append(indentStr).Append(openTag).Append(Name);
+        if (Attributes.Any())
+        {
+            sb.Append(space);
+            sb.Append(string.Join(space, Attributes));
+        }
+        sb.Append(closeTag);
+        MaybeCr(sb);
+        foreach (var child in Children)
+        {
+            child?.AppendTo(ref sb, indent + RenderOptions.Indent);
+            MaybeCr(sb);
+        }
+        MaybeCr(sb);
+        sb.Append(indentStr)
+          .Append(openTag).Append(backslash)
+          .Append(Name)
+          .Append(closeTag);
     }
 
     public override string ToString() => ToString(0);

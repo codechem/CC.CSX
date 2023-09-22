@@ -10,14 +10,4 @@ Print(
     Article(id("article-1"),
       P("Some content here"),
       Button(id("bang"), onclick("alert('hello world')")))));
-
-
-
-
-
-
-
-
-
-
 void Print(object node) => Console.WriteLine(node.ToString());
