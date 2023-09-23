@@ -31,4 +31,6 @@ jobs:
       run: dotnet pack -o ./packages -p:PackageVersion=$(CSX_VERSION)
     - name: 'Upload Nuget packages'
       uses: actions/upload-artifact@v3
-      with: ./packages/*.nupkg
+        with: 
+          name: Nuget
+          path: packages/*.nupkg
