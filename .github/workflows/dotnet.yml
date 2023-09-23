@@ -2,7 +2,9 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
 name: .NET build
-
+env:
+  global: 
+    - CSX_VERSION=$(cat .VERSION)
 on:
   push:
     branches: [ "main" ]
@@ -11,7 +13,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +27,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Build Packages
+      run: dotnet pack -o ./packages -p:PackageVersion=$(CSX_VERSION)
+    - name: 'Upload Nuget packages'
+      uses: actions/upload-artifact@v3
+      with: ./packages/*.nupkg
