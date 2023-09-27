@@ -16,6 +16,9 @@ public class HtmlNode : HtmlItem
     public string? Id { get; set; }
 
 
+    /// <summary>
+    /// The element's attributes
+    /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyOrder(1)]
     public List<HtmlAttribute> Attributes { get; set; } = new();
@@ -27,9 +30,15 @@ public class HtmlNode : HtmlItem
     [JsonPropertyOrder(2)]
     public List<HtmlNode> Children { get; set; } = new();
 
+    /// <summary>
+    /// implicit conversion from string to <see cref="HtmlTextNode"/>
+    /// </summary>
     public static implicit operator HtmlNode(string value)
         => new HtmlTextNode(value);
 
+    /// <summary>
+    /// Constructs a new instance of <see cref="HtmlNode"/>
+    /// </summary>
     public HtmlNode(string name,
             IEnumerable<HtmlAttribute>? attributes = null,
             IEnumerable<HtmlNode>? children = null) : base(name)
@@ -49,20 +58,32 @@ public class HtmlNode : HtmlItem
         if (attributes is not null) Attributes = attributes.ToList();
     }
 
+    /// <summary>
+    /// Constructs a new instance of <see cref="HtmlNode"/>
+    /// </summary>
     public HtmlNode(string name, params HtmlItem[] children) : base(name)
     {
         Children = children.OfType<HtmlNode>().ToList();
         Attributes = children.OfType<HtmlAttribute>().ToList();
     }
 
+    /// <summary>
+    /// Constructs a new instance of <see cref="HtmlNode"/>
+    /// </summary>
     public HtmlNode(string name, IEnumerable<HtmlItem> children) : base(name)
     {
         Children = children.OfType<HtmlNode>().ToList();
         Attributes = children.OfType<HtmlAttribute>().ToList();
     }
 
+    /// <summary>
+    /// Constructs a new instance of <see cref="HtmlNode"/>
+    /// </summary>
     public HtmlNode(string name, string value) : base(name, value) { }
 
+    /// <summary>
+    /// Adds the given children to the element
+    /// </summary>
     public HtmlNode Add(params HtmlItem[] children)
     {
         Children.AddRange(children.OfType<HtmlNode>());
@@ -87,28 +108,8 @@ public class HtmlNode : HtmlItem
         return sb;
     }
 
-    public string ToStringNaive(int indent = 0)
-    {
-        var sb = "";
-        sb+=$"{new string(' ', indent)}<{Name}";
-        if (Attributes.Any())
-        {
-            sb+=" ";
-            sb+=string.Join(" ", Attributes);
-        }
-        sb+=">";
-        MaybeCr(sb);
-        foreach (var child in Children)
-        {
-            sb+=child?.ToStringNaive(indent + RenderOptions.Indent);
-            MaybeCr(sb);
-        }
-        MaybeCr(sb);
-        sb+=$"{new string(' ', indent)}</{Name}>";
-        return sb.ToString();
-    }
 
-
+    ///<inheritdoc/>
     public override string ToString(int indent = 0)
     {
         var sb = new StringBuilder();
@@ -136,12 +137,14 @@ public class HtmlNode : HtmlItem
     const char space = ' ';
     const char backslash = '/';
 
+    ///<inheritdoc/>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
         var sw = new StringWriter(sb) as TextWriter;
         WriteTo(ref sw, indent);
     }
 
+    ///<inheritdoc/>
     public virtual void WriteTo(ref TextWriter tw, int indent = 0)
     {
         var indentStr = new string(' ', indent);
@@ -168,6 +171,7 @@ public class HtmlNode : HtmlItem
         tw.Write(closeTag);
     }
 
+    ///<inheritdoc/>
     public override string ToString() => ToString(0);
 
     // public IEnumerator<HtmlNode> GetEnumerator() => this.When(x => true).GetEnumerator();

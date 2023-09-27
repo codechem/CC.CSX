@@ -4,10 +4,17 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using CC.CSX;
 
+/// <summary>
+/// Represents an <see cref="IResult"/> that when executed will write HTML to the response.
+/// </summary>
 public class NodeActionResult(HtmlNode node) : IActionResult
 {
+    /// <summary>
+    /// The <see cref="HtmlNode"/> to render.
+    /// </summary>
     public HtmlNode Node { get; } = node;
 
+    /// <inheritdoc />
     public Task ExecuteResultAsync(ActionContext context)
     {
         var res = context.HttpContext.Response;

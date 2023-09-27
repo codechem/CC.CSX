@@ -8,6 +8,7 @@
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <PackageId>CC.CSX.Htmx</PackageId>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageTags>htmx;hypertext;html;web;render;ssr;server side rendering;htmx;c# ui;razor alternative;c# html templates;declarative ui;</PackageTags>
         <Version>0.1.12</Version>
         <Authors>Costa Halicea</Authors>

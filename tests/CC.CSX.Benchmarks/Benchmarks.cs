@@ -20,11 +20,6 @@ public class Benchmarks
             )
         ));
 
-    [Benchmark]
-    public void Benchmark_StringNaive()
-    {
-        var a = node.ToStringNaive();
-    }
 
     [Benchmark]
     public void Benchmark_ToString()
