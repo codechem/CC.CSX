@@ -19,13 +19,10 @@ attribute methods for [HTMX](https://htmx.org/)
 a declarative fashion by just using pure C#.
 
 The idea is to have strongly typed and readable structure,
-so the developer is be able to easily navigate and manipulate the final output.
+so the developer is able to easily navigate and manipulate the final output.
 It is similar like [JSX](https://legacy.reactjs.org/docs/introducing-jsx.html)
 in the JS world, or even more similar
 to [hiccup](https://github.com/weavejester/hiccup) in `clojure`.
-
-By using implicit operators there is no need to use `new HtmlNode`,
-or unnecessary quotes and brackets, so the layout is easily readable.
 
 - Any attribute is a tuple of two strings (key and the value),
   - `using static CC.CSX.HtmlAttributeKeys` imports all the attribute

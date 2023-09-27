@@ -5,7 +5,9 @@ namespace CC.CSX;
 /// </summary>
 public class HtmlStyleAttribute : HtmlAttribute
 {
+    /// <inheritdoc/>
     public HtmlStyleAttribute(string value) : base("style", value) { }
-    public HtmlStyleAttribute(params HtmlAttribute[] attributes) : base("style", string.Join(";", attributes.Select(x => x.ToString()))) { }
+
+    /// <inheritdoc/>
     public HtmlStyleAttribute(params (string key, string value)[] attributes) : base("style", string.Join(";", attributes.Select(x => $"{x.key}:{x.value}"))) { }
 }

@@ -21,18 +21,30 @@ public class Benchmarks
         ));
 
     [Benchmark]
+    public void Benchmark_StringNaive()
+    {
+        var a = node.ToStringNaive();
+    }
+
+    [Benchmark]
     public void Benchmark_ToString()
     {
         var a = node.ToString();
     }
-
 
     [Benchmark]
     public void Benchmark_StringBuilder()
     {
         var a = new StringBuilder();
         node.AppendTo(ref a);
-        a.ToString();
+    }
+
+
+    [Benchmark]
+    public void Benchmark_TextWriter()
+    {
+        var a = new StringWriter() as TextWriter;
+        node.WriteTo(ref a);
     }
 
 }

@@ -1,24 +1,31 @@
 namespace CC.CSX;
-
-using System.Collections;
 using System.Text;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// represents a regular HTML element
 /// if the name contains a #, it is split into the name and the id
 /// </summary>
-public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
+public class HtmlNode : HtmlItem
 {
     /// <summary>
     /// the optional id of the element
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyOrder(0)]
     public string? Id { get; set; }
 
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyOrder(1)]
+    public List<HtmlAttribute> Attributes { get; set; } = new();
+    
     ///<summary>
     /// the children of the element
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyOrder(2)]
     public List<HtmlNode> Children { get; set; } = new();
-    public List<HtmlAttribute> Attributes { get; set; } = new();
 
     public static implicit operator HtmlNode(string value)
         => new HtmlTextNode(value);
@@ -71,6 +78,37 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
         }
     }
 
+    static string MaybeCr(string sb)
+    {
+        if (RenderOptions.Indent > 0 && sb.Length > 0 && sb[sb.Length - 1] != '\n')
+        {
+            return sb + "\n";
+        }
+        return sb;
+    }
+
+    public string ToStringNaive(int indent = 0)
+    {
+        var sb = "";
+        sb+=$"{new string(' ', indent)}<{Name}";
+        if (Attributes.Any())
+        {
+            sb+=" ";
+            sb+=string.Join(" ", Attributes);
+        }
+        sb+=">";
+        MaybeCr(sb);
+        foreach (var child in Children)
+        {
+            sb+=child?.ToStringNaive(indent + RenderOptions.Indent);
+            MaybeCr(sb);
+        }
+        MaybeCr(sb);
+        sb+=$"{new string(' ', indent)}</{Name}>";
+        return sb.ToString();
+    }
+
+
     public override string ToString(int indent = 0)
     {
         var sb = new StringBuilder();
@@ -93,35 +131,46 @@ public class HtmlNode : HtmlItem, IEnumerable<HtmlNode>
         return sb.ToString();
     }
 
-    public const char openTag = '<';
-    public const char closeTag = '>';
-    public const char space = ' ';
-    public const char backslash = '/';
-    public override void AppendTo(ref StringBuilder sb, int indent = 0){
+    const char openTag = '<';
+    const char closeTag = '>';
+    const char space = ' ';
+    const char backslash = '/';
+
+    public override void AppendTo(ref StringBuilder sb, int indent = 0)
+    {
+        var sw = new StringWriter(sb) as TextWriter;
+        WriteTo(ref sw, indent);
+    }
+
+    public virtual void WriteTo(ref TextWriter tw, int indent = 0)
+    {
         var indentStr = new string(' ', indent);
-        sb.Append(indentStr).Append(openTag).Append(Name);
-        if (Attributes.Any())
+        tw.Write(indentStr);
+        tw.Write(openTag);
+        tw.Write(Name);
+        foreach (var attr in Attributes)
         {
-            sb.Append(space);
-            sb.Append(string.Join(space, Attributes));
+            tw.Write(space);
+            attr.WriteTo(ref tw);
         }
-        sb.Append(closeTag);
-        MaybeCr(sb);
+        tw.Write(closeTag);
+        bool newLines = Children.Count > 0 && RenderOptions.Indent > 0;
+        if (newLines) tw.WriteLine();
         foreach (var child in Children)
         {
-            child?.AppendTo(ref sb, indent + RenderOptions.Indent);
-            MaybeCr(sb);
+            child?.WriteTo(ref tw, indent + RenderOptions.Indent);
+            if (newLines) tw.WriteLine();
         }
-        MaybeCr(sb);
-        sb.Append(indentStr)
-          .Append(openTag).Append(backslash)
-          .Append(Name)
-          .Append(closeTag);
+        tw.Write(indentStr);
+        tw.Write(openTag);
+        tw.Write(backslash);
+        tw.Write(Name);
+        tw.Write(closeTag);
     }
 
     public override string ToString() => ToString(0);
 
-    public IEnumerator<HtmlNode> GetEnumerator() => this.When(x => true).GetEnumerator();
-
-    IEnumerator IEnumerable.GetEnumerator() => this.When(x => true).GetEnumerator();
+    // public IEnumerator<HtmlNode> GetEnumerator() => this.When(x => true).GetEnumerator();
+    //
+    // IEnumerator IEnumerable.GetEnumerator() => this.When(x => true).GetEnumerator();
 }

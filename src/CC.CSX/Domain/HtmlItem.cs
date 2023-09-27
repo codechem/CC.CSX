@@ -14,12 +14,21 @@ public abstract class HtmlItem
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? Value { get; set; }
+    /// <summary>
+    /// Creates a new instance of <see cref="HtmlItem"/> with the given name.
+    /// </summary>
     public HtmlItem(in string name) => Name = name;
+    /// <summary>
+    /// Creates a new instance of <see cref="HtmlItem"/> with the given name and value.
+    /// </summary>
     public HtmlItem(in string name, string? value)
     {
         Name = name;
         Value = value;
     }
+    /// <summary>
+    /// Implicit conversion from <see cref="string"/> to <see cref="HtmlItem"/>.
+    /// </summary>
     public static implicit operator HtmlItem(string value) => new HtmlTextNode(value);
     public static implicit operator HtmlItem((string key, string? value) tuple) => new HtmlAttribute(in tuple.key, tuple.value);
 

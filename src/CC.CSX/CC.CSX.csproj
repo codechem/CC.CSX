@@ -7,9 +7,10 @@
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
         <EnablePreviewFeatures>true</EnablePreviewFeatures>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <PackageId>CC.CSX</PackageId>
         <IsPackable>true</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageTags>html;web;render;ssr;server side rendering;htmx;c# ui;razor alternative;c# html templates;declarative ui;</PackageTags>
         <Version>0.1.10</Version>
         <Authors>Costa Halicea</Authors>

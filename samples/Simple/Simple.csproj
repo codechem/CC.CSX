@@ -10,6 +10,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="CC.CSX" Version="0.1.8" />
+        <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
     </ItemGroup>
 </Project>

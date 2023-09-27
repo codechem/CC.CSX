@@ -7,28 +7,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.Metadata;
 using CC.CSX;
 
-public static class HtmlExtensions
-{
-    public static HtmlResult ToResponse(this HtmlNode node) => new HtmlResult(node);
-}
-
 #if NET7_0_OR_GREATER
 public class HtmlResult : IResult, IEndpointMetadataProvider
 #else
 public class HtmlResult : IResult
 #endif
 {
-    private readonly HtmlNode _node;
-    public HtmlResult(HtmlNode node) => _node = node;
+     public HtmlNode Node { get; private set;}
 
-    public Task ExecuteAsync(HttpContext httpContext)
+     public HtmlResult(HtmlNode node)
+     {
+         Node = node;
+     }
+
+
+    public Task ExecuteAsync(HttpContext context)
     {
-        var sb = new StringBuilder();
-        _node.AppendTo(ref sb);
-        var content = sb.ToString();
-        httpContext.Response.ContentType = MediaTypeNames.Text.Html;
-        httpContext.Response.ContentLength = Encoding.UTF8.GetByteCount(content);
-        return httpContext.Response.WriteAsync(content);
+        var res = context.Response;
+        var stream = res.BodyWriter.AsStream();
+        res.ContentType = "text/html";
+        var writer = new StreamWriter(stream, Encoding.UTF8) as TextWriter;
+        Node.WriteTo(ref writer);
+        return writer.FlushAsync();
     }
 
     public static void PopulateMetadata(MethodInfo method, EndpointBuilder builder)

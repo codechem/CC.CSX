@@ -7,8 +7,16 @@ namespace CC.CSX;
 /// </summary>
 public class Fragment : HtmlNode
 {
+    /// <summary>
+    /// Creates a new instance of <see cref="Fragment"/> with the given children.
+    /// </summary>
     public Fragment(params HtmlNode[] children) : base("shallow", children) { }
+    
+    /// <summary>
+    /// Creates a new instance of <see cref="Fragment"/> with the given children.
+    /// </summary>
     public Fragment(IEnumerable<HtmlNode> children) : base("shallow", children:children) { }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -16,6 +24,8 @@ public class Fragment : HtmlNode
     /// Because Shallow does not render itself, it does not take into account the indentation, and just passes it to its children.
     /// </remarks>
     public override string ToString(int indent = 0) => string.Join("", Children.Select(x => x.ToString(indent)));
+
+    ///<inheritdoc/>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
         foreach (var child in Children)

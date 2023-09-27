@@ -1,15 +1,6 @@
 namespace Web;
 
-public class Todo
-{
-    public int Id { get; set; } = 0;
-
-    public string? Title { get; set; }
-
-    public DateTime? DueBy { get; set; }
-
-    public bool IsComplete { get; set; } = false;
-}
+public record Todo(int Id, string? Title, DateTime? DueBy, bool IsComplete = false);
 
 static class TodoGenerator
 {
@@ -44,16 +35,15 @@ static class TodoGenerator
         {
             var (rowIndex, prefixIndex, suffixIndex) = titleMap[id];
             var (prefixes, suffixes) = _parts[rowIndex];
-            yield return new Todo
+            var dueBy = Random.Shared.Next(-200, 365) switch
             {
-                Id = id,
-                Title = string.Join(' ', prefixes[prefixIndex], suffixes[suffixIndex]),
-                DueBy = Random.Shared.Next(-200, 365) switch
-                {
-                    < 0 => null,
-                    var days => DateTime.Now.AddDays(days)
-                }
+                < 0 => null as DateTime?,
+                var days => DateTime.Now.AddDays(days)
             };
+            yield return new Todo(
+                Id:id, 
+                Title: string.Join(' ', prefixes[prefixIndex], suffixes[suffixIndex]),
+                DueBy: dueBy);
         }
     }
 }
