@@ -18,17 +18,15 @@ jobs:
         dotnet-version: 8.0.x
     - name: Set version
       run: source eng/load_env.sh && echo VERSION=$VERSION >> $GITHUB_ENV
-    - name: Restore dependencies
-      run: source eng/load_env.sf && dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Build Packages
-      run: dotnet pack -o ./packages -p:PackageVersion=${{env.VERSION}}
+      run: dotnet test --verbosity normal
+    - name: Package
+      run: source eng/load_env.sf && source eng/package-all.sh
+    - name: Build
+      run: source eng/load_env.sf && source ../../eng/publish_all.sh
     - name: 'Upload Nuget packages'
       uses: actions/upload-artifact@v3
       with: 
         name: Nuget
-        path: packages/*.nupkg
+        path: dist/packages/*.nupkg
 
