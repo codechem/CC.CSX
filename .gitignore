@@ -3,6 +3,8 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+.env
+nuget.config
 # User-specific files
 *.rsuser
 *.suo

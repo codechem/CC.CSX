@@ -26,7 +26,7 @@
         <None Include="../../LICENSE.md" Pack="true" PackagePath="\" />
     </ItemGroup>
     <ItemGroup>
-      <PackageReference Include="CC.CSX" Version="0.1.15" />
-      <PackageReference Include="CC.CSX.Web" Version="0.1.15" />
+      <PackageReference Include="CC.CSX" Version="0.1.16" />
+      <PackageReference Include="CC.CSX.Web" Version="0.1.16" />
     </ItemGroup>
 </Project>

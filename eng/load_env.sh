@@ -1,3 +1,4 @@
+export $(cat .VERSION | xargs)
 export $(cat .env | xargs)
 export ROOT_DIR=$(pwd)
 export VERSION=$MAJOR.$MINOR.$PATCH
