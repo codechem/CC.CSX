@@ -4,6 +4,7 @@ using static CC.CSX.HtmlAttributes;
 Print(
   Div(style("background:silver;"),
     "Hello HTML",
+    ("asdgf", "asdrfg"),
     Fragment(Label("Some text"), H1("some header")),
     H1("agrgaer",
        style("background: silver;"), "Hello world"),

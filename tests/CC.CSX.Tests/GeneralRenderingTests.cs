@@ -1,5 +1,6 @@
 namespace CC.CSX.Tests;
 using static CC.CSX.HtmlAttributeKeys;
+
 public class GeneralRenderingTests
 {
     HtmlNode _sut = Div(A(Label("test")));
@@ -35,5 +36,15 @@ public class GeneralRenderingTests
         var tw = new StringWriter() as TextWriter;
         _sut.WriteTo(ref tw);
         Assert.Equal(_expected, tw.ToString());
+    }
+
+    [Fact]
+    public void MultiAttribute_Should_OnlyRenderItsChildren()
+    {
+        var sut = new MultiHtmlAttribute("#test", new []{new HtmlAttribute("test", "test"), new HtmlAttribute("test2", "test2")});
+        var tw = new StringWriter() as TextWriter;
+        sut.WriteTo(ref tw);
+        Assert.Equal("test=\"test\" test2=\"test2\"", sut.ToString());
+        Assert.Equal("test=\"test\" test2=\"test2\"", tw.ToString());
     }
 }

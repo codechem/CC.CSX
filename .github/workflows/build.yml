@@ -1,7 +1,4 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET build
+name: build
 
 on:
   push:
@@ -20,15 +17,15 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Set version
-      run: echo "CSX_VERSION=$(cat .VERSION)" >> $GITHUB_ENV
+      run: source eng/load_env.sh && echo VERSION=$VERSION >> $GITHUB_ENV
     - name: Restore dependencies
-      run: dotnet restore
+      run: source eng/load_env.sf && dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Build Packages
-      run: dotnet pack -o ./packages -p:PackageVersion=${{env.CSX_VERSION}}
+      run: dotnet pack -o ./packages -p:PackageVersion=${{env.VERSION}}
     - name: 'Upload Nuget packages'
       uses: actions/upload-artifact@v3
       with: 

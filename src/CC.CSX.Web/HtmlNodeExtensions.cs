@@ -5,7 +5,7 @@ namespace CC.CSX.Web;
 /// <summary>
 /// Extension methods for <see cref="HtmlNode"/> to allow rendering to <see cref="IActionResult"/> and <see cref="HtmlResult"/>.
 /// </summary>
-public static class HtmlNodeExtensions
+public static class Extensions
 {
     /// <summary>
     /// Converts the <see cref="HtmlNode"/> to an <see cref="IActionResult"/>.

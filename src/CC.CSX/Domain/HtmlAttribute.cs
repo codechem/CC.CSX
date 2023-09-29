@@ -48,7 +48,7 @@ public class HtmlAttribute : HtmlItem
     /// <summary>
     /// Renders the attribute to HTML by taking into account the indentation, but uses a <see cref="TextWriter"/> instead of returning a <see cref="string"/>.
     /// </summary>
-    internal void WriteTo(ref TextWriter sb)
+    public override void WriteTo(ref TextWriter sb, int indent = 0)
     {
         if (Value is null)
         {

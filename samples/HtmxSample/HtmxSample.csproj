@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <ProjectReference Include="..\..\src\CC.CSX.Htmx\CC.CSX.Htmx.csproj" />
+      <ProjectReference Include="..\..\src\CC.CSX.Web\CC.CSX.Web.csproj" />
+      <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
+    </ItemGroup>
+</Project>

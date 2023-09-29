@@ -101,10 +101,28 @@ app.MapGet("/test", () => MainPage(
     P("This is a test of the new CC.CSX library."))).ToResult());
 ```
 
-Because just by using pure methods, in the style of JSX.
-Future work will include optimizations and performance improvements.
+### Future work
 
-Code: https://github.com/codechem/cc.csx
+- Think of a better name
+
+- Performance optimizations
+  - Use span instead of strings.
+  - Compile a template and just compute the dynamic parts when needed.
+
+- Reactive features
+  - Ability to process events directly from C# instead of using JS.
+    - Server side and client side
+    - Some form of state management
+    - More native HTMX integration 
+
+- Project template
+  - that scaffolds a new project with all the needed packages
+
+- Better documentation and examples
+- Native CSS support
+- Library for building mobile apps on top of MAUI
+
+Public Code is here: https://github.com/codechem/cc.csx
 
 ## How it works
 

@@ -31,7 +31,6 @@ public class HtmlTextNode : HtmlNode
             sb.Append(Value);
     }
 
-
     ///<inheritdoc/>
     public override void WriteTo(ref TextWriter sb, int indent = 0)
     {

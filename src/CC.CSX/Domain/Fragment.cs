@@ -35,4 +35,15 @@ public class Fragment : HtmlNode
                 sb.AppendLine();
         }
     }
+
+    ///<inheritdoc/>
+    public override void WriteTo(ref TextWriter tw, int indent = 0)
+    {
+        foreach (var child in Children)
+        {
+            child.WriteTo(ref tw, indent);
+            if(RenderOptions.Indent > 0)
+                tw.WriteLine();
+        }
+    }
 }

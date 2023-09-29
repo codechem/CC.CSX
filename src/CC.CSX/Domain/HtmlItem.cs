@@ -53,4 +53,10 @@ public abstract class HtmlItem
     /// Appends the item to the <see cref="StringBuilder"/> by taking into account the indentation.
     /// </summary>
     public abstract void AppendTo(ref StringBuilder sb, int indent = 0);
+
+
+    /// <summary>
+    /// Writes the item to the <see cref="TextWriter"/> by taking into account the indentation.
+    /// </summary>
+    public abstract void WriteTo(ref TextWriter tw, int indent = 0);
 }

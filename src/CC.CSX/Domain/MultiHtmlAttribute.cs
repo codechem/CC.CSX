@@ -83,4 +83,17 @@ public class MultiHtmlAttribute : HtmlAttribute, IList<HtmlAttribute>
         }
         sb.Remove(sb.Length - 1, 1);
     }
+
+    /// <summary>
+    /// Renders the attribute to HTML by taking into account the indentation, but uses a <see cref="TextWriter"/> instead of returning a <see cref="string"/>.
+    /// </summary>
+    public override void WriteTo(ref TextWriter sb, int indent = 0)
+    {
+        for(int i = 0; i < Attributes.Count; i++)
+        {
+            Attributes[i].WriteTo(ref sb, indent);
+            if(i < Attributes.Count - 1)
+                sb.Write(space);
+        }
+    }
 }

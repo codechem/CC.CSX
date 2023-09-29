@@ -15,14 +15,13 @@ public class HtmlNode : HtmlItem
     [JsonPropertyOrder(0)]
     public string? Id { get; set; }
 
-
     /// <summary>
     /// The element's attributes
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyOrder(1)]
     public List<HtmlAttribute> Attributes { get; set; } = new();
-    
+
     ///<summary>
     /// the children of the element
     /// </summary>
@@ -108,7 +107,6 @@ public class HtmlNode : HtmlItem
         return sb;
     }
 
-
     ///<inheritdoc/>
     public override string ToString(int indent = 0)
     {
@@ -145,7 +143,7 @@ public class HtmlNode : HtmlItem
     }
 
     ///<inheritdoc/>
-    public virtual void WriteTo(ref TextWriter tw, int indent = 0)
+    public override void WriteTo(ref TextWriter tw, int indent = 0)
     {
         var indentStr = new string(' ', indent);
         tw.Write(indentStr);
@@ -162,7 +160,22 @@ public class HtmlNode : HtmlItem
         foreach (var child in Children)
         {
             child?.WriteTo(ref tw, indent + RenderOptions.Indent);
-            if (newLines) tw.WriteLine();
+            if (newLines)
+            {
+                if (child is HtmlTextNode)
+                {
+                    if (RenderOptions.TextNodeOnNewLine)
+                    {
+                        tw.WriteLine();
+                    }
+                }
+                else
+                {
+                    tw.WriteLine();
+                }
+            }
+            else
+                if (newLines) tw.WriteLine();
         }
         tw.Write(indentStr);
         tw.Write(openTag);
@@ -173,8 +186,4 @@ public class HtmlNode : HtmlItem
 
     ///<inheritdoc/>
     public override string ToString() => ToString(0);
-
-    // public IEnumerator<HtmlNode> GetEnumerator() => this.When(x => true).GetEnumerator();
-    //
-    // IEnumerator IEnumerable.GetEnumerator() => this.When(x => true).GetEnumerator();
 }
