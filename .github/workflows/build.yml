@@ -20,10 +20,12 @@ jobs:
       run: source eng/load_env.sh && echo VERSION=$VERSION >> $GITHUB_ENV
     - name: Test
       run: dotnet test --verbosity normal
+    - name: Bump Version
+      run: source eng/load_env.sh && source eng/bump-version.sh
     - name: Package
-      run: source eng/load_env.sf && source eng/package-all.sh
+      run: source eng/load_env.sh && source eng/package-all.sh
     - name: Build
-      run: source eng/load_env.sf && source ../../eng/publish_all.sh
+      run: source eng/load_env.sh && source eng/publish-all.sh
     - name: 'Upload Nuget packages'
       uses: actions/upload-artifact@v3
       with: 
