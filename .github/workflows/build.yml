@@ -20,6 +20,8 @@ jobs:
       run: source eng/load_env.sh && echo VERSION=$VERSION >> $GITHUB_ENV
     - name: Bump Version
       run: source eng/load_env.sh && source eng/bump-version.sh
+    - name: ENV Check
+      run: echo "$GITHUB_CONTEXT"
     - name: Build all packages
       run: source eng/load_env.sh && source eng/github-build-all.sh
     - name: Test
