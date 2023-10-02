@@ -18,10 +18,12 @@ jobs:
         dotnet-version: 8.0.x
     - name: Set version
       run: source eng/load_env.sh && echo VERSION=$VERSION >> $GITHUB_ENV
-    - name: Test
-      run: dotnet test --verbosity normal
     - name: Bump Version
       run: source eng/load_env.sh && source eng/bump-version.sh
+    - name: Build all packages
+      run: source eng/load_env.sh && source eng/github-build-all.sh
+    - name: Test
+      run: dotnet test --no-build -c Release
     - name: Package
       run: source eng/load_env.sh && source eng/package-all.sh
     - name: Build

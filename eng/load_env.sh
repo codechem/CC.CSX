@@ -1,5 +1,4 @@
-export $(cat .VERSION | xargs)
-export $(cat .env | xargs)
+export $(cat VERSION | xargs)
 export ROOT_DIR=$(pwd)
 export VERSION=$MAJOR.$MINOR.$PATCH
 echo Current version: $VERSION
