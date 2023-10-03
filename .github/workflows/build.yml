@@ -9,6 +9,7 @@ on:
 env:
   NUGET_SOURCE: "./dist/packages"
   NUGET_PUBLISH_SOURCE: "https://api.nuget.org/v3/index.json"
+  NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
   
 
 jobs:
@@ -30,7 +31,7 @@ jobs:
     - name: Build all packages
       run: source eng/load_env.sh && source eng/github-build-all.sh
     - name: Test
-      run: dotnet test --no-build -c Release
+      run: dotnet test -c Release
     - name: Package
       run: source eng/load_env.sh && source eng/package-all.sh
     - name: Build
