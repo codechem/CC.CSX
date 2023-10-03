@@ -34,8 +34,6 @@ jobs:
       run: dotnet test -c Release
     - name: Package
       run: source eng/load_env.sh && source eng/package-all.sh
-    - name: Build
-      run: source eng/load_env.sh && source eng/publish-all.sh
     - name: 'Upload Nuget packages'
       uses: actions/upload-artifact@v3
       with: 
