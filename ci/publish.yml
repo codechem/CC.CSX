@@ -1,0 +1,10 @@
+publish job:
+  stage: publish
+  extends:
+    - .base
+    - .tags
+    - .image
+
+
+
+

@@ -1,0 +1,13 @@
+test job:
+  stage: test
+  extends:
+    - .base
+    - .tags
+    - .image
+  variables:
+    GIT_CLEAN_FLAGS: none
+  script:
+    - dotnet test --no-build --configuration Release --logger "junit;LogFilePath=Report.xml"
+  artifacts:
+    reports:
+      junit: ./tests/CC.CSX.Tests/Report.xml

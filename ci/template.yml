@@ -1,0 +1,11 @@
+.tags:
+  tags:
+    - stryker
+
+.image:
+  image:
+    name: mcr.microsoft.com/dotnet/sdk:8.0
+
+.base:
+  script: 
+    - echo "$CI_JOB_STAGE:$CI_JOB_NAME"
