@@ -1,4 +1,5 @@
-# CC.CSX
+# CC.CSX 
+[![build](https://github.com/codechem/CC.CSX/actions/workflows/build.yml/badge.svg)](https://github.com/codechem/CC.CSX/actions/workflows/build.yml)
 
 ## Links
 
