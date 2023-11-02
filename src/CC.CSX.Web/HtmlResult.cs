@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Http.Metadata;
 /// Represents an <see cref="IResult"/> that when executed will write HTML to the response.
 /// </summary>
 #if NET7_0_OR_GREATER
-public class HtmlResult : IResult, IEndpointMetadataProvider
+public class HtmlResult : IResult, IActionResult, IEndpointMetadataProvider
 #else
-public class HtmlResult : IResult
+public class HtmlResult : IResult, IActionResult
 #endif
 {
     /// <summary>
@@ -45,5 +45,11 @@ public class HtmlResult : IResult
     public static void PopulateMetadata(MethodInfo method, EndpointBuilder builder)
     {
         builder.Metadata.Add(new ProducesAttribute(MediaTypeNames.Text.Html));
+    }
+
+    /// <inheritdoc />
+    public Task ExecuteResultAsync(ActionContext context)
+    {
+        return ExecuteAsync(context.HttpContext);
     }
 }
