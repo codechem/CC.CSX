@@ -4,7 +4,7 @@
 
 .image:
   image:
-    name: 8.0-windowsservercore-ltsc2022	
+    name: mcr.microsoft.com/8.0.0-windowsservercore:ltsc2022	
 
 .base:
   script: 
