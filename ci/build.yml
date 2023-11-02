@@ -1,8 +1,8 @@
 build job:
+  stage: build
   extends:
     - .base
     - .tags
     - .image
-  stage: build
   script:
     - dotnet build --configuration Release
