@@ -1,6 +1,7 @@
 .tags:
   tags:
     - stryker
+
 .image:
   image:
     name: mcr.microsoft.com/dotnet/sdk:8.0

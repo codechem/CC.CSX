@@ -3,22 +3,7 @@ stages:
   - test
   - publish
 include:
-  - local './ci/build.yml'
-  - local './ci/test.yml'
-  - local './ci/package.yml'
-  - local './ci/publish.yml'
-
-
-
-
-publish job:
-  stage: publish
-  tags:
-    - costa-docker
-  script: 
-    - export
-  # script: dotnet nuget push src/CC.CSX/bin/Release/CC.CSX.0.1.5.nupkg --api-key ${NUGET_API_KEY} -s https://api.nuget.org/v3/index.json
-
-
-
-
+  - local 'ci/build.yml'
+  - local 'ci/test.yml'
+  - local 'ci/package.yml'
+  - local 'ci/publish.yml'
