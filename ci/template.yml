@@ -4,8 +4,7 @@
 
 .image:
   image:
-    name: mcr.microsoft.com/dotnet/sdk:8.0
-
+    name: mcr.microsoft.com/dotnet/sdk
 .base:
   script: 
-    - echo "$CI_JOB_STAGE:$CI_JOB_NAME"
+    - echo "Executing $CI_JOB_STAGE:$CI_JOB_NAME"
