@@ -5,4 +5,4 @@ build job:
     - .tags
     - .image
   script:
-    - dotnet build -framework net8.0 --configuration Release
+    - dotnet build --framework net8.0 --configuration Release
