@@ -5,7 +5,7 @@ build:
     - .tags
     - .image
   script:
-    - reference! [.base, script]
+    - !reference [.base, script]
 
     # - dotnet restore
     # - dotnet build --framework net8.0 --configuration Release src/CC.CSX/CC.CSX.csproj
