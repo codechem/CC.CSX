@@ -4,8 +4,8 @@ package job:
     - .base
     - .tags
     - .image
-  script:
-    - dotnet pack -o ./package
+  # script:
+  #   - dotnet pack -o ./package
   artifacts:
     paths:
       - ./package/**/*
