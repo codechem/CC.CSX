@@ -1,4 +1,4 @@
-publish job:
+publish:
   stage: publish
   extends:
     - .base

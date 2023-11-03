@@ -1,4 +1,4 @@
-test job:
+test:
   stage: test
   extends:
     - .base

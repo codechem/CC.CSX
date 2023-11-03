@@ -1,8 +1,8 @@
-build job:
+build:
   stage: build
   extends:
     - .base
     - .tags
     - .image
-  # script:
-  #   - dotnet build --framework net8.0 --configuration Release
+  script:
+    - dotnet build --framework net8.0 --configuration Release src/CC.CSX/CC.CSX.csproj

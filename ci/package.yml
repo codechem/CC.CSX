@@ -1,4 +1,4 @@
-package job:
+package:
   stage: publish
   extends:
     - .base

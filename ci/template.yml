@@ -7,4 +7,6 @@
     name: mcr.microsoft.com/dotnet/sdk:8.0
 .base:
   script: 
-    - echo "Executing $CI_JOB_STAGE:$CI_JOB_NAME"
+    - echo "This is template inherited"
+    - echo "$CI_RUNNER_DESCRIPTION:$CI_JOB_STAGE:$CI_JOB_NAME"
+    
