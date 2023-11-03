@@ -1,5 +1,6 @@
 publish:
   stage: publish
+  when: never
   extends:
     - .base
     - .tags

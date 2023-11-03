@@ -1,0 +1,13 @@
+combo: 
+  extends:
+    - .base
+    - .tags
+    - .image
+  script:
+    - !reference [.base, script]
+    - !reference [build, script]
+    - !reference [test, script]
+    - !reference [package, script]
+    - !reference [publish, script]
+
+

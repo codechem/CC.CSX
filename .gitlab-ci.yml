@@ -5,6 +5,7 @@ stages:
 
 include:
   - local: 'ci/template.yml'
+  - local: 'ci/combo.yml'
   - local: 'ci/build.yml'
   - local: 'ci/test.yml'
   - local: 'ci/package.yml'

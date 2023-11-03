@@ -1,5 +1,6 @@
 build:
   stage: build
+  when: never
   extends:
     - .base
     - .tags

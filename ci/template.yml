@@ -1,6 +1,8 @@
 .tags:
   tags:
     - stryker
+.no_run:
+  when: never
 
 .image:
   image:
