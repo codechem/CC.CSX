@@ -4,7 +4,3 @@ publish:
     - .base
     - .tags
     - .image
-
-
-
-
