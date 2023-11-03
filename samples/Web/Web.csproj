@@ -10,9 +10,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
         <ProjectReference Include="..\..\src\CC.CSX.Web\CC.CSX.Web.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="CC.CSX.Htmx" Version="0.1.13" />
+        <ProjectReference Include="..\..\src\CC.CSX.Htmx\CC.CSX.Htmx.csproj" />
     </ItemGroup>
 </Project>
