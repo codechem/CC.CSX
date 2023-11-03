@@ -1,10 +1,11 @@
 build:
   stage: build
-  when: never
   extends:
     - .base
     - .tags
     - .image
+  rules:
+    - when: never
   script:
     - echo "Gjorgji"
     - !reference [.base, script]

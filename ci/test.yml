@@ -1,6 +1,7 @@
 test:
   stage: test
-  when: never
+  rules:
+    - when: never
   extends:
     - .base
     - .tags
