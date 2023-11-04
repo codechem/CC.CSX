@@ -7,8 +7,6 @@ build:
   rules:
     - when: never
   script:
-    - echo "Gjorgji"
     - !reference [.base, script]
-    - echo "done"
-    # - dotnet restore
-    # - dotnet build --framework net8.0 --configuration Release src/CC.CSX/CC.CSX.csproj
+    - dotnet restore
+    - dotnet build --framework net8.0 --configuration Release src/CC.CSX/CC.CSX.csproj
