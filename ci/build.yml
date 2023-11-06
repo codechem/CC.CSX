@@ -6,6 +6,8 @@ build:
     - .image
   rules:
     - when: never
+  variables: 
+    - GIT_CLEAN_FLAGS:none
   script:
     - echo $CI_COMMIT_BRANCH
     - dotnet restore --packages /packages
