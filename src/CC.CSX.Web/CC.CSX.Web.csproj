@@ -25,8 +25,12 @@
     <ItemGroup>
         <None Include="../../README.md" Pack="true" PackagePath="\" />
         <None Include="../../LICENSE.md" Pack="true" PackagePath="\" />
-    </ItemGroup>
+        </ItemGroup>
+
     <ItemGroup>
-      <PackageReference Include="CC.CSX" Version="0.1.17" />
+        <ProjectReference Include="..\CC.CSX\CC.CSX.csproj" />
     </ItemGroup>
+    <!-- <ItemGroup> -->
+    <!--   <PackageReference Include="CC.CSX" Version="0.1.17" /> -->
+    <!-- </ItemGroup> -->
 </Project>

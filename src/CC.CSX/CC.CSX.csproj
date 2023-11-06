@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFrameworks>net6;net7;net8</TargetFrameworks>
+        <TargetFrameworks>net6;net7;net8.0</TargetFrameworks>
         <RootNamespace>CC.CSX</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -12,7 +12,7 @@
         <IsPackable>true</IsPackable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageTags>html;web;render;ssr;server side rendering;htmx;c# ui;razor alternative;c# html templates;declarative ui;</PackageTags>
-        <Version>0.1.10</Version>
+        <Version>0.1.17</Version>
         <Authors>Costa Halicea</Authors>
         <Company>CodeChem</Company>
         <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
