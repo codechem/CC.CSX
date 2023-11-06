@@ -5,9 +5,9 @@
     - .image
   script:
     - !reference [.base, script]
-    - !reference [build, script]
-    - !reference [test, script]
-    - !reference [package, script]
-    - !reference [publish, script]
+    - !reference [build-job, script]
+    - !reference [test-job, script]
+    - !reference [package-job, script]
+    - !reference [publish-job, script]
 
 
