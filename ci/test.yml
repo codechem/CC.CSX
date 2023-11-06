@@ -7,7 +7,7 @@ test:
   variables:
     GIT_CLEAN_FLAGS: none
   script:
-    - dotnet test --no-build --configuration Release --logger "junit;LogFilePath=Report.xml"
+    - dotnet test --no-build --configuration Release --output /builds_cache/$CI_COMMIT_BRANCH --logger "junit;LogFilePath=Report.xml"
   artifacts:
     reports:
       junit: ./tests/CC.CSX.Tests/Report.xml
