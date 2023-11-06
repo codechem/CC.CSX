@@ -1,4 +1,4 @@
-build:
+build-job:
   stage: build
   extends:
     - .base
