@@ -10,3 +10,4 @@ build-job:
     - echo $CI_COMMIT_BRANCH
     - dotnet restore --packages /packages
     - NUGET_PACKAGES=/packages && dotnet build --no-restore --configuration Release --output /builds_cache/$CI_COMMIT_BRANCH 
+
