@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>net6;net7;net8</TargetFrameworks>
+        <TargetFramework>net8.0</TargetFramework>
         <RootNamespace>CC.CSX.Htmx</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
