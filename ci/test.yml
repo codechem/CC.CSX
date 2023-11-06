@@ -8,7 +8,7 @@ test-job:
     GIT_CLEAN_FLAGS: none
   needs: ["build-job"]
   script:
-    - dotnet test --no-build --configuration Release --output /builds_cache/$CI_COMMIT_BRANCH/bin/CC.CSX.Tests/release --logger "junit;LogFilePath=Report.xml"
+    - dotnet test --no-build --configuration Release --output /output/$CI_COMMIT_BRANCH --logger "junit;LogFilePath=Report.xml"
        
   artifacts:
     reports:
