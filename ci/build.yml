@@ -7,5 +7,5 @@ build:
   rules:
     - when: never
   script:
-    - dotnet restore
-    - dotnet build --framework net8.0 --no-restore --configuration Release --output /dist/$CI_BRANCH_NAME src/CC.CSX/CC.CSX.csproj
+    - dotnet restore --packages /packages
+    - dotnet build --framework net8.0 --no-restore --configuration Release --output /builds/$CI_BRANCH_NAME src/CC.CSX/CC.CSX.csproj
