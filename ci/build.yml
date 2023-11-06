@@ -8,6 +8,6 @@ build-job:
     GIT_CLEAN_FLAGS: none
   script:
     - echo $CI_COMMIT_BRANCH
-    - dotnet restore --packages /packages
-    - NUGET_PACKAGES=/packages && dotnet build --no-restore --configuration Release --artifacts-path /builds_cache/$CI_COMMIT_BRANCH 
+    # - dotnet restore --packages /packages
+    - NUGET_PACKAGES=/packages && dotnet build --configuration Release --artifacts-path /builds_cache/$CI_COMMIT_BRANCH 
 
