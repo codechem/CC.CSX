@@ -1,4 +1,4 @@
-publish:
+publish-job:
   stage: publish
   rules:
     - when: never

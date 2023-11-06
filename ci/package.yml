@@ -1,4 +1,4 @@
-package:
+package-job:
   stage: publish
   rules:
     - when: never
