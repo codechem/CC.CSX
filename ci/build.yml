@@ -9,4 +9,5 @@ build:
   script:
     - echo $CI_COMMIT_BRANCH
     - dotnet restore --packages /packages
-    - NUGET_PACKAGES=/packages && dotnet build --framework net8.0 --no-restore --configuration Release --output /builds_cache/$CI_COMMIT_BRANCH src/CC.CSX/CC.CSX.csproj
+    - NUGET_PACKAGES=/packages && \
+      dotnet build --framework net8.0 --no-restore --configuration Release --output /builds_cache/$CI_COMMIT_BRANCH
