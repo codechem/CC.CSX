@@ -8,4 +8,9 @@ build:
     - when: never
   script:
     - dotnet restore --packages /packages
-    - dotnet build --framework net8.0 --no-restore --configuration Release --output /builds/$CI_BRANCH_NAME src/CC.CSX/CC.CSX.csproj
+    - dotnet build \
+      --framework net8.0 \
+      --no-restore \
+      --configuration Release \
+      --output /builds/$CI_COMMIT_BRANCH \
+      src/CC.CSX/CC.CSX.csproj
