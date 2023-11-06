@@ -4,8 +4,6 @@ build:
     - .base
     - .tags
     - .image
-  rules:
-    - when: never
   variables: 
     GIT_CLEAN_FLAGS: none
   script:

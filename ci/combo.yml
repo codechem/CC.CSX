@@ -1,4 +1,4 @@
-combo: 
+.combo: 
   extends:
     - .base
     - .tags

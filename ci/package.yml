@@ -1,7 +1,5 @@
 package:
   stage: publish
-  rules:
-    - when: never
   extends:
     - .base
     - .tags
