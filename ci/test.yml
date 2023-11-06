@@ -6,6 +6,8 @@ test-job:
     - .image
   variables:
     GIT_CLEAN_FLAGS: none
+  dependencies:
+    - build-job
   script:
     - dotnet test --no-build --configuration Release --output /builds_cache/$CI_COMMIT_BRANCH --logger "junit;LogFilePath=Report.xml"
   artifacts:
