@@ -17,7 +17,7 @@ attribute methods for [HTMX](https://htmx.org/)
 ## About
 
 *`CC.CSX`* provides the ability to define and generate, a HTML structure in
-a declarative fashion by just using pure C#.
+a declarative fashion by just using pure C# or F# (or Powershell if you are so dirty).
 
 The idea is to have strongly typed and readable structure,
 so the developer is able to easily navigate and manipulate the final output.
