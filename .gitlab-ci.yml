@@ -1,12 +1,20 @@
-stages:
-  - build
-  - test
-  - publish
+workflow:
+  name: 'Pipeline for branch: $CI_COMMIT_BRANCH'
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
 
-include:
-  - local: 'ci/template.yml'
-  - local: 'ci/combo.yml'
-  - local: 'ci/build.yml'
-  - local: 'ci/test.yml'
-  - local: 'ci/package.yml'
-  - local: 'ci/publish.yml'
+on_branches:
+  only:
+    - branches
+  script:
+    - echo in test job
+
+
+on_mr:
+  only:
+    - merge_requests
+  script:
+    - echo in build job
