@@ -660,6 +660,34 @@ public static class HtmlAttributeKeys
     /// &amp;lt;textarea&amp;gt;	Specifies how the text in a text area is to be wrapped when submitted in a form
     ///</summary>
     public const string wrap = "wrap";
+    ///<summary>
+    // &amp;lt;iframe&amp;gt; Specifies a Permissions Policy for the &amp;lt;iframe&amp;gt;. The policy defines what features are available to the &amp;lt;iframe&amp;gt; (for example, access to the microphone, camera, battery, web-share, etc.) based on the origin of the request.
+    //</summary>
+    public const string allow = "allow";
+    ///<summary>
+    // &amp;lt;iframe&amp;gt; Set to true if the &amp;lt;iframe&amp;gt; can activate fullscreen mode by calling the requestFullscreen() method.
+    //</summary>
+    public const string allowfullscreen = "allowfullscreen";
+    ///<summary>
+    // &amp;lt;iframe&amp;gt; [Deprecated Non-standard] Set to true if a cross-origin &amp;lt;iframe&amp;gt; should be allowed to invoke the Payment Request API.
+    //</summary>
+    public const string allowpaymentrequest = "allowpaymentrequest";
+    ///<summary>
+    // &amp;lt;iframe&amp;gt; [Experimental, Non-standard] Set to true to make the &amp;lt;iframe&amp;gt; credentialless, meaning that its content will be loaded in a new, ephemeral context. It doesn't have access to the network, cookies, and storage data associated with its origin. It uses a new context local to the top-level document lifetime. In return, the Cross-Origin-Embedder-Policy (COEP) embedding rules can be lifted, so documents with COEP set can embed third-party documents that do not. See IFrame credentialless for more details.
+    //</summary>
+    public const string credentialless = "credentialless";
+    ///<summary>
+    // &amp;lt;iframe&amp;gt; [Experimental] A Content Security Policy enforced for the embedded resource. See HTMLIFrameElement.csp for details.
+    //</summary>
+    public const string csp = "csp";
+    ///<summary>
+    // &amp;lt;iframe&amp;gt; Indicates when the browser should load the iframe.
+    //</summary>
+    public const string loading = "loading";
+    ///<summary>
+    // &amp;lt;iframe&amp;gt; Indicates which referrer to send when fetching the frame's resource:
+    //</summary>
+    public const string referrerpolicy = "referrerpolicy";
 
     ///<summary>
     /// http-equiv
