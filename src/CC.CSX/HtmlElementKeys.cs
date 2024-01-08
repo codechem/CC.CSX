@@ -201,23 +201,23 @@ public static class HtmlElementKeys
     ///<summary>
     ///  &amp;lt;h1&amp;gt; to &amp;lt;h6&amp;gt;	Defines HTML headings
     ///</summary>
-    public const string h2 = "h1";
+    public const string h2 = "h2";
     ///<summary>
     ///  &amp;lt;h1&amp;gt; to &amp;lt;h6&amp;gt;	Defines HTML headings
     ///</summary>
-    public const string h3 = "h1";
+    public const string h3 = "h3";
     ///<summary>
     ///  &amp;lt;h1&amp;gt; to &amp;lt;h6&amp;gt;	Defines HTML headings
     ///</summary>
-    public const string h4 = "h1";
+    public const string h4 = "h4";
     ///<summary>
     ///  &amp;lt;h1&amp;gt; to &amp;lt;h6&amp;gt;	Defines HTML headings
     ///</summary>
-    public const string h5 = "h1";
+    public const string h5 = "h5";
     ///<summary>
     ///  &amp;lt;h1&amp;gt; to &amp;lt;h6&amp;gt;	Defines HTML headings
     ///</summary>
-    public const string h6 = "h1";
+    public const string h6 = "h6";
     ///<summary>
     ///  &amp;lt;head&amp;gt; Contains metadata/information for the document
     ///</summary>
