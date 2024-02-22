@@ -663,31 +663,31 @@ public static class HtmlAttributes
     ///</summary>
     public static HtmlAttribute wrap(string value) => new HtmlAttribute(Keys.wrap, value);
     ///<summary>
-    // &amp;lt;iframe&amp;gt; Specifies a Permissions Policy for the &amp;lt;iframe&amp;gt;. The policy defines what features are available to the &amp;lt;iframe&amp;gt; (for example, access to the microphone, camera, battery, web-share, etc.) based on the origin of the request.
-    //</summary>
+    /// &amp;lt;iframe&amp;gt; Specifies a Permissions Policy for the &amp;lt;iframe&amp;gt;. The policy defines what features are available to the &amp;lt;iframe&amp;gt; (for example, access to the microphone, camera, battery, web-share, etc.) based on the origin of the request.
+    ///</summary>
     public static HtmlAttribute allow(string value) => new HtmlAttribute(Keys.allow, value);
     ///<summary>
-    // &amp;lt;iframe&amp;gt; Set to true if the &amp;lt;iframe&amp;gt; can activate fullscreen mode by calling the requestFullscreen() method.
-    //</summary>
+    /// &amp;lt;iframe&amp;gt; Set to true if the &amp;lt;iframe&amp;gt; can activate fullscreen mode by calling the requestFullscreen() method.
+    ///</summary>
     public static HtmlAttribute allowfullscreen(string value) => new HtmlAttribute(Keys.allowfullscreen, value);
     ///<summary>
-    // &amp;lt;iframe&amp;gt; [Deprecated Non-standard] Set to true if a cross-origin &amp;lt;iframe&amp;gt; should be allowed to invoke the Payment Request API.
-    //</summary>
+    /// &amp;lt;iframe&amp;gt; [Deprecated Non-standard] Set to true if a cross-origin &amp;lt;iframe&amp;gt; should be allowed to invoke the Payment Request API.
+    ///</summary>
     public static HtmlAttribute allowpaymentrequest(string value) => new HtmlAttribute(Keys.allowpaymentrequest, value);
     ///<summary>
-    // &amp;lt;iframe&amp;gt; [Experimental, Non-standard] Set to true to make the &amp;lt;iframe&amp;gt; credentialless, meaning that its content will be loaded in a new, ephemeral context. It doesn't have access to the network, cookies, and storage data associated with its origin. It uses a new context local to the top-level document lifetime. In return, the Cross-Origin-Embedder-Policy (COEP) embedding rules can be lifted, so documents with COEP set can embed third-party documents that do not. See IFrame credentialless for more details.
-    //</summary>
+    /// &amp;lt;iframe&amp;gt; [Experimental, Non-standard] Set to true to make the &amp;lt;iframe&amp;gt; credentialless, meaning that its content will be loaded in a new, ephemeral context. It doesn't have access to the network, cookies, and storage data associated with its origin. It uses a new context local to the top-level document lifetime. In return, the Cross-Origin-Embedder-Policy (COEP) embedding rules can be lifted, so documents with COEP set can embed third-party documents that do not. See IFrame credentialless for more details.
+    ///</summary>
     public static HtmlAttribute credentialless(string value) => new HtmlAttribute(Keys.credentialless, value);
     ///<summary>
-    // &amp;lt;iframe&amp;gt; [Experimental] A Content Security Policy enforced for the embedded resource. See HTMLIFrameElement.csp for details.
-    //</summary>
+    /// &amp;lt;iframe&amp;gt; [Experimental] A Content Security Policy enforced for the embedded resource. See HTMLIFrameElement.csp for details.
+    ///</summary>
     public static HtmlAttribute csp(string value) => new HtmlAttribute(Keys.csp, value);
     ///<summary>
-    // &amp;lt;iframe&amp;gt; Indicates when the browser should load the iframe.
-    //</summary>
+    /// &amp;lt;iframe&amp;gt; Indicates when the browser should load the iframe.
+    ///</summary>
     public static HtmlAttribute loading(string value) => new HtmlAttribute(Keys.loading, value);
     ///<summary>
-    // &amp;lt;iframe&amp;gt; Indicates which referrer to send when fetching the frame's resource:
-    //</summary>
+    /// &amp;lt;iframe&amp;gt; Indicates which referrer to send when fetching the frame's resource:
+    ///</summary>
     public static HtmlAttribute referrerpolicy(string value) => new HtmlAttribute(Keys.referrerpolicy, value);
 }

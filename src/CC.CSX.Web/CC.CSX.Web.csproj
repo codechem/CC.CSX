@@ -30,6 +30,10 @@
     <ItemGroup>
         <ProjectReference Include="..\CC.CSX\CC.CSX.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CC.CSX" Version="0.1.19" />
+    </ItemGroup>
     <!-- <ItemGroup> -->
     <!--   <PackageReference Include="CC.CSX" Version="0.1.17" /> -->
     <!-- </ItemGroup> -->
