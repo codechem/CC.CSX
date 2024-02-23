@@ -21,21 +21,19 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 8.0.x
-    - name: Set version
-      run: source eng/load_env.sh && echo VERSION=$VERSION >> $GITHUB_ENV
-    - name: Bump Version
-      run: source eng/load_env.sh && source eng/bump-version.sh
-    - name: ENV Check
-      run: echo "$GITHUB_CONTEXT"
+    # - name: Set version
+    #   run: source eng/load_env.sh && echo VERSION=$VERSION >> $GITHUB_ENV
+    # - name: Bump Version
+    #   run: source eng/load_env.sh && source eng/bump-version.sh
     - name: Build all packages
-      run: source eng/load_env.sh && source eng/github-build-all.sh
+      run: dotnet build -c Release
     - name: Test
       run: dotnet test -c Release
-    - name: Package
-      run: source eng/load_env.sh && source eng/package-all.sh
-    - name: 'Upload Nuget packages'
-      uses: actions/upload-artifact@v3
-      with: 
-        name: Nuget
-        path: dist/packages/*.nupkg
+    # - name: Package
+    #   run: source eng/load_env.sh && source eng/package-all.sh
+    # - name: 'Upload Nuget packages'
+    #   uses: actions/upload-artifact@v3
+      # with: 
+      #   name: Nuget
+      #   path: dist/packages/*.nupkg
 
