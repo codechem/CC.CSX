@@ -38,6 +38,6 @@
 
 
     <ItemGroup>
-      <PackageReference Include="CC.CSX" Version="0.1.19" />
+      <PackageReference Include="CC.CSX" Version="0.1.20" />
     </ItemGroup>
 </Project>
