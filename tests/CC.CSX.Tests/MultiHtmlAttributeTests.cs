@@ -19,4 +19,3 @@ public class MultiHtmlAttributeTests
         Assert.Equal(expected, multi.ToString());
     }
 }
-    

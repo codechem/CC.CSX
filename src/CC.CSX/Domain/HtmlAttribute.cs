@@ -31,7 +31,7 @@ public class HtmlAttribute : HtmlItem
     /// <summary>
     /// Renders the attribute to HTML by taking into account the indentation.
     /// </summary>
-    public override string ToString(int indent = 0) => Value is null ? Name : $"{Name}=\"{Value}\"";
+    public override string ToString(int indent = 0) => string.IsNullOrEmpty(Name) ? string.Empty : Value is null ? Name : $"{Name}=\"{Value}\"";
     /// <summary>
     /// Renders the attribute to HTML by taking into account the indentation.
     /// </summary>
@@ -42,8 +42,8 @@ public class HtmlAttribute : HtmlItem
     /// </summary>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
-        if(string.IsNullOrEmpty(Name)) return;
-
+        if (string.IsNullOrEmpty(Name)) return;
+        
         if (Value is null)
         {
             sb.Append(Name);
@@ -59,7 +59,7 @@ public class HtmlAttribute : HtmlItem
     /// </summary>
     public override void WriteTo(ref TextWriter sb, int indent = 0)
     {
-        if(string.IsNullOrEmpty(Name)) return;
+        if (string.IsNullOrEmpty(Name)) return;
 
         if (Value is null)
         {

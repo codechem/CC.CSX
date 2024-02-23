@@ -41,10 +41,24 @@ public class GeneralRenderingTests
     [Fact]
     public void MultiAttribute_Should_OnlyRenderItsChildren()
     {
-        var sut = new MultiHtmlAttribute("#test", new []{new HtmlAttribute("test", "test"), new HtmlAttribute("test2", "test2")});
+        var sut = new MultiHtmlAttribute("#test", new[] { new HtmlAttribute("test", "test"), new HtmlAttribute("test2", "test2") });
         var tw = new StringWriter() as TextWriter;
         sut.WriteTo(ref tw);
         Assert.Equal("test=\"test\" test2=\"test2\"", sut.ToString());
         Assert.Equal("test=\"test\" test2=\"test2\"", tw.ToString());
+    }
+
+    [Fact]
+    void CheckedAttribute_ShouldRenderConditionally()
+    {
+        var sutRendered = @checked(true);
+        var sutNotRendered = @checked(false);
+
+        var tw = new StringWriter() as TextWriter;
+        sutNotRendered.WriteTo(ref tw);
+        // should not append anything
+        Assert.Equal(string.Empty, tw.ToString());
+        sutRendered.WriteTo(ref tw);
+        Assert.Equal("checked", tw.ToString());
     }
 }
