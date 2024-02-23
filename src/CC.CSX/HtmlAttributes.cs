@@ -57,7 +57,7 @@ public static class HtmlAttributes
     ///<summary>
     /// &amp;lt;input&amp;gt;	Specifies that an &amp;lt;input&amp;gt; element should be pre-selected when the page loads (for type="checkbox" or type="radio")
     ///</summary>
-    public static HtmlAttribute @checked(string value) => new HtmlAttribute(Keys.@checked, value);
+    public static HtmlAttribute @checked(bool isChecked) => isChecked?new HtmlAttribute(Keys.@checked): HtmlAttribute.Empty;
     ///<summary>
     /// &amp;lt;blockquote&amp;gt;, &amp;lt;del&amp;gt;, &amp;lt;ins&amp;gt;, &amp;lt;q&amp;gt;	Specifies a URL which explains the quote/deleted/inserted text
     ///</summary>

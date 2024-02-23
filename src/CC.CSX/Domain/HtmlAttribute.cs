@@ -13,10 +13,17 @@ public class HtmlAttribute : HtmlItem
     const char CharQuote = '"';
     const char CharSingleQuote = '\'';
     const char CharEqual = '=';
+
+    /// <summary>
+    /// An empty attribute that does not render anything.
+    /// It is useful for creating conditional attributes with ternary operators or similar.
+    /// </summary>
+    public static readonly HtmlAttribute Empty = new HtmlAttribute(string.Empty);
+
     /// <summary>
     /// Creates a new instance of <see cref="HtmlAttribute"/> with the given name and value.
     /// </summary>
-    public HtmlAttribute(in string name, string? value) : base(name, value) { }
+    public HtmlAttribute(in string name, in string? value) : base(name, value) { }
     /// <summary>
     /// Creates a new instance of <see cref="HtmlAttribute"/> with the given name.
     /// </summary>
@@ -35,6 +42,8 @@ public class HtmlAttribute : HtmlItem
     /// </summary>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
+        if(string.IsNullOrEmpty(Name)) return;
+
         if (Value is null)
         {
             sb.Append(Name);
@@ -50,6 +59,8 @@ public class HtmlAttribute : HtmlItem
     /// </summary>
     public override void WriteTo(ref TextWriter sb, int indent = 0)
     {
+        if(string.IsNullOrEmpty(Name)) return;
+
         if (Value is null)
         {
             sb.Write(Name);
@@ -67,5 +78,5 @@ public class HtmlAttribute : HtmlItem
     /// <summary>
     /// Implicit conversion from <see cref="string"/> to <see cref="HtmlAttribute"/>.
     /// </summary>
-    public static implicit operator HtmlAttribute((string key, string value) tuple) => new HtmlAttribute(tuple.key, tuple.value);
+    public static implicit operator HtmlAttribute(in (string key, string value) tuple) => new HtmlAttribute(tuple.key, tuple.value);
 }

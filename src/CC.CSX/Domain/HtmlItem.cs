@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 /// <summary>
-/// An abstract class that represents a node or a node attribute, that can be rendered to HTML.
+/// An abstract class that represents a node or a node attribute that can be rendered to HTML.
 /// </summary>
 public abstract class HtmlItem
 {
@@ -28,7 +28,7 @@ public abstract class HtmlItem
     /// <summary>
     /// Creates a new instance of <see cref="HtmlItem"/> with the given name and value.
     /// </summary>
-    public HtmlItem(in string name, string? value)
+    public HtmlItem(in string name, in string? value)
     {
         Name = name;
         Value = value;
@@ -37,12 +37,12 @@ public abstract class HtmlItem
     /// <summary>
     /// Implicit conversion from <see cref="string"/> to <see cref="HtmlItem"/>.
     /// </summary>
-    public static implicit operator HtmlItem(string value) => new HtmlTextNode(value);
+    public static implicit operator HtmlItem(in string value) => new HtmlTextNode(in value);
 
     /// <summary>
     /// Implicit conversion from string tuple to <see cref="HtmlAttribute"/>.
     /// </summary>
-    public static implicit operator HtmlItem((string key, string? value) tuple) => new HtmlAttribute(in tuple.key, tuple.value);
+    public static implicit operator HtmlItem(in (string key, string? value) tuple) => new HtmlAttribute(in tuple.key, in tuple.value);
 
     /// <summary>
     /// Renders the item to HTML by taking into account the indentation.
