@@ -8,7 +8,7 @@ public static class Views
 {
     public static HtmlNode MainPage = HtmxPage(Div(
         H1("Main page"),
-        Button("Bored",
+        Button("Bored", "Bla", "ta", 
             hxGet("/apis/bored/"),
             hxTarget("#results")),
         Button("Tell me a joke",

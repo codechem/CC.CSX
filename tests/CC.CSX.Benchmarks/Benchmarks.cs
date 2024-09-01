@@ -11,7 +11,7 @@ BenchmarkRunner.Run<Benchmarks>();
 [MemoryDiagnoser(false)]
 public class Benchmarks
 {
-    HtmlNode node= Templates.MainPage(null,
+    HtmlNode node = Templates.MainPage(null,
         Div(
             Form(@class("uk-form"), method("post"), action("/test"),
                 Input(type("text"), name("name"), value("test")),
@@ -27,6 +27,7 @@ public class Benchmarks
         var a = node.ToString();
     }
 
+
     [Benchmark]
     public void Benchmark_StringBuilder()
     {
@@ -41,5 +42,4 @@ public class Benchmarks
         var a = new StringWriter() as TextWriter;
         node.WriteTo(ref a);
     }
-
 }

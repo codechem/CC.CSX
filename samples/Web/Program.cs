@@ -11,7 +11,7 @@ var app = builder.Build();
 
 
 //Index: Page
-app.MapGet("", () => Render(Html(
+object value = app.MapGet("", () => Render(Html(
     Head(
         Title("CSX Sample"),
         Meta(charset("utf-8")),
