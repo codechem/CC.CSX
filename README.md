@@ -26,7 +26,7 @@ have the Render method available.
 You may also need the [CC.CSX.Htmx](https://www.nuget.org/packages/CC.CSX.Htmx) package which provides the [Htmx](https://htmx.org/) related attributes.
 This way you can build reactive applications with ease and without the need to write any `JS` or `HTML`.
 
-Bellow you can find a complete version of the legendary `Counter` example, but this time in `C#`, `Asp.Net` using , `Donten Minimal APIs` and this library `CC.CSX`.
+Bellow you can find a complete version of the legendary `Counter` example, but this time in `C#`, `Asp.Net` using , `Dotnet Minimal APIs` and this library `CC.CSX`.
 
 ```cs
 var builder = WebApplication.CreateBuilder(args); //classic bootstrapping
@@ -116,7 +116,7 @@ This will generate the following HTML:
 ```
 For existing HTML elements and attributes, you can use the static methods provided by the `HtmlElements` and `HtmlAttributes` classes, if you need to create custom elements you can use the new HtmlNode constructor, and tuple for attributes.
 
-### Future work
+### TODO
 
 - [ ] Project template
   - that scaffolds a new project with all the needed packages
