@@ -31,6 +31,6 @@ public static class Views
             : A(href(bored.link), "Link" )));
 
     public static HtmlNode HtmxPage(HtmlItem root) => Html(
-        Head(HtmxScriptImports),
+        Head(HtmxImports),
         Body(root));
 }

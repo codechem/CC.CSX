@@ -19,7 +19,7 @@ public abstract class HtmlItem
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? Value { get; set; }
-    
+
     /// <summary>
     /// Creates a new instance of <see cref="HtmlItem"/> with the given name.
     /// </summary>
@@ -40,9 +40,39 @@ public abstract class HtmlItem
     public static implicit operator HtmlItem(in string value) => new HtmlTextNode(in value);
 
     /// <summary>
+    /// Implicit conversion from <see cref="int"/> to <see cref="HtmlItem"/>.
+    /// </summary>
+    public static implicit operator HtmlItem(in int value) => new HtmlTextNode(value.ToString());
+
+    /// <summary>
+    /// Implicit conversion from <see cref="bool"/> to <see cref="HtmlItem"/>.
+    /// </summary>
+    public static implicit operator HtmlItem(in bool value) => new HtmlTextNode(value.ToString());
+
+    /// <summary>
+    /// Implicit conversion from <see cref="float"/> to <see cref="HtmlItem"/>.
+    /// </summary>
+    public static implicit operator HtmlItem(in float value) => new HtmlTextNode(value.ToString());
+
+    /// <summary>
+    /// Implicit conversion from <see cref="double"/> to <see cref="HtmlItem"/>.
+    /// </summary>
+    public static implicit operator HtmlItem(in double value) => new HtmlTextNode(value.ToString());
+
+    /// <summary>
     /// Implicit conversion from string tuple to <see cref="HtmlAttribute"/>.
     /// </summary>
     public static implicit operator HtmlItem(in (string key, string? value) tuple) => new HtmlAttribute(in tuple.key, in tuple.value);
+
+    /// <summary>
+    /// Implicit conversion from array of nodes to fragment <see cref="Fragment"/>.
+    /// </summary>
+    public static implicit operator HtmlItem(in HtmlNode[] nodes) => new Fragment(nodes);
+
+    /// <summary>
+    /// Implicit conversion from array of nodes to fragment <see cref="Fragment"/>.
+    /// </summary>
+    public static implicit operator HtmlItem(HtmlAttribute[] attributes) => new MultiHtmlAttribute("multi", attributes);
 
     /// <summary>
     /// Renders the item to HTML by taking into account the indentation.
@@ -53,7 +83,6 @@ public abstract class HtmlItem
     /// Appends the item to the <see cref="StringBuilder"/> by taking into account the indentation.
     /// </summary>
     public abstract void AppendTo(ref StringBuilder sb, int indent = 0);
-
 
     /// <summary>
     /// Writes the item to the <see cref="TextWriter"/> by taking into account the indentation.

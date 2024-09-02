@@ -1,41 +1,36 @@
-using Web;
-using Microsoft.AspNetCore.Mvc;
-using static CC.CSX.HtmlElements;
-using static CC.CSX.HtmlAttributes;
-using static Web.Templates;
-using static CC.CSX.Htmx.HtmxAttributes;
-using static CC.CSX.Web.Extensions;
-var todos = TodoGenerator.GenerateTodos().ToArray();
-var builder = WebApplication.CreateSlimBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 
-//Index: Page
-object value = app.MapGet("", () => Render(Html(
+static HtmlNode Master(string title, params HtmlNode[] content) => Html(
+    Meta(charset("utf-8")),
     Head(
-        Title("CSX Sample"),
+        Title("Htnet Demo"),
         Meta(charset("utf-8")),
-        HtmxScriptImports),
+        HtmxImports),
     Body(
-        Div(@class("container"),
-            H1(@class("text-center"), "CSX Sample"),
-            A(href("/todos"), "Todos")))
-)));
+        H1(@class("text-center"), title),
+        Ul(
+            Li(AHref("/", "Home")), 
+            Li(AHref("/counter", "Counter"))
+        ),
+        Hr(),
+        content,
+        Hr()
+    )
+);
 
-app.MapGet("todos", () => Render(TodosPage(todos)));
+app.MapGet("", () => Render(Master("Home")));
 
-app.MapPost("todos", ([AsParameters] TodoRequest form) =>
-{
-    var todo = new Todo(todos.Max(t => t.Id) + 1, form.Title, form.DueBy, form.IsCompleteBool);
-    todos = [todo, ..todos];
-    return Render(TodosPage(todos));
-}).DisableAntiforgery();
+int counter = 0;
 
+app.MapGet("counter", () => Render(
+    Master("Counter",
+        Button("-", hxPost("/decrement", target: "#counter")),
+        B(Label(id("counter"), counter.ToString())),
+        Button("+", hxPost("/increment", target: "#counter"), hxPushUrl("false"))
+    )
+));
+app.MapPost("increment/", () => Render($"{++counter}"));
+app.MapPost("decrement/", () => Render($"{--counter}"));
 app.Run();
-class TodoRequest
-{
-    [FromForm] public required string Title { get; set; }
-    [FromForm] public DateTime? DueBy { get; set; } = default;
-    [FromForm] public string? IsComplete { get; set; } = "off";
-    public bool IsCompleteBool => IsComplete == "on";
-}

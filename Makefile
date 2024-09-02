@@ -10,6 +10,14 @@ run.htmx:
 run.web:
 	dotnet run --project ./samples/Web/Web.csproj
 
+watch.simple:
+	dotnet watch --project ./samples/Simple/Simple.csproj | bat -l html -p
+
+watch.htmx:
+	dotnet watch --project ./samples/HtmxSample/HtmxSample.csproj
+
+watch.web:
+	dotnet watch --project ./samples/Web/Web.csproj
 test:
 	dotnet test
 

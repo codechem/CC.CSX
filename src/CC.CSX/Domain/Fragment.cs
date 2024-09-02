@@ -8,6 +8,10 @@ namespace CC.CSX;
 public class Fragment : HtmlNode
 {
     /// <summary>
+    /// The singleton instance of <see cref="Fragment"/> that has no children.
+    /// </summary>
+    public static Fragment Empty = new();
+    /// <summary>
     /// Creates a new instance of <see cref="Fragment"/> with the given children.
     /// </summary>
     public Fragment(params HtmlNode[] children) : base("shallow", children) { }

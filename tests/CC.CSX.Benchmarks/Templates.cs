@@ -1,7 +1,6 @@
 using CC.CSX;
 using static CC.CSX.HtmlAttributes;
 using static CC.CSX.HtmlElements;
-using System.Linq;
 
 public static class Templates
 {

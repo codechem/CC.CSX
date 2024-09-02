@@ -28,7 +28,13 @@ public static partial class HtmlElements
     /// </summary>
     public static HtmlNode ScriptSrc(string src, params HtmlItem[] children) => Script(children).Add(new HtmlAttribute(Keys.src, src));
     /// <summary>
+    /// Creates a new multi attribute with the given attributes.
+    /// </summary>
+    public static HtmlAttribute MultiAttr(params HtmlAttribute[] attributes) => new MultiHtmlAttribute(attributes:attributes);
+    /// <summary>
     /// None node
     /// </summary>
     public static HtmlNone None => HtmlNone.Instance;
+
+
 }

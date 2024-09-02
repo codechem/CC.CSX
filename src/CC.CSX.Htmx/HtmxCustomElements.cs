@@ -10,17 +10,66 @@ public static partial class HtmxAttributes
     ///</summary>
     public static HtmlNode TmplFor(string condition, params HtmlNode[] children) => Fragment("{%for " + condition + " %}", Fragment(children), "{%endfor%}");
 
-    /// <summary>
-    /// Creates a htmx get attribute
+    ///<summary>
+    ///  issues a GET to the specified URL
     ///</summary>
-    public static HtmlAttribute hxGet(string uri, string? swap = null, string? target = null, string? trigger = null)
-    {
-        var attrs = new List<HtmlAttribute>(){ hxGet(uri) };
-        if (swap != null) attrs.Add(hxSwap(swap));
-        if (target != null) attrs.Add(hxTarget(target));
-        if (trigger != null) attrs.Add(hxTrigger(trigger));
-        return new MultiHtmlAttribute(attributes: attrs);
-    }
+    public static HtmlAttribute hxGet(string url, string target = "this", string swap = "innerHTML", bool history = false, bool pushUrl = false, bool replaceUrl = false) => MultiAttr(
+        hxGet(url),
+        hxTarget(target),
+        hxSwap(swap),
+        hxHistory(history.ToString().ToLower()),
+        hxPushUrl(pushUrl.ToString().ToLower()),
+        hxReplaceUrl(replaceUrl.ToString().ToLower())
+    );
+
+    ///<summary>
+    ///  issues a POST to the specified URL
+    ///</summary>
+    public static HtmlAttribute hxPost(string url, string target = "this", string swap = "innerHTML", bool history = false, bool pushUrl=false, bool replaceUrl = false) => MultiAttr(
+        hxPost(url),
+        hxTarget(target),
+        hxSwap(swap),
+        hxHistory(history.ToString().ToLower()),
+        hxPushUrl(pushUrl.ToString().ToLower()),
+        hxReplaceUrl(replaceUrl.ToString().ToLower())
+    );
+
+
+    ///<summary>
+    ///  issues a PUT to the specified URL
+    ///</summary>
+    public static HtmlAttribute hxPut(string url, string target = "this", string swap = "innerHTML", bool history = false, bool pushUrl = false, bool replaceUrl = false) => MultiAttr(
+        hxPut(url),
+        hxTarget(target),
+        hxSwap(swap),
+        hxHistory(history.ToString().ToLower()),
+        hxPushUrl(pushUrl.ToString().ToLower()),
+        hxReplaceUrl(replaceUrl.ToString().ToLower())
+    );
+
+    ///<summary>
+    ///  issues a PATCH to the specified URL
+    ///</summary>
+    public static HtmlAttribute hxPatch(string url, string target = "this", string swap = "innerHTML", bool history = false, bool pushUrl = false, bool replaceUrl = false) => MultiAttr(
+        hxPatch(url),
+        hxTarget(target),
+        hxSwap(swap),
+        hxHistory(history.ToString().ToLower()),
+        hxPushUrl(pushUrl.ToString().ToLower()),
+        hxReplaceUrl(replaceUrl.ToString().ToLower())
+    );
+
+    ///<summary>
+    ///  issues a DELETE to the specified URL
+    ///</summary>
+    public static HtmlAttribute hxDelete(string url, string target = "this", string swap = "innerHTML", bool history = false, bool pushUrl = false, bool replaceUrl = false) => MultiAttr(
+        hxDelete(url),
+        hxTarget(target),
+        hxSwap(swap),
+        hxHistory(history.ToString().ToLower()),
+        hxPushUrl(pushUrl.ToString().ToLower()),
+        hxReplaceUrl(replaceUrl.ToString().ToLower())
+    );
 
     ///<summary>
     /// Adds a script node for loading nunjucks 
@@ -30,7 +79,7 @@ public static partial class HtmxAttributes
     ///<summary>
     /// Adds a script node for loading htmx and hyperscript
     ///</summary>
-    public static Fragment HtmxScriptImports = Fragment(
+    public static Fragment HtmxImports = Fragment(
         ScriptSrc("https://unpkg.com/htmx.org@1.9.3"),
         ScriptSrc("https://unpkg.com/hyperscript.org@0.9.7"));
 }
