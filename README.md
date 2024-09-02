@@ -163,5 +163,3 @@ for using the core package in ASP.NET Core
 attribute methods for [HTMX](https://htmx.org/)
 
 Contributions and ideas are welcome.
-
-With 💚 from [CodeChem](https://www.codechem.com)
