@@ -77,8 +77,8 @@ Most of the Html elements and attributes can be created by their static method c
 methods that return `HtmlNode` or `HtmlAttribute` instances.
 
 Every HTML node has its defined method with the same name as the Element
-  - `using satatic CC.CSX.HtmlElements` imports all the methods that create HTML Nodes.
-  - `using satatic CC.CSX.HtmlAttributes` imports all the methods that create HTML Attributes.
+  - `using static CC.CSX.HtmlElements` imports all the methods that create HTML Nodes.
+  - `using static CC.CSX.HtmlAttributes` imports all the methods that create HTML Attributes.
 
 Some more notable implicit operators are:
 - Any parameter that is a tuple of two strings (key and the value) is converted to `HtmlAttribute`
