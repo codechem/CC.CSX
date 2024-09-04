@@ -30,7 +30,7 @@ public static partial class HtmlElements
     /// <summary>
     /// Creates a new multi attribute with the given attributes.
     /// </summary>
-    public static HtmlAttribute MultiAttr(params HtmlAttribute[] attributes) => new MultiHtmlAttribute(attributes:attributes);
+    public static MultiHtmlAttribute MultiAttr(params HtmlAttribute[] attributes) => new MultiHtmlAttribute(attributes:attributes);
     /// <summary>
     /// None node
     /// </summary>

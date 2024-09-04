@@ -17,7 +17,7 @@ public class GeneralRenderingTests
     public void Indent_Should_BeRespected()
     {
         RenderOptions.Indent = 0;
-        Assert.Equal(_expectedNoIndent, _sut.ToString());
+        Assert.Equal(_expectedNoIndent, _sut.ToString().Replace("\r\n","\n"));
         RenderOptions.Indent = 2;
         Assert.Equal(_expected, _sut.ToString());
     }
@@ -28,14 +28,14 @@ public class GeneralRenderingTests
         RenderOptions.Indent = 0;
         var attrsOnly2 = A(href("https://google.com"), @class("test"));
         var attrsOnly1 = A((href, "https://google.com"), (@class, "test"));
-        Assert.Equal(attrsOnly1.ToString(), attrsOnly2.ToString());
+        Assert.Equal(attrsOnly1.ToString(), attrsOnly2.ToString().Replace("\r\n","\n"));
     }
     [Fact]
     public void WriteTo_Should_ProduceTheSameOutputAsToString()
     {
         var tw = new StringWriter() as TextWriter;
         _sut.WriteTo(ref tw);
-        Assert.Equal(_expected, tw.ToString());
+        Assert.Equal(_expected, tw.ToString()!.Replace("\r\n","\n"));
     }
 
     [Fact]
@@ -44,8 +44,8 @@ public class GeneralRenderingTests
         var sut = new MultiHtmlAttribute("#test", new[] { new HtmlAttribute("test", "test"), new HtmlAttribute("test2", "test2") });
         var tw = new StringWriter() as TextWriter;
         sut.WriteTo(ref tw);
-        Assert.Equal("test=\"test\" test2=\"test2\"", sut.ToString());
-        Assert.Equal("test=\"test\" test2=\"test2\"", tw.ToString());
+        Assert.Equal("test=\"test\" test2=\"test2\"", sut.ToString()!.Replace("\r\n","\n"));
+        Assert.Equal("test=\"test\" test2=\"test2\"", tw.ToString()!.Replace("\r\n","\n"));
     }
 
     [Fact]
