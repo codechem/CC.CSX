@@ -19,7 +19,7 @@ public class GeneralRenderingTests
         RenderOptions.Indent = 0;
         Assert.Equal(_expectedNoIndent, _sut.ToString().Replace("\r\n","\n"));
         RenderOptions.Indent = 2;
-        Assert.Equal(_expected, _sut.ToString());
+        Assert.Equal(_expected, _sut.ToString().Replace("\r\n","\n"));
     }
 
     [Fact]
