@@ -18,13 +18,13 @@ app.Run();
 static HtmlNode Master(string title, params HtmlNode[] content) => Html(
     Meta(charset("utf-8")),
     Head(
-        Title("Htnet Demo", 2),
+        Title(title),
         Meta(charset("utf-8")),
         HtmxImports
         ),
         
     Body(
-        H1(@class("text-center"), title),
+        H1(@class("text-center", "adasd", "asdfqer"), title, Label("Costa"), "adasd", style("color: red;")),
         content,
         Hr()
     )

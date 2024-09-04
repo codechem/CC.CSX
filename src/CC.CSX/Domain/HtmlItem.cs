@@ -68,6 +68,11 @@ public abstract class HtmlItem
     /// Implicit conversion from array of nodes to fragment <see cref="Fragment"/>.
     /// </summary>
     public static implicit operator HtmlItem(in HtmlNode[] nodes) => new Fragment(nodes);
+    
+    ///<summary>
+    /// Implicit conversion from IEnumerable&lt;HtmlNode of nodes to fragment <see cref="Fragment"/>.
+    ///</summary>
+    public static implicit operator HtmlItem(in List<HtmlNode> nodes) => new Fragment(nodes);
 
     /// <summary>
     /// Implicit conversion from array of nodes to fragment <see cref="Fragment"/>.

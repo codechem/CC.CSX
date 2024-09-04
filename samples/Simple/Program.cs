@@ -1,13 +1,16 @@
 ﻿using static CC.CSX.HtmlElements;
 using static CC.CSX.HtmlAttributes;
+using CC.CSX;
 
 Print(
-  Div(style("background:silver;"),
-    "Hello HTML",
-    Fragment(Label("Some text"), H1("some header")),
-    H1(style("background: silver;"), "Hello world"),
-    Article(id("article-1"),
-      P("Some content here"),
-      Button(id("bang"), onclick("alert('hello world')")))));
-
+    Ul([ .. from n in Enumerable.Range(1, 20)
+        select Li(
+            "0 =",
+            (from m in Enumerable.Range(1, 20)
+            where m % n == 0
+            select B(" ≡ ", m)).ToList(),
+            I(B(" mod "+n))
+        )
+    ])
+);
 void Print(object node) => Console.WriteLine(node.ToString());

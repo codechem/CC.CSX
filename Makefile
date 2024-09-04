@@ -24,27 +24,19 @@ test:
 package.all: package.core package.web package.htmx
 	echo "Package all done"
 
-
 package.core:
-	./eng/package-core.sh
+	bash ./eng/package-core.sh
 
 package.web:
-	./eng/package-web.sh
+	bash ./eng/package-web.sh
 
-packag.htmx:
-	./eng/package-htmx.sh
+package.htmx: 
+	bash ./eng/package-htmx.sh
 
-publish.all: version.bump package.all publish.core publish.web publish.htmx
-	echo "Publish all done"
-
-publish.core:
-	source eng/load_env.sh && dotnet nuget push dist/packages/CC.CSX.$VERSION.nupkg -k $NUGET_API_KEY -s $NUGET_PUBLISH_SOURCE
-
-publish.web:
-	source eng/load_env.sh && dotnet nuget push dist/packages/CC.CSX.Web.$VERSION.nupkg -k $NUGET_API_KEY -s $NUGET_PUBLISH_SOURCE
-
-publish.htmx:
-	source eng/load_env.sh && dotnet nuget push dist/packages/CC.CSX.Htmx.$VERSION.nupkg -k $NUGET_API_KEY -s $NUGET_PUBLISH_SOURCE
+publish.all: version.bump package.all
+	bash ./eng/publish-all.sh
+	git add .
+	git commit -m "Publish Version ${VERSION}"
 
 version.bump:
 	./eng/version-bump.sh
