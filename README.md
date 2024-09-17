@@ -44,8 +44,8 @@ app.MapGet("/", () => Render( // Render the Html node
 
 // These are the post routes that will be called when the buttons 
 // are clicked and will just return the new counter value
-app.MapPost("/increment", () => Render(++counter));
-app.MapPost("/decrement", () => Render(--counter));
+app.MapPost("/increment", () => Render($"{++counter}"));
+app.MapPost("/decrement", () => Render($"{--counter}"));
 app.Run();
 
 // This method provides the master layout for the page and can be reused
