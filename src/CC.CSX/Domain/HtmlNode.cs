@@ -1,6 +1,7 @@
-namespace CC.CSX;
 using System.Text;
 using System.Text.Json.Serialization;
+
+namespace CC.CSX;
 
 /// <summary>
 /// represents a regular HTML element
@@ -20,20 +21,22 @@ public class HtmlNode : HtmlItem
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyOrder(1)]
-    public List<HtmlAttribute> Attributes { get; set; } = new();
+    public List<HtmlAttribute> Attributes { get; set; } = [];
 
     ///<summary>
     /// the children of the element
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyOrder(2)]
-    public List<HtmlNode> Children { get; set; } = new();
+    public List<HtmlNode> Children { get; set; } = [];
 
     /// <summary>
     /// implicit conversion from string to <see cref="HtmlTextNode"/>
     /// </summary>
     public static implicit operator HtmlNode(string value)
-        => new HtmlTextNode(value);
+    {
+        return new HtmlTextNode(value);
+    }
 
     /// <summary>
     /// Constructs a new instance of <see cref="HtmlNode"/>
@@ -42,19 +45,16 @@ public class HtmlNode : HtmlItem
             IEnumerable<HtmlAttribute>? attributes = null,
             IEnumerable<HtmlNode>? children = null) : base(name)
     {
-        if (name.Contains("#"))
+        Name = name;
+        if (children is not null)
         {
-            var parts = name.Split('#');
-            Name = parts[0];
-            Id = parts[1];
-        }
-        else
-        {
-            Name = name;
+            Children = children.ToList();
         }
 
-        if (children is not null) Children = children.ToList();
-        if (attributes is not null) Attributes = attributes.ToList();
+        if (attributes is not null)
+        {
+            Attributes = attributes.ToList();
+        }
     }
 
     /// <summary>
@@ -90,74 +90,83 @@ public class HtmlNode : HtmlItem
         return this;
     }
 
-    static void MaybeCr(StringBuilder sb)
+    private static void MaybeCr(StringBuilder sb)
     {
-        if (RenderOptions.Indent > 0 && sb.Length > 0 && sb[sb.Length - 1] != '\n')
+        if (RenderOptions.Indent > 0 && sb.Length > 0 && sb[^1] != '\n')
         {
-            sb.AppendLine();
+            _ = sb.AppendLine();
         }
     }
 
-    static string MaybeCr(string sb)
+    private static string MaybeCr(string sb)
     {
-        if (RenderOptions.Indent > 0 && sb.Length > 0 && sb[sb.Length - 1] != '\n')
+        return RenderOptions.Indent switch
         {
-            return sb + "\n";
-        }
-        return sb;
+            > 0 when sb.Length > 0 && sb[^1] != '\n' => sb + "\n",
+            _ => sb,
+        };
     }
+
+    private const char OpenTag = '<';
+    private const char CloseTag = '>';
+    private const char Space = ' ';
+    private const char Backslash = '/';
 
     ///<inheritdoc/>
     public override string ToString(int indent = 0)
     {
-        var sb = new StringBuilder();
+        StringBuilder sb = new();
+        string intentStr = new(' ', indent);
 
-        sb.Append($"{new string(' ', indent)}<{Name}");
-        if (Attributes.Any())
+        _ = sb.Append(intentStr);
+        _ = sb.Append('<');
+        _ = sb.Append(Name);
+        if (Attributes.Count != 0)
         {
-            sb.Append(" ");
-            sb.Append(string.Join(" ", Attributes));
+            _ = sb.Append(' ');
+            _ = sb.Append(string.Join(" ", Attributes));
         }
-        sb.Append(">");
+        _ = sb.Append('>');
         MaybeCr(sb);
-        foreach (var child in Children)
+        foreach (HtmlNode child in Children)
         {
-            sb.Append(child?.ToString(indent + RenderOptions.Indent));
+            _ = sb.Append(child?.ToString(indent + RenderOptions.Indent));
             MaybeCr(sb);
         }
         MaybeCr(sb);
-        sb.Append($"{new string(' ', indent)}</{Name}>");
+        _ = sb.Append(intentStr);
+        _ = sb.Append(OpenTag).Append(Backslash).Append(Name).Append(CloseTag);
         return sb.ToString();
     }
 
-    const char openTag = '<';
-    const char closeTag = '>';
-    const char space = ' ';
-    const char backslash = '/';
 
     ///<inheritdoc/>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
-        var sw = new StringWriter(sb) as TextWriter;
+        TextWriter sw = new StringWriter(sb);
         WriteTo(ref sw, indent);
     }
 
     ///<inheritdoc/>
     public override void WriteTo(ref TextWriter tw, int indent = 0)
     {
-        var indentStr = new string(' ', indent);
+        string indentStr = new(' ', indent);
         tw.Write(indentStr);
-        tw.Write(openTag);
+        tw.Write(OpenTag);
         tw.Write(Name);
-        foreach (var attr in Attributes)
+        foreach (HtmlAttribute attr in Attributes)
         {
-            tw.Write(space);
+            tw.Write(Space);
             attr.WriteTo(ref tw);
         }
-        tw.Write(closeTag);
+        tw.Write(CloseTag);
         bool newLines = Children.Count > 0 && RenderOptions.Indent > 0;
-        if (newLines) tw.WriteLine();
-        foreach (var child in Children)
+        if (newLines)
+        {
+            tw.WriteLine();
+        }
+
+        foreach (HtmlNode? child in Children)
         {
             child?.WriteTo(ref tw, indent + RenderOptions.Indent);
             if (newLines)
@@ -174,16 +183,21 @@ public class HtmlNode : HtmlItem
                     tw.WriteLine();
                 }
             }
-            else
-                if (newLines) tw.WriteLine();
+            else if (newLines)
+            {
+                tw.WriteLine();
+            }
         }
         tw.Write(indentStr);
-        tw.Write(openTag);
-        tw.Write(backslash);
+        tw.Write(OpenTag);
+        tw.Write(Backslash);
         tw.Write(Name);
-        tw.Write(closeTag);
+        tw.Write(CloseTag);
     }
 
     ///<inheritdoc/>
-    public override string ToString() => ToString(0);
+    public override string ToString()
+    {
+        return ToString(0);
+    }
 }

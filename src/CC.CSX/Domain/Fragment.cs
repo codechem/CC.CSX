@@ -10,7 +10,8 @@ public class Fragment : HtmlNode
     /// <summary>
     /// The singleton instance of <see cref="Fragment"/> that has no children.
     /// </summary>
-    public static Fragment Empty = new();
+    public static Fragment Empty { get; } = new();
+
     /// <summary>
     /// Creates a new instance of <see cref="Fragment"/> with the given children.
     /// </summary>

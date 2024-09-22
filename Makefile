@@ -18,8 +18,9 @@ watch.htmx:
 
 watch.web:
 	dotnet watch --project ./samples/Web/Web.csproj
+
 test:
-	dotnet test
+	dotnet coverage collect "dotnet test --logger:\"junit;LogFilePath=./results/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose\"" 
 
 package.all: package.core package.web package.htmx
 	echo "Package all done"

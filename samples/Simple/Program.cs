@@ -1,6 +1,4 @@
 ﻿using static CC.CSX.HtmlElements;
-using static CC.CSX.HtmlAttributes;
-using CC.CSX;
 
 Print(
     Ul([ .. from n in Enumerable.Range(1, 20)
@@ -13,4 +11,5 @@ Print(
         )
     ])
 );
-void Print(object node) => Console.WriteLine(node.ToString());
+
+static void Print(object node) { Console.WriteLine(node.ToString()); }

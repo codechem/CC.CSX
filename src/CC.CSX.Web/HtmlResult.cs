@@ -10,8 +10,11 @@ using Microsoft.AspNetCore.Http.Metadata;
 /// <summary>
 /// Represents an <see cref="IResult"/> that when executed will write HTML to the response.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of <see cref="HtmlResult"/>.
+/// </remarks>
 #if NET7_0_OR_GREATER
-public class HtmlResult : IResult, IActionResult, IEndpointMetadataProvider
+public class HtmlResult(HtmlNode node) : IResult, IActionResult, IEndpointMetadataProvider
 #else
 public class HtmlResult : IResult, IActionResult
 #endif
@@ -19,15 +22,7 @@ public class HtmlResult : IResult, IActionResult
     /// <summary>
     /// Gets the <see cref="HtmlNode"/> to render.
     /// </summary>
-     public HtmlNode Node { get; private set;}
-
-     /// <summary>
-     /// Initializes a new instance of <see cref="HtmlResult"/>.
-     /// </summary>
-     public HtmlResult(HtmlNode node)
-     {
-         Node = node;
-     }
+    public HtmlNode Node { get; private set; } = node;
 
 
     /// <inheritdoc />

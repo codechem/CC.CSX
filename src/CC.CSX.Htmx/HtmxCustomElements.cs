@@ -1,8 +1,7 @@
+using static CC.CSX.HtmlElements;
+
 namespace CC.CSX.Htmx;
 
-using CC.CSX;
-
-using static CC.CSX.HtmlElements;
 public static partial class HtmxAttributes
 {
     ///<summary>
@@ -80,6 +79,6 @@ public static partial class HtmxAttributes
     /// Adds a script node for loading htmx and hyperscript
     ///</summary>
     public static Fragment HtmxImports = Fragment(
-        ScriptSrc("https://unpkg.com/htmx.org"),
-        ScriptSrc("https://unpkg.com/hyperscript.org"));
+        ScriptSrc("https://unpkg.com/htmx.org@1.9.3"),
+        ScriptSrc("https://unpkg.com/hyperscript.org@0.9.7"));
 }

@@ -10,12 +10,12 @@ using System.Text;
 /// </summary>
 public class MultiHtmlAttribute : HtmlAttribute, IList<HtmlAttribute>
 {
-    private const char space = ' ';
+    private const char Space = ' ';
 
     /// <summary>
     /// The list of attributes.
     /// </summary>
-    public List<HtmlAttribute> Attributes { get; set; } = new();
+    public List<HtmlAttribute> Attributes { get; set; } = [];
     /// <summary>
     /// Creates a new instance of <see cref="MultiHtmlAttribute"/> with the given name and attributes.
     /// note: the name is set to <c>#multi</c> by default, and it is not rendered
@@ -79,7 +79,7 @@ public class MultiHtmlAttribute : HtmlAttribute, IList<HtmlAttribute>
         foreach (var attr in Attributes)
         {
             attr.AppendTo(ref sb, indent);
-            sb.Append(space);
+            sb.Append(Space);
         }
         sb.Remove(sb.Length - 1, 1);
     }
@@ -93,7 +93,7 @@ public class MultiHtmlAttribute : HtmlAttribute, IList<HtmlAttribute>
         {
             Attributes[i].WriteTo(ref sb, indent);
             if(i < Attributes.Count - 1)
-                sb.Write(space);
+                sb.Write(Space);
         }
     }
 }

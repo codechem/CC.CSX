@@ -1,0 +1,1802 @@
+namespace CC.CSX;
+
+///<summary>
+/// A list of all available css properties
+/// </summary>
+public static class CssPropertyKeys
+{
+    ///<summary>
+    /// accent-color	Specifies an accent color for user-interface controls
+    ///</summary>
+    public const string @AccentColor = "accent-color";
+
+    ///<summary>
+    /// align-content	Specifies the alignment between the lines inside a flexible container when the items do not use all available space
+    ///</summary>
+    public const string @AlignContent = "align-content";
+
+    ///<summary>
+    /// align-items	Specifies the alignment for items inside a flexible container
+    ///</summary>
+    public const string @AlignItems = "align-items";
+
+    ///<summary>
+    /// align-self	Specifies the alignment for selected items inside a flexible container
+    ///</summary>
+    public const string @AlignSelf = "align-self";
+
+    ///<summary>
+    /// all	resets all properties (except unicode-bidi and direction)
+    ///</summary>
+    public const string @All = "all";
+
+    ///<summary>
+    /// animation	A shorthand property for all the animation-* properties
+    ///</summary>
+    public const string @Animation = "animation";
+
+    ///<summary>
+    /// animation-delay	Specifies a delay for the start of an animation
+    ///</summary>
+    public const string @AnimationDelay = "animation-delay";
+
+    ///<summary>
+    ///animation-direction	Specifies whether an animation should be played forwards, backwards or in alternate cycles
+    ///</summary>
+    public const string @AnimationDirection = "animation-direction";
+
+    ///<summary>
+    ///animation-duration	Specifies how long an animation should take to complete one cycle
+    ///</summary>
+    public const string @AnimationDuration = "animation-duration";
+
+    ///<summary>
+    ///animation-fill-mode	Specifies a style for the element when the animation is not playing (before it starts, after it ends, or both)
+    ///</summary>
+    public const string @AnimationFillMode = "animation-fill-mode";
+
+    ///<summary>
+    ///animation-iteration-count	Specifies the number of times an animation should be played
+    ///</summary>
+    public const string @AnimationIterationCount = "animation-iteration-count";
+
+    ///<summary>
+    /// animation-name	Specifies a name for the @keyframes animation
+    ///</summary>
+    public const string @AnimationName = "animation-name";
+
+    ///<summary>
+    ///n-play-state	Specifies whether the animation is running or paused
+    ///</summary>
+    public const string @AnimationPlayState = "animation-play-state";
+
+    ///<summary>
+    ///n-timing-function	Specifies the speed curve of an animation
+    ///</summary>
+    public const string @AnimationTimingFunction = "animation-timing-function";
+
+    ///<summary>
+    /// aspect-ratio	Specifies preferred aspect ratio of an element
+    ///</summary>
+    public const string @AspectRatio = "aspect-ratio";
+
+    ///<summary>
+    /// backdrop-filter	Defines a graphical effect to the area behind an element
+    ///</summary>
+    public const string @BackdropFilter = "backdrop-filter";
+
+    ///<summary>
+    ///e-visibility	Defines whether or not the back face of an element should be visible when facing the user
+    ///</summary>
+    public const string @BackfaceVisibility = "backface-visibility";
+
+    ///<summary>
+    /// background	A shorthand property for all the background-* properties
+    ///</summary>
+    public const string @Background = "background";
+
+    ///<summary>
+    ///d-attachment	Sets whether a background image scrolls with the rest of the page, or is fixed
+    ///</summary>
+    public const string @BackgroundAttachment = "background-attachment";
+
+    ///<summary>
+    ///d-blend-mode	Specifies the blending mode of each background layer (color/image)
+    ///</summary>
+    public const string @BackgroundBlendMode = "background-blend-mode";
+
+    ///<summary>
+    /// background-clip	Defines how far the background (color or image) should extend within an element
+    ///</summary>
+    public const string @BackgroundClip = "background-clip";
+
+    ///<summary>
+    ///d-color	Specifies the background color of an element
+    ///</summary>
+    public const string @BackgroundColor = "background-color";
+
+    ///<summary>
+    ///d-image	Specifies one or more background images for an element
+    ///</summary>
+    public const string @BackgroundImage = "background-image";
+
+    ///<summary>
+    ///d-origin	Specifies the origin position of a background image
+    ///</summary>
+    public const string @BackgroundOrigin = "background-origin";
+
+    ///<summary>
+    ///d-position	Specifies the position of a background image
+    ///</summary>
+    public const string @BackgroundPosition = "background-position";
+
+    ///<summary>
+    ///d-position-x	Specifies the position of a background image on x-axis
+    ///</summary>
+    public const string @BackgroundPositionX = "background-position-x";
+
+    ///<summary>
+    ///d-position-y	Specifies the position of a background image on y-axis
+    ///</summary>
+    public const string @BackgroundPositionY = "background-position-y";
+
+    ///<summary>
+    ///d-repeat	Sets if/how a background image will be repeated
+    ///</summary>
+    public const string @BackgroundRepeat = "background-repeat";
+
+    ///<summary>
+    /// background-size	Specifies the size of the background images
+    ///</summary>
+    public const string @BackgroundSize = "background-size";
+
+    ///<summary>
+    /// block-size	Specifies the size of an element in block direction
+    ///</summary>
+    public const string @BlockSize = "block-size";
+
+    ///<summary>
+    /// border	a shorthand property for border-width, border-style and border-color
+    ///</summary>
+    public const string @Border = "border";
+
+    ///<summary>
+    /// border-block	A shorthand property for border-block-width, border-block-style and border-block-color
+    ///</summary>
+    public const string @BorderBlock = "border-block";
+
+    ///<summary>
+    ///r-block-color	Sets the color of the borders at start and end in the block direction
+    ///</summary>
+    public const string @BorderBlockColor = "border-block-color";
+
+    ///<summary>
+    /// border-block-end	A shorthand property for border-block-end-width, border-block-end-style and border-block-end-color
+    ///</summary>
+    public const string @BorderBlockEnd = "border-block-end";
+
+    ///<summary>
+    ///r-block-end-color	Sets the color of the border at the end in the block direction
+    ///</summary>
+    public const string @BorderBlockEndColor = "border-block-end-color";
+
+    ///<summary>
+    ///r-block-end-style	Sets the style of the border at the end in the block direction
+    ///</summary>
+    public const string @BorderBlockEndStyle = "border-block-end-style";
+
+    ///<summary>
+    ///r-block-end-width	Sets the width of the border at the end in the block direction
+    ///</summary>
+    public const string @BorderBlockEndWidth = "border-block-end-width";
+
+    ///<summary>
+    ///r-block-start	A shorthand property for border-block-start-width, border-block-start-style and border-block-start-color
+    ///</summary>
+    public const string @BorderBlockStart = "border-block-start";
+
+    ///<summary>
+    ///-block-start-color	Sets the color of the border at the start in the block direction
+    ///</summary>
+    public const string @BorderBlockStartColor = "border-block-start-color";
+
+    ///<summary>
+    ///-block-start-style	Sets the style of the border at the start in the block direction
+    ///</summary>
+    public const string @BorderBlockStartStyle = "border-block-start-style";
+
+    ///<summary>
+    ///-block-start-width	Sets the width of the border at the start in the block direction
+    ///</summary>
+    public const string @BorderBlockStartWidth = "border-block-start-width";
+
+    ///<summary>
+    ///r-block-style	Sets the style of the borders at start and end in the block direction
+    ///</summary>
+    public const string @BorderBlockStyle = "border-block-style";
+
+    ///<summary>
+    ///r-block-width	Sets the width of the borders at start and end in the block direction
+    ///</summary>
+    public const string @BorderBlockWidth = "border-block-width";
+
+    ///<summary>
+    /// border-bottom	A shorthand property for border-bottom-width, border-bottom-style and border-bottom-color
+    ///</summary>
+    public const string @BorderBottom = "border-bottom";
+
+    ///<summary>
+    ///r-bottom-color	Sets the color of the bottom border
+    ///</summary>
+    public const string @BorderBottomColor = "border-bottom-color";
+
+    ///<summary>
+    ///m-left-radius	Defines the radius of the border of the bottom-left corner
+    ///</summary>
+    public const string @BorderBottomLeftRadius = "border-bottom-left-radius";
+
+    ///<summary>
+    ///m-right-radius	Defines the radius of the border of the bottom-right corner
+    ///</summary>
+    public const string @BorderBottomRightRadius = "border-bottom-right-radius";
+
+    ///<summary>
+    ///r-bottom-style	Sets the style of the bottom border
+    ///</summary>
+    public const string @BorderBottomStyle = "border-bottom-style";
+
+    ///<summary>
+    ///r-bottom-width	Sets the width of the bottom border
+    ///</summary>
+    public const string @BorderBottomWidth = "border-bottom-width";
+
+    ///<summary>
+    /// border-collapse	Sets whether table borders should collapse into a single border or be separated
+    ///</summary>
+    public const string @BorderCollapse = "border-collapse";
+
+    ///<summary>
+    /// border-color	Sets the color of the four borders
+    ///</summary>
+    public const string @BorderColor = "border-color";
+
+    ///<summary>
+    ///r-end-end-radius	Sets the radius of the corner between the block-end and the inline-end sides of the element
+    ///</summary>
+    public const string @BorderEndEndRadius = "border-end-end-radius";
+
+    ///<summary>
+    ///r-end-start-radius	Sets the radius of the corner between the block-end and the inline-start sides of the element
+    ///</summary>
+    public const string @BorderEndStartRadius = "border-end-start-radius";
+
+    ///<summary>
+    /// border-image	A shorthand property for all the border-image-* properties
+    ///</summary>
+    public const string @BorderImage = "border-image";
+
+    ///<summary>
+    ///r-image-outset	Specifies the amount by which the border image area extends beyond the border box
+    ///</summary>
+    public const string @BorderImageOutset = "border-image-outset";
+
+    ///<summary>
+    ///r-image-repeat	Specifies whether the border image should be repeated, rounded or stretched
+    ///</summary>
+    public const string @BorderImageRepeat = "border-image-repeat";
+
+    ///<summary>
+    ///r-image-slice	Specifies how to slice the border image
+    ///</summary>
+    public const string @BorderImageSlice = "border-image-slice";
+
+    ///<summary>
+    ///r-image-source	Specifies the path to the image to be used as a border
+    ///</summary>
+    public const string @BorderImageSource = "border-image-source";
+
+    ///<summary>
+    ///r-image-width	Specifies the width of the border image
+    ///</summary>
+    public const string @BorderImageWidth = "border-image-width";
+
+    ///<summary>
+    /// border-inline	A shorthand property for border-inline-width, border-inline-style and border-inline-color
+    ///</summary>
+    public const string @BorderInline = "border-inline";
+
+    ///<summary>
+    ///r-inline-color	Sets the color of the borders at start and end in the inline direction
+    ///</summary>
+    public const string @BorderInlineColor = "border-inline-color";
+
+    ///<summary>
+    ///r-inline-end	A shorthand property for border-inline-end-width, border-inline-end-style and border-inline-end-color
+    ///</summary>
+    public const string @BorderInlineEnd = "border-inline-end";
+
+    ///<summary>
+    ///r-inline-end-color	Sets the color of the border at the end in the inline direction
+    ///</summary>
+    public const string @BorderInlineEndColor = "border-inline-end-color";
+
+    ///<summary>
+    ///r-inline-end-style	Sets the style of the border at the end in the inline direction
+    ///</summary>
+    public const string @BorderInlineEndStyle = "border-inline-end-style";
+
+    ///<summary>
+    ///r-inline-end-width	Sets the width of the border at the end in the inline direction
+    ///</summary>
+    public const string @BorderInlineEndWidth = "border-inline-end-width";
+
+    ///<summary>
+    ///r-inline-start	A shorthand property for border-inline-start-width, border-inline-start-style and border-inline-start-color
+    ///</summary>
+    public const string @BorderInlineStart = "border-inline-start";
+
+    ///<summary>
+    ///e-start-color	Sets the color of the border at the start in the inline direction
+    ///</summary>
+    public const string @BorderInlineStartColor = "border-inline-start-color";
+
+    ///<summary>
+    ///e-start-style	Sets the style of the border at the start in the inline direction
+    ///</summary>
+    public const string @BorderInlineStartStyle = "border-inline-start-style";
+
+    ///<summary>
+    ///e-start-width	Sets the width of the border at the start in the inline direction
+    ///</summary>
+    public const string @BorderInlineStartWidth = "border-inline-start-width";
+
+    ///<summary>
+    ///r-inline-style	Sets the style of the borders at start and end in the inline direction
+    ///</summary>
+    public const string @BorderInlineStyle = "border-inline-style";
+
+    ///<summary>
+    ///r-inline-width	Sets the width of the borders at start and end in the inline direction
+    ///</summary>
+    public const string @BorderInlineWidth = "border-inline-width";
+
+    ///<summary>
+    /// border-left	A shorthand property for all the border-left-* properties
+    ///</summary>
+    public const string @BorderLeft = "border-left";
+
+    ///<summary>
+    ///r-left-color	Sets the color of the left border
+    ///</summary>
+    public const string @BorderLeftColor = "border-left-color";
+
+    ///<summary>
+    ///r-left-style	Sets the style of the left border
+    ///</summary>
+    public const string @BorderLeftStyle = "border-left-style";
+
+    ///<summary>
+    ///r-left-width	Sets the width of the left border
+    ///</summary>
+    public const string @BorderLeftWidth = "border-left-width";
+
+    ///<summary>
+    /// border-radius	A shorthand property for the four border-*-radius properties
+    ///</summary>
+    public const string @BorderRadius = "border-radius";
+
+    ///<summary>
+    /// border-right	A shorthand property for all the border-right-* properties
+    ///</summary>
+    public const string @BorderRight = "border-right";
+
+    ///<summary>
+    ///r-right-color	Sets the color of the right border
+    ///</summary>
+    public const string @BorderRightColor = "border-right-color";
+
+    ///<summary>
+    ///r-right-style	Sets the style of the right border
+    ///</summary>
+    public const string @BorderRightStyle = "border-right-style";
+
+    ///<summary>
+    ///r-right-width	Sets the width of the right border
+    ///</summary>
+    public const string @BorderRightWidth = "border-right-width";
+
+    ///<summary>
+    /// border-spacing	Sets the distance between the borders of adjacent cells
+    ///</summary>
+    public const string @BorderSpacing = "border-spacing";
+
+    ///<summary>
+    ///r-start-end-radius	Sets the radius of the corner between the block-start and the inline-end sides of the element
+    ///</summary>
+    public const string @BorderStartEndRadius = "border-start-end-radius";
+
+    ///<summary>
+    ///t-start-radius	Sets the radius of the corner between the block-start and the inline-start sides of the element
+    ///</summary>
+    public const string @BorderStartStartRadius = "border-start-start-radius";
+
+    ///<summary>
+    /// border-style	Sets the style of the four borders
+    ///</summary>
+    public const string @BorderStyle = "border-style";
+
+    ///<summary>
+    /// border-top	A shorthand property for border-top-width, border-top-style and border-top-color
+    ///</summary>
+    public const string @BorderTop = "border-top";
+
+    ///<summary>
+    /// border-top-color	Sets the color of the top border
+    ///</summary>
+    public const string @BorderTopColor = "border-top-color";
+
+    ///<summary>
+    ///r-top-left-radius	Defines the radius of the border of the top-left corner
+    ///</summary>
+    public const string @BorderTopLeftRadius = "border-top-left-radius";
+
+    ///<summary>
+    ///r-top-right-radius	Defines the radius of the border of the top-right corner
+    ///</summary>
+    public const string @BorderTopRightRadius = "border-top-right-radius";
+
+    ///<summary>
+    /// border-top-style	Sets the style of the top border
+    ///</summary>
+    public const string @BorderTopStyle = "border-top-style";
+
+    ///<summary>
+    /// border-top-width	Sets the width of the top border
+    ///</summary>
+    public const string @BorderTopWidth = "border-top-width";
+
+    ///<summary>
+    /// border-width	Sets the width of the four borders
+    ///</summary>
+    public const string @BorderWidth = "border-width";
+
+    ///<summary>
+    /// bottom	sets the elements position, from the bottom of its parent element
+    ///</summary>
+    public const string @Bottom = "bottom";
+
+    ///<summary>
+    ///-decoration-break	Sets the behavior of the background and border of an element at page-break, or, for in-line elements, at line-break.
+    ///</summary>
+    public const string @BoxDecorationBreak = "box-decoration-break";
+
+    ///<summary>
+    /// box-reflect	The box-reflect property is used to create a reflection of an element.
+    ///</summary>
+    public const string @BoxReflect = "box-reflect";
+
+    ///<summary>
+    /// box-shadow	Attaches one or more shadows to an element
+    ///</summary>
+    public const string @BoxShadow = "box-shadow";
+
+    ///<summary>
+    /// box-sizing	Defines how the width and height of an element are calculated: should they include padding and borders, or not
+    ///</summary>
+    public const string @BoxSizing = "box-sizing";
+
+    ///<summary>
+    /// break-after	Specifies whether or not a page-, column-, or region-break should occur after the specified element
+    ///</summary>
+    public const string @BreakAfter = "break-after";
+
+    ///<summary>
+    /// break-before	Specifies whether or not a page-, column-, or region-break should occur before the specified element
+    ///</summary>
+    public const string @BreakBefore = "break-before";
+
+    ///<summary>
+    /// break-inside	Specifies whether or not a page-, column-, or region-break should occur inside the specified element
+    ///</summary>
+    public const string @BreakInside = "break-inside";
+
+    ///<summary>
+    /// caption-side	Specifies the placement of a table caption
+    ///</summary>
+    public const string @CaptionSide = "caption-side";
+
+    ///<summary>
+    /// caret-color	Specifies the color of the cursor (caret) in inputs, textareas, or any element that is editable
+    ///</summary>
+    public const string @CaretColor = "caret-color";
+
+    ///<summary>
+    /// @charset	Specifies the character encoding used in the style sheet
+    ///</summary>
+    public const string @Charset = "@charset";
+
+    ///<summary>
+    /// clear	specifies what should happen with the element that is next to a floating element
+    ///</summary>
+    public const string @Clear = "clear";
+
+    ///<summary>
+    /// clip	deprecated in favor of clip-path. Clips an absolutely positioned element
+    ///</summary>
+    public const string @Clip = "clip";
+
+    ///<summary>
+    /// clip-path	Clips an element to a basic shape or to an SVG source
+    ///</summary>
+    public const string @ClipPath = "clip-path";
+
+    ///<summary>
+    /// color	sets the color of text
+    ///</summary>
+    public const string @Color = "color";
+
+    ///<summary>
+    /// color-scheme	Indicates which operating system color scheme an element should render with
+    ///</summary>
+    public const string @ColorScheme = "color-scheme";
+
+    ///<summary>
+    /// column-count	Specifies the number of columns an element should be divided into
+    ///</summary>
+    public const string @ColumnCount = "column-count";
+
+    ///<summary>
+    /// column-fill	Specifies how to fill columns, balanced or not
+    ///</summary>
+    public const string @ColumnFill = "column-fill";
+
+    ///<summary>
+    /// column-gap	Specifies the gap between the columns
+    ///</summary>
+    public const string @ColumnGap = "column-gap";
+
+    ///<summary>
+    /// column-rule	A shorthand property for all the column-rule-* properties
+    ///</summary>
+    public const string @ColumnRule = "column-rule";
+
+    ///<summary>
+    ///n-rule-color	Specifies the color of the rule between columns
+    ///</summary>
+    public const string @ColumnRuleColor = "column-rule-color";
+
+    ///<summary>
+    ///n-rule-style	Specifies the style of the rule between columns
+    ///</summary>
+    public const string @ColumnRuleStyle = "column-rule-style";
+
+    ///<summary>
+    ///n-rule-width	Specifies the width of the rule between columns
+    ///</summary>
+    public const string @ColumnRuleWidth = "column-rule-width";
+
+    ///<summary>
+    /// column-span	Specifies how many columns an element should span across
+    ///</summary>
+    public const string @ColumnSpan = "column-span";
+
+    ///<summary>
+    /// column-width	Specifies the column width
+    ///</summary>
+    public const string @ColumnWidth = "column-width";
+
+    ///<summary>
+    /// columns	a shorthand property for column-width and column-count
+    ///</summary>
+    public const string @Columns = "columns";
+
+    ///<summary>
+    /// content	used with the :before and :after pseudo-elements, to insert generated content
+    ///</summary>
+    public const string @Content = "content";
+
+    ///<summary>
+    ///r-increment	Increases or decreases the value of one or more CSS counters
+    ///</summary>
+    public const string @CounterIncrement = "counter-increment";
+
+    ///<summary>
+    /// counter-reset	Creates or resets one or more CSS counters
+    ///</summary>
+    public const string @CounterReset = "counter-reset";
+
+    ///<summary>
+    /// counter-set	Creates or sets one or more CSS counters
+    ///</summary>
+    public const string @CounterSet = "counter-set";
+
+    ///<summary>
+    /// cursor	specifies the mouse cursor to be displayed when pointing over an element
+    ///</summary>
+    public const string @Cursor = "cursor";
+
+    ///<summary>
+    /// direction	Specifies the text direction/writing direction
+    ///</summary>
+    public const string @Direction = "direction";
+
+    ///<summary>
+    /// display	specifies how a certain HTML element should be displayed
+    ///</summary>
+    public const string @Display = "display";
+
+    ///<summary>
+    /// empty-cells	Specifies whether or not to display borders and background on empty cells in a table
+    ///</summary>
+    public const string @EmptyCells = "empty-cells";
+
+    ///<summary>
+    /// filter	defines effects (e.g. blurring or color shifting) on an element before the element is displayed
+    ///</summary>
+    public const string @Filter = "filter";
+
+    ///<summary>
+    /// flex	a shorthand property for the flex-grow, flex-shrink, and the flex-basis properties
+    ///</summary>
+    public const string @Flex = "flex";
+
+    ///<summary>
+    /// flex-basis	Specifies the initial length of a flexible item
+    ///</summary>
+    public const string @FlexBasis = "flex-basis";
+
+    ///<summary>
+    /// flex-direction	Specifies the direction of the flexible items
+    ///</summary>
+    public const string @FlexDirection = "flex-direction";
+
+    ///<summary>
+    /// flex-flow	A shorthand property for the flex-direction and the flex-wrap properties
+    ///</summary>
+    public const string @FlexFlow = "flex-flow";
+
+    ///<summary>
+    /// flex-grow	Specifies how much the item will grow relative to the rest
+    ///</summary>
+    public const string @FlexGrow = "flex-grow";
+
+    ///<summary>
+    /// flex-shrink	Specifies how the item will shrink relative to the rest
+    ///</summary>
+    public const string @FlexShrink = "flex-shrink";
+
+    ///<summary>
+    /// flex-wrap	Specifies whether the flexible items should wrap or not
+    ///</summary>
+    public const string @FlexWrap = "flex-wrap";
+
+    ///<summary>
+    /// float	specifies whether an element should float to the left, right, or not at all
+    ///</summary>
+    public const string @Float = "float";
+
+    ///<summary>
+    /// font	a shorthand property for the font-style, font-variant, font-weight, font-size/line-height, and the font-family properties
+    ///</summary>
+    public const string @Font = "font";
+
+    ///<summary>
+    /// @font-face	A rule that allows websites to download and use fonts other than the "web-safe" fonts
+    ///</summary>
+    public const string @FontFace = "@font-face";
+
+    ///<summary>
+    /// font-family	Specifies the font family for text
+    ///</summary>
+    public const string @FontFamily = "font-family";
+
+    ///<summary>
+    ///-feature-settings	Allows control over advanced typographic features in OpenType fonts
+    ///</summary>
+    public const string @FontFeatureSettings = "font-feature-settings";
+
+    ///<summary>
+    ///t-feature-values	Allows authors to use a common name in font-variant-alternate for feature activated differently in OpenType
+    ///</summary>
+    public const string @FontFeatureValues = "@font-feature-values";
+
+    ///<summary>
+    /// font-kerning	Controls the usage of the kerning information (how letters are spaced)
+    ///</summary>
+    public const string @FontKerning = "font-kerning";
+
+    ///<summary>
+    ///e-override	Controls the usage of language-specific glyphs in a typeface
+    ///</summary>
+    public const string @FontLanguageOverride = "font-language-override";
+
+    ///<summary>
+    /// font-size	Specifies the font size of text
+    ///</summary>
+    public const string @FontSize = "font-size";
+
+    ///<summary>
+    /// font-size-adjust	Preserves the readability of text when font fallback occurs
+    ///</summary>
+    public const string @FontSizeAdjust = "font-size-adjust";
+
+    ///<summary>
+    /// font-stretch	Selects a normal, condensed, or expanded face from a font family
+    ///</summary>
+    public const string @FontStretch = "font-stretch";
+
+    ///<summary>
+    /// font-style	Specifies the font style for text
+    ///</summary>
+    public const string @FontStyle = "font-style";
+
+    ///<summary>
+    /// font-synthesis	Controls which missing typefaces (bold or italic) may be synthesized by the browser
+    ///</summary>
+    public const string @FontSynthesis = "font-synthesis";
+
+    ///<summary>
+    /// font-variant	Specifies whether or not a text should be displayed in a small-caps font
+    ///</summary>
+    public const string @FontVariant = "font-variant";
+
+    ///<summary>
+    ///t-alternates	Controls the usage of alternate glyphs associated to alternative names defined in @font-feature-values
+    ///</summary>
+    public const string @FontVariantAlternates = "font-variant-alternates";
+
+    ///<summary>
+    ///t-variant-caps	Controls the usage of alternate glyphs for capital letters
+    ///</summary>
+    public const string @FontVariantCaps = "font-variant-caps";
+
+    ///<summary>
+    ///t-east-asian	Controls the usage of alternate glyphs for East Asian scripts (e.g Japanese and Chinese)
+    ///</summary>
+    public const string @FontVariantEastAsian = "font-variant-east-asian";
+
+    ///<summary>
+    ///t-ligatures	Controls which ligatures and contextual forms are used in textual content of the elements it applies to
+    ///</summary>
+    public const string @FontVariantLigatures = "font-variant-ligatures";
+
+    ///<summary>
+    ///t-variant-numeric	Controls the usage of alternate glyphs for numbers, fractions, and ordinal markers
+    ///</summary>
+    public const string @FontVariantNumeric = "font-variant-numeric";
+
+    ///<summary>
+    ///-variant-position	Controls the usage of alternate glyphs of smaller size positioned as superscript or subscript regarding the baseline of the font
+    ///</summary>
+    public const string @FontVariantPosition = "font-variant-position";
+
+    ///<summary>
+    /// font-weight	Specifies the weight of a font
+    ///</summary>
+    public const string @FontWeight = "font-weight";
+
+    ///<summary>
+    /// gap	a shorthand property for the row-gap and the column-gap properties
+    ///</summary>
+    public const string @Gap = "gap";
+
+    ///<summary>
+    /// grid	a shorthand property for the grid-template-rows, grid-template-columns, grid-template-areas, grid-auto-rows, grid-auto-columns, and the grid-auto-flow properties
+    ///</summary>
+    public const string @Grid = "grid";
+
+    ///<summary>
+    /// grid-area	Either specifies a name for the grid item, or this property is a shorthand property for the grid-row-start, grid-column-start, grid-row-end, and grid-column-end properties
+    ///</summary>
+    public const string @GridArea = "grid-area";
+
+    ///<summary>
+    ///d-auto-columns	Specifies a default column size
+    ///</summary>
+    public const string @GridAutoColumns = "grid-auto-columns";
+
+    ///<summary>
+    /// grid-auto-flow	Specifies how auto-placed items are inserted in the grid
+    ///</summary>
+    public const string @GridAutoFlow = "grid-auto-flow";
+
+    ///<summary>
+    /// grid-auto-rows	Specifies a default row size
+    ///</summary>
+    public const string @GridAutoRows = "grid-auto-rows";
+
+    ///<summary>
+    /// grid-column	A shorthand property for the grid-column-start and the grid-column-end properties
+    ///</summary>
+    public const string @GridColumn = "grid-column";
+
+    ///<summary>
+    /// grid-column-end	Specifies where to end the grid item
+    ///</summary>
+    public const string @GridColumnEnd = "grid-column-end";
+
+    ///<summary>
+    ///d-column-start	Specifies where to start the grid item
+    ///</summary>
+    public const string @GridColumnStart = "grid-column-start";
+
+    ///<summary>
+    /// grid-row	A shorthand property for the grid-row-start and the grid-row-end properties
+    ///</summary>
+    public const string @GridRow = "grid-row";
+
+    ///<summary>
+    /// grid-row-end	Specifies where to end the grid item
+    ///</summary>
+    public const string @GridRowEnd = "grid-row-end";
+
+    ///<summary>
+    /// grid-row-start	Specifies where to start the grid item
+    ///</summary>
+    public const string @GridRowStart = "grid-row-start";
+
+    ///<summary>
+    /// grid-template	A shorthand property for the grid-template-rows, grid-template-columns and grid-areas properties
+    ///</summary>
+    public const string @GridTemplate = "grid-template";
+
+    ///<summary>
+    ///d-template-areas	Specifies how to display columns and rows, using named grid items
+    ///</summary>
+    public const string @GridTemplateAreas = "grid-template-areas";
+
+    ///<summary>
+    ///-template-columns	Specifies the size of the columns, and how many columns in a grid layout
+    ///</summary>
+    public const string @GridTemplateColumns = "grid-template-columns";
+
+    ///<summary>
+    ///d-template-rows	Specifies the size of the rows in a grid layout
+    ///</summary>
+    public const string @GridTemplateRows = "grid-template-rows";
+
+    ///<summary>
+    ///g-punctuation	Specifies whether a punctuation character may be placed outside the line box
+    ///</summary>
+    public const string @HangingPunctuation = "hanging-punctuation";
+
+    ///<summary>
+    /// height	sets the height of an element
+    ///</summary>
+    public const string @Height = "height";
+
+    ///<summary>
+    /// hyphens	sets how to split words to improve the layout of text
+    ///</summary>
+    public const string @Hyphens = "hyphens";
+
+    ///<summary>
+    ///e-character	Sets the character used at the end of line, before a hyphenation break
+    ///</summary>
+    public const string @HypenateCharacter = "hypenate-character";
+
+    ///<summary>
+    /// image-rendering	Specifies the type of algorithm to use for image scaling
+    ///</summary>
+    public const string @ImageRendering = "image-rendering";
+
+    ///<summary>
+    /// @import	allows you to import a style sheet into another style sheet
+    ///</summary>
+    public const string @Import = "@import";
+
+    ///<summary>
+    /// initial-letter	Specifies the size of the initial-letter and optionally the number of lines the initial letter should sink (down in the text)
+    ///</summary>
+    public const string @InitialLetter = "initial-letter";
+
+    ///<summary>
+    /// inline-size	Specifies the size of an element in the inline direction
+    ///</summary>
+    public const string @InlineSize = "inline-size";
+
+    ///<summary>
+    /// inset	specifies the distance between an element and the parent element
+    ///</summary>
+    public const string @Inset = "inset";
+
+    ///<summary>
+    /// inset-block	Specifies the distance between an element and the parent element in the block direction
+    ///</summary>
+    public const string @InsetBlock = "inset-block";
+
+    ///<summary>
+    /// inset-block-end	Specifies the distance between the end of an element and the parent element in the block direction
+    ///</summary>
+    public const string @InsetBlockEnd = "inset-block-end";
+
+    ///<summary>
+    ///t-block-start	Specifies the distance between the start of an element and the parent element in the block direction
+    ///</summary>
+    public const string @InsetBlockStart = "inset-block-start";
+
+    ///<summary>
+    /// inset-inline	Specifies the distance between an element and the parent element in the inline direction
+    ///</summary>
+    public const string @InsetInline = "inset-inline";
+
+    ///<summary>
+    /// inset-inline-end	Specifies the distance between the end of an element and the parent element in the inline direction
+    ///</summary>
+    public const string @InsetInlineEnd = "inset-inline-end";
+
+    ///<summary>
+    ///t-inline-start	Specifies the distance between the start of an element and the parent element in the inline direction
+    ///</summary>
+    public const string @InsetInlineStart = "inset-inline-start";
+
+    ///<summary>
+    /// isolation	Defines whether an element must create a new stacking content
+    ///</summary>
+    public const string @Isolation = "isolation";
+
+    ///<summary>
+    /// justify-content	Specifies the alignment between the items inside a flexible container when the items do not use all available space
+    ///</summary>
+    public const string @JustifyContent = "justify-content";
+
+    ///<summary>
+    /// justify-items	Is set on the grid container. Specifies the alignment of grid items in the inline direction
+    ///</summary>
+    public const string @JustifyItems = "justify-items";
+
+    ///<summary>
+    /// justify-self	Is set on the grid item. Specifies the alignment of the grid item in the inline direction
+    ///</summary>
+    public const string @JustifySelf = "justify-self";
+
+    ///<summary>
+    /// @keyframes	Specifies the animation code
+    ///</summary>
+    public const string @Keyframes = "@keyframes";
+
+    ///<summary>
+    /// left	specifies the left position of a positioned element
+    ///</summary>
+    public const string @Left = "left";
+
+    ///<summary>
+    /// letter-spacing	Increases or decreases the space between characters in a text
+    ///</summary>
+    public const string @LetterSpacing = "letter-spacing";
+
+    ///<summary>
+    /// line-break	Specifies how/if to break lines
+    ///</summary>
+    public const string @LineBreak = "line-break";
+
+    ///<summary>
+    /// line-height	Sets the line height
+    ///</summary>
+    public const string @LineHeight = "line-height";
+
+    ///<summary>
+    /// list-style	Sets all the properties for a list in one declaration
+    ///</summary>
+    public const string @ListStyle = "list-style";
+
+    ///<summary>
+    /// list-style-image	Specifies an image as the list-item marker
+    ///</summary>
+    public const string @ListStyleImage = "list-style-image";
+
+    ///<summary>
+    ///t-style-position	Specifies the position of the list-item markers (bullet points)
+    ///</summary>
+    public const string @ListStylePosition = "list-style-position";
+
+    ///<summary>
+    /// list-style-type	Specifies the type of list-item marker
+    ///</summary>
+    public const string @ListStyleType = "list-style-type";
+
+    ///<summary>
+    /// margin	sets all the margin properties in one declaration
+    ///</summary>
+    public const string @Margin = "margin";
+
+    ///<summary>
+    /// margin-block	Specifies the margin in the block direction
+    ///</summary>
+    public const string @MarginBlock = "margin-block";
+
+    ///<summary>
+    /// margin-block-end	Specifies the margin at the end in the block direction
+    ///</summary>
+    public const string @MarginBlockEnd = "margin-block-end";
+
+    ///<summary>
+    ///n-block-start	Specifies the margin at the start in the block direction
+    ///</summary>
+    public const string @MarginBlockStart = "margin-block-start";
+
+    ///<summary>
+    /// margin-bottom	Sets the bottom margin of an element
+    ///</summary>
+    public const string @MarginBottom = "margin-bottom";
+
+    ///<summary>
+    /// margin-inline	Specifies the margin in the inline direction
+    ///</summary>
+    public const string @MarginInline = "margin-inline";
+
+    ///<summary>
+    ///n-inline-end	Specifies the margin at the end in the inline direction
+    ///</summary>
+    public const string @MarginInlineEnd = "margin-inline-end";
+
+    ///<summary>
+    ///n-inline-start	Specifies the margin at the start in the inline direction
+    ///</summary>
+    public const string @MarginInlineStart = "margin-inline-start";
+
+    ///<summary>
+    /// margin-left	Sets the left margin of an element
+    ///</summary>
+    public const string @MarginLeft = "margin-left";
+
+    ///<summary>
+    /// margin-right	Sets the right margin of an element
+    ///</summary>
+    public const string @MarginRight = "margin-right";
+
+    ///<summary>
+    /// margin-top	Sets the top margin of an element
+    ///</summary>
+    public const string @MarginTop = "margin-top";
+
+    ///<summary>
+    /// marker	points to a marker that will be drawn on all vertices of an element's path (the first, middle, and last)
+    ///</summary>
+    public const string @Marker = "marker";
+
+    ///<summary>
+    /// marker-end	Points to a marker that will be drawn on the last vertex of an element's path
+    ///</summary>
+    public const string @MarkerEnd = "marker-end";
+
+    ///<summary>
+    /// marker-mid	Points to a marker that will be drawn on all the middle vertices of an element's path
+    ///</summary>
+    public const string @MarkerMid = "marker-mid";
+
+    ///<summary>
+    /// marker-start	Points to a marker that will be drawn on the first vertex of an element's path
+    ///</summary>
+    public const string @MarkerStart = "marker-start";
+
+    ///<summary>
+    /// mask	a shorthand property for mask-image, mask-mode, mask-repeat, mask-position, mask-clip, mask-origin, mask-size and mask-composite
+    ///</summary>
+    public const string @Mask = "mask";
+
+    ///<summary>
+    /// mask-clip	Specifies which area is affected by a mask image
+    ///</summary>
+    public const string @MaskClip = "mask-clip";
+
+    ///<summary>
+    /// mask-composite	Specifies a compositing operation used on the current mask layer with the mask layers below it
+    ///</summary>
+    public const string @MaskComposite = "mask-composite";
+
+    ///<summary>
+    /// mask-image	Specifies an image to be used as a mask layer for an element
+    ///</summary>
+    public const string @MaskImage = "mask-image";
+
+    ///<summary>
+    /// mask-mode	Specifies whether the mask layer image is treated as a luminance mask or as an alpha mask
+    ///</summary>
+    public const string @MaskMode = "mask-mode";
+
+    ///<summary>
+    /// mask-origin	Specifies the origin position (the mask position area) of a mask layer image
+    ///</summary>
+    public const string @MaskOrigin = "mask-origin";
+
+    ///<summary>
+    /// mask-position	Sets the starting position of a mask layer image (relative to the mask position area)
+    ///</summary>
+    public const string @MaskPosition = "mask-position";
+
+    ///<summary>
+    /// mask-repeat	Specifies how the mask layer image is repeated
+    ///</summary>
+    public const string @MaskRepeat = "mask-repeat";
+
+    ///<summary>
+    /// mask-size	Specifies the size of a mask layer image
+    ///</summary>
+    public const string @MaskSize = "mask-size";
+
+    ///<summary>
+    /// mask-type	Specifies whether an SVG &amp;lt;mask&amp;gt; element is treated as a luminance mask or as an alpha mask
+    ///</summary>
+    public const string @MaskType = "mask-type";
+
+    ///<summary>
+    /// max-height	Sets the maximum height of an element
+    ///</summary>
+    public const string @MaxHeight = "max-height";
+
+    ///<summary>
+    /// max-width	Sets the maximum width of an element
+    ///</summary>
+    public const string @MaxWidth = "max-width";
+
+    ///<summary>
+    /// @media	sets the style rules for different media types/devices/sizes
+    ///</summary>
+    public const string @Media = "@media";
+
+    ///<summary>
+    /// max-block-size	Sets the maximum size of an element in the block direction
+    ///</summary>
+    public const string @MaxBlockSize = "max-block-size";
+
+    ///<summary>
+    /// max-inline-size	Sets the maximum size of an element in the inline direction
+    ///</summary>
+    public const string @MaxInlineSize = "max-inline-size";
+
+    ///<summary>
+    /// min-block-size	Sets the minimum size of an element in the block direction
+    ///</summary>
+    public const string @MinBlockSize = "min-block-size";
+
+    ///<summary>
+    /// min-inline-size	Sets the minimum size of an element in the inline direction
+    ///</summary>
+    public const string @MinInlineSize = "min-inline-size";
+
+    ///<summary>
+    /// min-height	Sets the minimum height of an element
+    ///</summary>
+    public const string @MinHeight = "min-height";
+
+    ///<summary>
+    /// min-width	Sets the minimum width of an element
+    ///</summary>
+    public const string @MinWidth = "min-width";
+
+    ///<summary>
+    /// mix-blend-mode	Specifies how an element's content should blend with its direct parent background
+    ///</summary>
+    public const string @MixBlendMode = "mix-blend-mode";
+
+    ///<summary>
+    /// object-fit	Specifies how the contents of a replaced element should be fitted to the box established by its used height and width
+    ///</summary>
+    public const string @ObjectFit = "object-fit";
+
+    ///<summary>
+    /// object-position	Specifies the alignment of the replaced element inside its box
+    ///</summary>
+    public const string @ObjectPosition = "object-position";
+
+    ///<summary>
+    /// offset	a shorthand property for the offset-anchor, offset-distance, offset-path, offset-position, and the offset-rotate properties
+    ///</summary>
+    public const string @Offset = "offset";
+
+    ///<summary>
+    /// offset-anchor	Specifies a point on an element that is fixed to the path it is animated along
+    ///</summary>
+    public const string @OffsetAnchor = "offset-anchor";
+
+    ///<summary>
+    /// offset-distance	Specifies the position along a path where an animated element is placed
+    ///</summary>
+    public const string @OffsetDistance = "offset-distance";
+
+    ///<summary>
+    /// offset-path	Specifies the path an element is animated along
+    ///</summary>
+    public const string @OffsetPath = "offset-path";
+
+    ///<summary>
+    /// offset-position	Specifies the initial position of an element along a path
+    ///</summary>
+    public const string @OffsetPosition = "offset-position";
+
+    ///<summary>
+    /// offset-rotate	Specifies rotation of an element as it is animated along a path
+    ///</summary>
+    public const string @OffsetRotate = "offset-rotate";
+
+    ///<summary>
+    /// opacity	sets the opacity level for an element
+    ///</summary>
+    public const string @Opacity = "opacity";
+
+    ///<summary>
+    /// order	sets the order of the flexible item, relative to the rest
+    ///</summary>
+    public const string @Order = "order";
+
+    ///<summary>
+    /// orphans	sets the minimum number of lines that must be left at the bottom of a page or column
+    ///</summary>
+    public const string @Orphans = "orphans";
+
+    ///<summary>
+    /// outline	a shorthand property for the outline-width, outline-style, and the outline-color properties
+    ///</summary>
+    public const string @Outline = "outline";
+
+    ///<summary>
+    /// outline-color	Sets the color of an outline
+    ///</summary>
+    public const string @OutlineColor = "outline-color";
+
+    ///<summary>
+    /// outline-offset	Offsets an outline, and draws it beyond the border edge
+    ///</summary>
+    public const string @OutlineOffset = "outline-offset";
+
+    ///<summary>
+    /// outline-style	Sets the style of an outline
+    ///</summary>
+    public const string @OutlineStyle = "outline-style";
+
+    ///<summary>
+    /// outline-width	Sets the width of an outline
+    ///</summary>
+    public const string @OutlineWidth = "outline-width";
+
+    ///<summary>
+    /// overflow
+    ///</summary>
+    public const string @Overflow = "overflow";
+
+    ///<summary>
+    /// overflow-anchor
+    ///</summary>
+    public const string @OverflowAnchor = "overflow-anchor";
+
+    ///<summary>
+    /// overflow-wrap	Specifies whether or not the browser can break lines with long words, if they overflow the container
+    ///</summary>
+    public const string @OverflowWrap = "overflow-wrap";
+
+    ///<summary>
+    /// overflow-x	Specifies whether or not to clip the left/right edges of the content, if it overflows the element's content area
+    ///</summary>
+    public const string @OverflowX = "overflow-x";
+
+    ///<summary>
+    /// overflow-y	Specifies whether or not to clip the top/bottom edges of the content, if it overflows the element's content area
+    ///</summary>
+    public const string @OverflowY = "overflow-y";
+
+    ///<summary>
+    ///l-behavior	Specifies whether to have scroll chaining or overscroll affordance in x- and y-directions
+    ///</summary>
+    public const string @OverscrollBehavior = "overscroll-behavior";
+
+    ///<summary>
+    ///l-behavior-block	Specifies whether to have scroll chaining or overscroll affordance in the block direction
+    ///</summary>
+    public const string @OverscrollBehaviorBlock = "overscroll-behavior-block";
+
+    ///<summary>
+    ///l-behavior-inline	Specifies whether to have scroll chaining or overscroll affordance in the inline direction
+    ///</summary>
+    public const string @OverscrollBehaviorInline = "overscroll-behavior-inline";
+
+    ///<summary>
+    ///l-behavior-x	Specifies whether to have scroll chaining or overscroll affordance in x-direction
+    ///</summary>
+    public const string @OverscrollBehaviorX = "overscroll-behavior-x";
+
+    ///<summary>
+    ///l-behavior-y	Specifies whether to have scroll chaining or overscroll affordance in y-directions
+    ///</summary>
+    public const string @OverscrollBehaviorY = "overscroll-behavior-y";
+
+    ///<summary>
+    /// padding	a shorthand property for all the padding-* properties
+    ///</summary>
+    public const string @Padding = "padding";
+
+    ///<summary>
+    /// padding-block	Specifies the padding in the block direction
+    ///</summary>
+    public const string @PaddingBlock = "padding-block";
+
+    ///<summary>
+    ///g-block-end	Specifies the padding at the end in the block direction
+    ///</summary>
+    public const string @PaddingBlockEnd = "padding-block-end";
+
+    ///<summary>
+    ///g-block-start	Specifies the padding at the start in the block direction
+    ///</summary>
+    public const string @PaddingBlockStart = "padding-block-start";
+
+    ///<summary>
+    /// padding-bottom	Sets the bottom padding of an element
+    ///</summary>
+    public const string @PaddingBottom = "padding-bottom";
+
+    ///<summary>
+    /// padding-inline	Specifies the padding in the inline direction
+    ///</summary>
+    public const string @PaddingInline = "padding-inline";
+
+    ///<summary>
+    ///g-inline-end	Specifies the padding at the end in the inline direction
+    ///</summary>
+    public const string @PaddingInlineEnd = "padding-inline-end";
+
+    ///<summary>
+    ///g-inline-start	Specifies the padding at the start in the inline direction
+    ///</summary>
+    public const string @PaddingInlineStart = "padding-inline-start";
+
+    ///<summary>
+    /// padding-left	Sets the left padding of an element
+    ///</summary>
+    public const string @PaddingLeft = "padding-left";
+
+    ///<summary>
+    /// padding-right	Sets the right padding of an element
+    ///</summary>
+    public const string @PaddingRight = "padding-right";
+
+    ///<summary>
+    /// padding-top	Sets the top padding of an element
+    ///</summary>
+    public const string @PaddingTop = "padding-top";
+
+    ///<summary>
+    /// page-break-after	Sets the page-break behavior after an element
+    ///</summary>
+    public const string @PageBreakAfter = "page-break-after";
+
+    ///<summary>
+    ///e-break-before	Sets the page-break behavior before an element
+    ///</summary>
+    public const string @PageBreakBefore = "page-break-before";
+
+    ///<summary>
+    ///e-break-inside	Sets the page-break behavior inside an element
+    ///</summary>
+    public const string @PageBreakInside = "page-break-inside";
+
+    ///<summary>
+    /// paint-order	Sets the order of how an SVG element or text is painted.
+    ///</summary>
+    public const string @PaintOrder = "paint-order";
+
+    ///<summary>
+    /// perspective	Gives a 3D-positioned element some perspective
+    ///</summary>
+    public const string @Perspective = "perspective";
+
+    ///<summary>
+    ///e-origin	Defines at which position the user is looking at the 3D-positioned element
+    ///</summary>
+    public const string @PerspectiveOrigin = "perspective-origin";
+
+    ///<summary>
+    /// place-content	Specifies align-content and justify-content property values for flexbox and grid layouts
+    ///</summary>
+    public const string @PlaceContent = "place-content";
+
+    ///<summary>
+    /// place-items	Specifies align-items and justify-items property values for grid layouts
+    ///</summary>
+    public const string @PlaceItems = "place-items";
+
+    ///<summary>
+    /// place-self	Specifies align-self and justify-self property values for grid layouts
+    ///</summary>
+    public const string @PlaceSelf = "place-self";
+
+    ///<summary>
+    /// pointer-events	Defines whether or not an element reacts to pointer events
+    ///</summary>
+    public const string @PointerEvents = "pointer-events";
+
+    ///<summary>
+    /// position	Specifies the type of positioning method used for an element (static, relative, absolute or fixed)
+    ///</summary>
+    public const string @Position = "position";
+
+    ///<summary>
+    /// quotes	sets the type of quotation marks for embedded quotations
+    ///</summary>
+    public const string @Quotes = "quotes";
+
+    ///<summary>
+    /// resize	defines if (and how) an element is resizable by the user
+    ///</summary>
+    public const string @Resize = "resize";
+
+    ///<summary>
+    /// right	specifies the right position of a positioned element
+    ///</summary>
+    public const string @Right = "right";
+
+    ///<summary>
+    /// rotate	specifies the rotation of an element
+    ///</summary>
+    public const string @Rotate = "rotate";
+
+    ///<summary>
+    /// row-gap	specifies the gap between the grid rows
+    ///</summary>
+    public const string @RowGap = "row-gap";
+
+    ///<summary>
+    /// scale	specifies the size of an element by scaling up or down
+    ///</summary>
+    public const string @Scale = "scale";
+
+    ///<summary>
+    /// scroll-behavior	Specifies whether to smoothly animate the scroll position in a scrollable box, instead of a straight jump
+    ///</summary>
+    public const string @ScrollBehavior = "scroll-behavior";
+
+    ///<summary>
+    /// scroll-margin	Specifies the margin between the snap position and the container
+    ///</summary>
+    public const string @ScrollMargin = "scroll-margin";
+
+    ///<summary>
+    ///l-margin-block	Specifies the margin between the snap position and the container in the block direction
+    ///</summary>
+    public const string @ScrollMarginBlock = "scroll-margin-block";
+
+    ///<summary>
+    ///l-margin-block-end	Specifies the end margin between the snap position and the container in the block direction
+    ///</summary>
+    public const string @ScrollMarginBlockEnd = "scroll-margin-block-end";
+
+    ///<summary>
+    ///n-block-start	Specifies the start margin between the snap position and the container in the block direction
+    ///</summary>
+    public const string @ScrollMarginBlockStart = "scroll-margin-block-start";
+
+    ///<summary>
+    ///l-margin-bottom	Specifies the margin between the snap position on the bottom side and the container
+    ///</summary>
+    public const string @ScrollMarginBottom = "scroll-margin-bottom";
+
+    ///<summary>
+    ///l-margin-inline	Specifies the margin between the snap position and the container in the inline direction
+    ///</summary>
+    public const string @ScrollMarginInline = "scroll-margin-inline";
+
+    ///<summary>
+    ///-margin-inline-end	Specifies the end margin between the snap position and the container in the inline direction
+    ///</summary>
+    public const string @ScrollMarginInlineEnd = "scroll-margin-inline-end";
+
+    ///<summary>
+    ///n-inline-start	Specifies the start margin between the snap position and the container in the inline direction
+    ///</summary>
+    public const string @ScrollMarginInlineStart = "scroll-margin-inline-start";
+
+    ///<summary>
+    ///l-margin-left	Specifies the margin between the snap position on the left side and the container
+    ///</summary>
+    public const string @ScrollMarginLeft = "scroll-margin-left";
+
+    ///<summary>
+    ///l-margin-right	Specifies the margin between the snap position on the right side and the container
+    ///</summary>
+    public const string @ScrollMarginRight = "scroll-margin-right";
+
+    ///<summary>
+    ///l-margin-top	Specifies the margin between the snap position on the top side and the container
+    ///</summary>
+    public const string @ScrollMarginTop = "scroll-margin-top";
+
+    ///<summary>
+    /// scroll-padding	Specifies the distance from the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPadding = "scroll-padding";
+
+    ///<summary>
+    ///l-padding-block	Specifies the distance in block direction from the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingBlock = "scroll-padding-block";
+
+    ///<summary>
+    ///-padding-block-end	Specifies the distance in block direction from the end of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingBlockEnd = "scroll-padding-block-end";
+
+    ///<summary>
+    ///g-block-start	Specifies the distance in block direction from the start of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingBlockStart = "scroll-padding-block-start";
+
+    ///<summary>
+    ///l-padding-bottom	Specifies the distance from the bottom of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingBottom = "scroll-padding-bottom";
+
+    ///<summary>
+    ///l-padding-inline	Specifies the distance in inline direction from the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingInline = "scroll-padding-inline";
+
+    ///<summary>
+    ///g-inline-end	Specifies the distance in inline direction from the end of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingInlineEnd = "scroll-padding-inline-end";
+
+    ///<summary>
+    ///g-inline-start	Specifies the distance in inline direction from the start of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingInlineStart = "scroll-padding-inline-start";
+
+    ///<summary>
+    ///l-padding-left	Specifies the distance from the left side of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingLeft = "scroll-padding-left";
+
+    ///<summary>
+    ///l-padding-right	Specifies the distance from the right side of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingRight = "scroll-padding-right";
+
+    ///<summary>
+    ///l-padding-top	Specifies the distance from the top of the container to the snap position on the child elements
+    ///</summary>
+    public const string @ScrollPaddingTop = "scroll-padding-top";
+
+    ///<summary>
+    ///l-snap-align	Specifies where to position elements when the user stops scrolling
+    ///</summary>
+    public const string @ScrollSnapAlign = "scroll-snap-align";
+
+    ///<summary>
+    /// scroll-snap-stop	Specifies scroll behaviour after fast swipe on trackpad or touch screen
+    ///</summary>
+    public const string @ScrollSnapStop = "scroll-snap-stop";
+
+    ///<summary>
+    /// scroll-snap-type	Specifies how snap behaviour should be when scrolling
+    ///</summary>
+    public const string @ScrollSnapType = "scroll-snap-type";
+
+    ///<summary>
+    /// scrollbar-color	Specifies the color of the scrollbar of an element
+    ///</summary>
+    public const string @ScrollbarColor = "scrollbar-color";
+
+    ///<summary>
+    /// tab-size	Specifies the width of a tab character
+    ///</summary>
+    public const string @TabSize = "tab-size";
+
+    ///<summary>
+    /// table-layout	Defines the algorithm used to lay out table cells, rows, and columns
+    ///</summary>
+    public const string @TableLayout = "table-layout";
+
+    ///<summary>
+    /// text-align	Specifies the horizontal alignment of text
+    ///</summary>
+    public const string @TextAlign = "text-align";
+
+    ///<summary>
+    /// text-align-last	Describes how the last line of a block or a line right before a forced line break is aligned when text-align is "justify"
+    ///</summary>
+    public const string @TextAlignLast = "text-align-last";
+
+    ///<summary>
+    ///t-combine-upright	Specifies the combination of multiple characters into the space of a single character
+    ///</summary>
+    public const string @TextCombineUpright = "text-combine-upright";
+
+    ///<summary>
+    /// text-decoration	Specifies the decoration added to text
+    ///</summary>
+    public const string @TextDecoration = "text-decoration";
+
+    ///<summary>
+    ///-decoration-color	Specifies the color of the text-decoration
+    ///</summary>
+    public const string @TextDecorationColor = "text-decoration-color";
+
+    ///<summary>
+    ///t-decoration-line	Specifies the type of line in a text-decoration
+    ///</summary>
+    public const string @TextDecorationLine = "text-decoration-line";
+
+    ///<summary>
+    ///-decoration-style	Specifies the style of the line in a text decoration
+    ///</summary>
+    public const string @TextDecorationStyle = "text-decoration-style";
+
+    ///<summary>
+    ///n-thickness	Specifies the thickness of the decoration line
+    ///</summary>
+    public const string @TextDecorationThickness = "text-decoration-thickness";
+
+    ///<summary>
+    /// text-emphasis	A shorthand property for the text-emphasis-style and text-emphasis-color properties
+    ///</summary>
+    public const string @TextEmphasis = "text-emphasis";
+
+    ///<summary>
+    ///t-emphasis-color	Specifies the color of emphasis marks
+    ///</summary>
+    public const string @TextEmphasisColor = "text-emphasis-color";
+
+    ///<summary>
+    ///s-position	Specifies the position of emphasis marks
+    ///</summary>
+    public const string @TextEmphasisPosition = "text-emphasis-position";
+
+    ///<summary>
+    ///t-emphasis-style	Specifies the style of emphasis marks
+    ///</summary>
+    public const string @TextEmphasisStyle = "text-emphasis-style";
+
+    ///<summary>
+    /// text-indent	Specifies the indentation of the first line in a text-block
+    ///</summary>
+    public const string @TextIndent = "text-indent";
+
+    ///<summary>
+    /// text-justify	Specifies the justification method used when text-align is "justify"
+    ///</summary>
+    public const string @TextJustify = "text-justify";
+
+    ///<summary>
+    ///t-orientation	Defines the orientation of characters in a line
+    ///</summary>
+    public const string @TextOrientation = "text-orientation";
+
+    ///<summary>
+    /// text-overflow	Specifies what should happen when text overflows the containing element
+    ///</summary>
+    public const string @TextOverflow = "text-overflow";
+
+    ///<summary>
+    /// text-shadow	Adds shadow to text
+    ///</summary>
+    public const string @TextShadow = "text-shadow";
+
+    ///<summary>
+    /// text-transform	Controls the capitalization of text
+    ///</summary>
+    public const string @TextTransform = "text-transform";
+
+    ///<summary>
+    ///-underline-offset	Specifies the offset distance of the underline text decoration
+    ///</summary>
+    public const string @TextUnderlineOffset = "text-underline-offset";
+
+    ///<summary>
+    ///e-position	Specifies the position of the underline text decoration
+    ///</summary>
+    public const string @TextUnderlinePosition = "text-underline-position";
+
+    ///<summary>
+    /// top	specifies the top position of a positioned element
+    ///</summary>
+    public const string @Top = "top";
+
+    ///<summary>
+    /// transform	Applies a 2D or 3D transformation to an element
+    ///</summary>
+    public const string @Transform = "transform";
+
+    ///<summary>
+    ///m-origin	Allows you to change the position on transformed elements
+    ///</summary>
+    public const string @TransformOrigin = "transform-origin";
+
+    ///<summary>
+    /// transform-style	Specifies how nested elements are rendered in 3D space
+    ///</summary>
+    public const string @TransformStyle = "transform-style";
+
+    ///<summary>
+    /// transition	A shorthand property for all the transition-* properties
+    ///</summary>
+    public const string @Transition = "transition";
+
+    ///<summary>
+    ///n-delay	Specifies when the transition effect will start
+    ///</summary>
+    public const string @TransitionDelay = "transition-delay";
+
+    ///<summary>
+    ///n-duration	Specifies how many seconds or milliseconds a transition effect takes to complete
+    ///</summary>
+    public const string @TransitionDuration = "transition-duration";
+
+    ///<summary>
+    ///n-property	Specifies the name of the CSS property the transition effect is for
+    ///</summary>
+    public const string @TransitionProperty = "transition-property";
+
+    ///<summary>
+    ///n-timing-function	Specifies the speed curve of the transition effect
+    ///</summary>
+    public const string @TransitionTimingFunction = "transition-timing-function";
+
+    ///<summary>
+    /// translate	Specifies the position of an element
+    ///</summary>
+    public const string @Translate = "translate";
+
+    ///<summary>
+    /// unicode-bidi	Used together with the direction property to set or return whether the text should be overridden to support multiple languages in the same document
+    ///</summary>
+    public const string @UnicodeBidi = "unicode-bidi";
+
+    ///<summary>
+    /// user-select	Specifies whether the text of an element can be selected
+    ///</summary>
+    public const string @UserSelect = "user-select";
+
+    ///<summary>
+    /// vertical-align	Sets the vertical alignment of an element
+    ///</summary>
+    public const string @VerticalAlign = "vertical-align";
+
+    ///<summary>
+    /// visibility	Specifies whether or not an element is visible
+    ///</summary>
+    public const string @Visibility = "visibility";
+
+    ///<summary>
+    /// white-space	Specifies how white-space inside an element is handled
+    ///</summary>
+    public const string @WhiteSpace = "white-space";
+
+    ///<summary>
+    /// widows	sets the minimum number of lines that must be left at the top of a page or column
+    ///</summary>
+    public const string @Widows = "widows";
+
+    ///<summary>
+    /// width	sets the width of an element
+    ///</summary>
+    public const string @Width = "width";
+
+    ///<summary>
+    /// word-break	Specifies how words should break when reaching the end of a line
+    ///</summary>
+    public const string @WordBreak = "word-break";
+
+    ///<summary>
+    /// word-spacing	Increases or decreases the space between words in a text
+    ///</summary>
+    public const string @WordSpacing = "word-spacing";
+
+    ///<summary>
+    /// word-wrap	Allows long, unbreakable words to be broken and wrap to the next line
+    ///</summary>
+    public const string @WordWrap = "word-wrap";
+
+    ///<summary>
+    /// writing-mode	Specifies whether lines of text are laid out horizontally or vertically
+    ///</summary>
+    public const string @WritingMode = "writing-mode";
+
+    ///<summary>
+    /// z-index	sets the stack order of a positioned element
+    ///</summary>
+    public const string @ZIndex = "z-index";
+
+    ///<summary>
+    /// zoom	specifies the zoom factor for an element. An element can be zoomed in and out
+    ///</summary>
+    public const string @Zoom = "zoom";
+}

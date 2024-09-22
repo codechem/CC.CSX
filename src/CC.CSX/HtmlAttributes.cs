@@ -1,5 +1,295 @@
 namespace CC.CSX;
 using Keys = CC.CSX.HtmlAttributeKeys;
+
+///<summary>
+/// All html script attributes
+/// https://www.w3schools.com/tags/ref_eventattributes.asp
+/// </summary>
+public static class HtmlActions
+{
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;embed&amp;gt;, &amp;lt;img&amp;gt;, &amp;lt;object&amp;gt;, &amp;lt;video&amp;gt;	Script to be run on abort
+    ///</summary>
+    public static HtmlAttribute onAbort(string value) => new HtmlAttribute(Keys.onabort, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run after the document is printed
+    ///</summary>
+    public static HtmlAttribute onAfterprint(string value) => new HtmlAttribute(Keys.onafterprint, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run before the document is printed
+    ///</summary>
+    public static HtmlAttribute onBeforeprint(string value) => new HtmlAttribute(Keys.onbeforeprint, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when the document is about to be unloaded
+    ///</summary>
+    public static HtmlAttribute onBeforeunload(string value) => new HtmlAttribute(Keys.onbeforeunload, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element loses focus
+    ///</summary>
+    public static HtmlAttribute onBlur(string value) => new HtmlAttribute(Keys.onblur, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;embed&amp;gt;, &amp;lt;object&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when a file is ready to start playing (when it has buffered enough to begin)
+    ///</summary>
+    public static HtmlAttribute onCanplay(string value) => new HtmlAttribute(Keys.oncanplay, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when a file can be played all the way to the end without pausing for buffering
+    ///</summary>
+    public static HtmlAttribute onCanplaythrough(string value) => new HtmlAttribute(Keys.oncanplaythrough, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the value of the element is changed
+    ///</summary>
+    public static HtmlAttribute onChange(string value) => new HtmlAttribute(Keys.onchange, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element is being clicked
+    ///</summary>
+    public static HtmlAttribute onClick(string value) => new HtmlAttribute(Keys.onclick, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a context menu is triggered
+    ///</summary>
+    public static HtmlAttribute onContextmenu(string value) => new HtmlAttribute(Keys.oncontextmenu, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the content of the element is being copied
+    ///</summary>
+    public static HtmlAttribute onCopy(string value) => new HtmlAttribute(Keys.oncopy, value);
+    ///<summary>
+    /// &amp;lt;track&amp;gt;	Script to be run when the cue changes in a &amp;lt;track&amp;gt; element
+    ///</summary>
+    public static HtmlAttribute onCuechange(string value) => new HtmlAttribute(Keys.oncuechange, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the content of the element is being cut
+    ///</summary>
+    public static HtmlAttribute onCut(string value) => new HtmlAttribute(Keys.oncut, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element is being double-clicked
+    ///</summary>
+    public static HtmlAttribute onDblclick(string value) => new HtmlAttribute(Keys.ondblclick, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element is being dragged
+    ///</summary>
+    public static HtmlAttribute onDrag(string value) => new HtmlAttribute(Keys.ondrag, value);
+    ///<summary>
+    /// All visible elements.	Script to be run at the end of a drag operation
+    ///</summary>
+    public static HtmlAttribute onDragend(string value) => new HtmlAttribute(Keys.ondragend, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when an element has been dragged to a valid drop target
+    ///</summary>
+    public static HtmlAttribute onDragenter(string value) => new HtmlAttribute(Keys.ondragenter, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when an element leaves a valid drop target
+    ///</summary>
+    public static HtmlAttribute onDragleave(string value) => new HtmlAttribute(Keys.ondragleave, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when an element is being dragged over a valid drop target
+    ///</summary>
+    public static HtmlAttribute onDragover(string value) => new HtmlAttribute(Keys.ondragover, value);
+    ///<summary>
+    /// All visible elements.	Script to be run at the start of a drag operation
+    ///</summary>
+    public static HtmlAttribute onDragstart(string value) => new HtmlAttribute(Keys.ondragstart, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when dragged element is being dropped
+    ///</summary>
+    public static HtmlAttribute onDrop(string value) => new HtmlAttribute(Keys.ondrop, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the length of the media changes
+    ///</summary>
+    public static HtmlAttribute onDurationchange(string value) => new HtmlAttribute(Keys.ondurationchange, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when something bad happens and the file is suddenly unavailable (like unexpectedly disconnects)
+    ///</summary>
+    public static HtmlAttribute onEmptied(string value) => new HtmlAttribute(Keys.onemptied, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has reach the end (a useful event for messages like "thanks for listening")
+    ///</summary>
+    public static HtmlAttribute onEnded(string value) => new HtmlAttribute(Keys.onended, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;body&amp;gt;, &amp;lt;embed&amp;gt;, &amp;lt;img&amp;gt;, &amp;lt;object&amp;gt;, &amp;lt;script&amp;gt;, &amp;lt;style&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when an error occurs
+    ///</summary>
+    public static HtmlAttribute onError(string value) => new HtmlAttribute(Keys.onerror, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element gets focus
+    ///</summary>
+    public static HtmlAttribute onFocus(string value) => new HtmlAttribute(Keys.onfocus, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when there has been changes to the anchor part of the a URL
+    ///</summary>
+    public static HtmlAttribute onHashchange(string value) => new HtmlAttribute(Keys.onhashchange, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element gets user input
+    ///</summary>
+    public static HtmlAttribute onInput(string value) => new HtmlAttribute(Keys.oninput, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element is invalid
+    ///</summary>
+    public static HtmlAttribute onInvalid(string value) => new HtmlAttribute(Keys.oninvalid, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a user is pressing a key
+    ///</summary>
+    public static HtmlAttribute onKeydown(string value) => new HtmlAttribute(Keys.onkeydown, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a user presses a key
+    ///</summary>
+    public static HtmlAttribute onKeypress(string value) => new HtmlAttribute(Keys.onkeypress, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a user releases a key
+    ///</summary>
+    public static HtmlAttribute onKeyup(string value) => new HtmlAttribute(Keys.onkeyup, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;, &amp;lt;iframe&amp;gt;, &amp;lt;img&amp;gt;, &amp;lt;input&amp;gt;, &amp;lt;link&amp;gt;, &amp;lt;script&amp;gt;, &amp;lt;style&amp;gt;	Script to be run when the element is finished loading
+    ///</summary>
+    public static HtmlAttribute onLoad(string value) => new HtmlAttribute(Keys.onload, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when media data is loaded
+    ///</summary>
+    public static HtmlAttribute onLoadeddata(string value) => new HtmlAttribute(Keys.onloadeddata, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when meta data (like dimensions and duration) are loaded
+    ///</summary>
+    public static HtmlAttribute onLoadedmetadata(string value) => new HtmlAttribute(Keys.onloadedmetadata, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run just as the file begins to load before anything is actually loaded
+    ///</summary>
+    public static HtmlAttribute onLoadstart(string value) => new HtmlAttribute(Keys.onloadstart, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a mouse button is pressed down on an element
+    ///</summary>
+    public static HtmlAttribute onMousedown(string value) => new HtmlAttribute(Keys.onmousedown, value);
+    ///<summary>
+    /// All visible elements.	Script to be run as long as the  mouse pointer is moving over an element
+    ///</summary>
+    public static HtmlAttribute onMousemove(string value) => new HtmlAttribute(Keys.onmousemove, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a mouse pointer moves out of an element
+    ///</summary>
+    public static HtmlAttribute onMouseout(string value) => new HtmlAttribute(Keys.onmouseout, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a mouse pointer moves over an element
+    ///</summary>
+    public static HtmlAttribute onMouseover(string value) => new HtmlAttribute(Keys.onmouseover, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a mouse button is released over an element
+    ///</summary>
+    public static HtmlAttribute onMouseup(string value) => new HtmlAttribute(Keys.onmouseup, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when a mouse wheel is being scrolled over an element
+    ///</summary>
+    public static HtmlAttribute onMousewheel(string value) => new HtmlAttribute(Keys.onmousewheel, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when the browser starts to work offline
+    ///</summary>
+    public static HtmlAttribute onOffline(string value) => new HtmlAttribute(Keys.onoffline, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when the browser starts to work online
+    ///</summary>
+    public static HtmlAttribute onOnline(string value) => new HtmlAttribute(Keys.ononline, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when a user navigates away from a page
+    ///</summary>
+    public static HtmlAttribute onPagehide(string value) => new HtmlAttribute(Keys.onpagehide, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when a user navigates to a page
+    ///</summary>
+    public static HtmlAttribute onPageshow(string value) => new HtmlAttribute(Keys.onpageshow, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the user pastes some content in an element
+    ///</summary>
+    public static HtmlAttribute onPaste(string value) => new HtmlAttribute(Keys.onpaste, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media is paused either by the user or programmatically
+    ///</summary>
+    public static HtmlAttribute onPause(string value) => new HtmlAttribute(Keys.onpause, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has started playing
+    ///</summary>
+    public static HtmlAttribute onPlay(string value) => new HtmlAttribute(Keys.onplay, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has started playing
+    ///</summary>
+    public static HtmlAttribute onPlaying(string value) => new HtmlAttribute(Keys.onplaying, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when the window's history changes.
+    ///</summary>
+    public static HtmlAttribute onPopstate(string value) => new HtmlAttribute(Keys.onpopstate, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the browser is in the process of getting the media data
+    ///</summary>
+    public static HtmlAttribute onProgress(string value) => new HtmlAttribute(Keys.onprogress, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run each time the playback rate changes (like when a user switches to a slow motion or fast forward mode).
+    ///</summary>
+    public static HtmlAttribute onRatechange(string value) => new HtmlAttribute(Keys.onratechange, value);
+    ///<summary>
+    /// &amp;lt;form&amp;gt;	Script to be run when a reset button in a form is clicked.
+    ///</summary>
+    public static HtmlAttribute onReset(string value) => new HtmlAttribute(Keys.onreset, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when the browser window is being resized.
+    ///</summary>
+    public static HtmlAttribute onResize(string value) => new HtmlAttribute(Keys.onresize, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when an element's scrollbar is being scrolled
+    ///</summary>
+    public static HtmlAttribute onScroll(string value) => new HtmlAttribute(Keys.onscroll, value);
+    ///<summary>
+    /// &amp;lt;input&amp;gt;	Script to be run when the user writes something in a search field (for &amp;lt;input type=&amp;quot;search&amp;quot;&amp;gt;)
+    ///</summary>
+    public static HtmlAttribute onSearch(string value) => new HtmlAttribute(Keys.onsearch, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the seeking attribute is set to false indicating that seeking has ended
+    ///</summary>
+    public static HtmlAttribute onSeeked(string value) => new HtmlAttribute(Keys.onseeked, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the seeking attribute is set to true indicating that seeking is active
+    ///</summary>
+    public static HtmlAttribute onSeeking(string value) => new HtmlAttribute(Keys.onseeking, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the element gets selected
+    ///</summary>
+    public static HtmlAttribute onSelect(string value) => new HtmlAttribute(Keys.onselect, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the browser is unable to fetch the media data for whatever reason
+    ///</summary>
+    public static HtmlAttribute onStalled(string value) => new HtmlAttribute(Keys.onstalled, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when a Web Storage area is updated
+    ///</summary>
+    public static HtmlAttribute onStorage(string value) => new HtmlAttribute(Keys.onstorage, value);
+    ///<summary>
+    /// &amp;lt;form&amp;gt;	Script to be run when a form is submitted
+    ///</summary>
+    public static HtmlAttribute onSubmit(string value) => new HtmlAttribute(Keys.onsubmit, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when fetching the media data is stopped before it is completely loaded for whatever reason
+    ///</summary>
+    public static HtmlAttribute onSuspend(string value) => new HtmlAttribute(Keys.onsuspend, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the playing position has changed (like when the user fast forwards to a different point in the media)
+    ///</summary>
+    public static HtmlAttribute onTimeupdate(string value) => new HtmlAttribute(Keys.ontimeupdate, value);
+    ///<summary>
+    /// &amp;lt;details&amp;gt;	Script to be run when the user opens or closes the &amp;lt;details&amp;gt; element
+    ///</summary>
+    public static HtmlAttribute onToggle(string value) => new HtmlAttribute(Keys.ontoggle, value);
+    ///<summary>
+    /// &amp;lt;body&amp;gt;	Script to be run when a page has unloaded (or the browser window has been closed)
+    ///</summary>
+    public static HtmlAttribute onUnload(string value) => new HtmlAttribute(Keys.onunload, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run each time the volume of a video/audio has been changed
+    ///</summary>
+    public static HtmlAttribute onVolumechange(string value) => new HtmlAttribute(Keys.onvolumechange, value);
+    ///<summary>
+    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has paused but is expected to resume (like when the media pauses to buffer more data)
+    ///</summary>
+    public static HtmlAttribute onWaiting(string value) => new HtmlAttribute(Keys.onwaiting, value);
+    ///<summary>
+    /// All visible elements.	Script to be run when the mouse wheel rolls up or down over an element
+    ///</summary>
+    public static HtmlAttribute onWheel(string value) => new HtmlAttribute(Keys.onwheel, value);
+
+}
+
 ///<summary>
 /// All html attributes 
 /// https://www.w3schools.com/tags/ref_attributes.asp
@@ -57,7 +347,7 @@ public static class HtmlAttributes
     ///<summary>
     /// &amp;lt;input&amp;gt;	Specifies that an &amp;lt;input&amp;gt; element should be pre-selected when the page loads (for type="checkbox" or type="radio")
     ///</summary>
-    public static HtmlAttribute @checked(bool isChecked) => isChecked?new HtmlAttribute(Keys.@checked): HtmlAttribute.Empty;
+    public static HtmlAttribute @checked(bool isChecked) => isChecked ? new HtmlAttribute(Keys.@checked) : HtmlAttribute.Empty;
     ///<summary>
     /// &amp;lt;blockquote&amp;gt;, &amp;lt;del&amp;gt;, &amp;lt;ins&amp;gt;, &amp;lt;q&amp;gt;	Specifies a URL which explains the quote/deleted/inserted text
     ///</summary>
@@ -238,286 +528,6 @@ public static class HtmlAttributes
     /// &amp;lt;form&amp;gt;	Specifies that the form should not be validated when submitted
     ///</summary>
     public static HtmlAttribute novalidate(string value) => new HtmlAttribute(Keys.novalidate, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;embed&amp;gt;, &amp;lt;img&amp;gt;, &amp;lt;object&amp;gt;, &amp;lt;video&amp;gt;	Script to be run on abort
-    ///</summary>
-    public static HtmlAttribute onabort(string value) => new HtmlAttribute(Keys.onabort, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run after the document is printed
-    ///</summary>
-    public static HtmlAttribute onafterprint(string value) => new HtmlAttribute(Keys.onafterprint, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run before the document is printed
-    ///</summary>
-    public static HtmlAttribute onbeforeprint(string value) => new HtmlAttribute(Keys.onbeforeprint, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when the document is about to be unloaded
-    ///</summary>
-    public static HtmlAttribute onbeforeunload(string value) => new HtmlAttribute(Keys.onbeforeunload, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element loses focus
-    ///</summary>
-    public static HtmlAttribute onblur(string value) => new HtmlAttribute(Keys.onblur, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;embed&amp;gt;, &amp;lt;object&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when a file is ready to start playing (when it has buffered enough to begin)
-    ///</summary>
-    public static HtmlAttribute oncanplay(string value) => new HtmlAttribute(Keys.oncanplay, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when a file can be played all the way to the end without pausing for buffering
-    ///</summary>
-    public static HtmlAttribute oncanplaythrough(string value) => new HtmlAttribute(Keys.oncanplaythrough, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the value of the element is changed
-    ///</summary>
-    public static HtmlAttribute onchange(string value) => new HtmlAttribute(Keys.onchange, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element is being clicked
-    ///</summary>
-    public static HtmlAttribute onclick(string value) => new HtmlAttribute(Keys.onclick, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a context menu is triggered
-    ///</summary>
-    public static HtmlAttribute oncontextmenu(string value) => new HtmlAttribute(Keys.oncontextmenu, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the content of the element is being copied
-    ///</summary>
-    public static HtmlAttribute oncopy(string value) => new HtmlAttribute(Keys.oncopy, value);
-    ///<summary>
-    /// &amp;lt;track&amp;gt;	Script to be run when the cue changes in a &amp;lt;track&amp;gt; element
-    ///</summary>
-    public static HtmlAttribute oncuechange(string value) => new HtmlAttribute(Keys.oncuechange, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the content of the element is being cut
-    ///</summary>
-    public static HtmlAttribute oncut(string value) => new HtmlAttribute(Keys.oncut, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element is being double-clicked
-    ///</summary>
-    public static HtmlAttribute ondblclick(string value) => new HtmlAttribute(Keys.ondblclick, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element is being dragged
-    ///</summary>
-    public static HtmlAttribute ondrag(string value) => new HtmlAttribute(Keys.ondrag, value);
-    ///<summary>
-    /// All visible elements.	Script to be run at the end of a drag operation
-    ///</summary>
-    public static HtmlAttribute ondragend(string value) => new HtmlAttribute(Keys.ondragend, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when an element has been dragged to a valid drop target
-    ///</summary>
-    public static HtmlAttribute ondragenter(string value) => new HtmlAttribute(Keys.ondragenter, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when an element leaves a valid drop target
-    ///</summary>
-    public static HtmlAttribute ondragleave(string value) => new HtmlAttribute(Keys.ondragleave, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when an element is being dragged over a valid drop target
-    ///</summary>
-    public static HtmlAttribute ondragover(string value) => new HtmlAttribute(Keys.ondragover, value);
-    ///<summary>
-    /// All visible elements.	Script to be run at the start of a drag operation
-    ///</summary>
-    public static HtmlAttribute ondragstart(string value) => new HtmlAttribute(Keys.ondragstart, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when dragged element is being dropped
-    ///</summary>
-    public static HtmlAttribute ondrop(string value) => new HtmlAttribute(Keys.ondrop, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the length of the media changes
-    ///</summary>
-    public static HtmlAttribute ondurationchange(string value) => new HtmlAttribute(Keys.ondurationchange, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when something bad happens and the file is suddenly unavailable (like unexpectedly disconnects)
-    ///</summary>
-    public static HtmlAttribute onemptied(string value) => new HtmlAttribute(Keys.onemptied, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has reach the end (a useful event for messages like "thanks for listening")
-    ///</summary>
-    public static HtmlAttribute onended(string value) => new HtmlAttribute(Keys.onended, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;body&amp;gt;, &amp;lt;embed&amp;gt;, &amp;lt;img&amp;gt;, &amp;lt;object&amp;gt;, &amp;lt;script&amp;gt;, &amp;lt;style&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when an error occurs
-    ///</summary>
-    public static HtmlAttribute onerror(string value) => new HtmlAttribute(Keys.onerror, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element gets focus
-    ///</summary>
-    public static HtmlAttribute onfocus(string value) => new HtmlAttribute(Keys.onfocus, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when there has been changes to the anchor part of the a URL
-    ///</summary>
-    public static HtmlAttribute onhashchange(string value) => new HtmlAttribute(Keys.onhashchange, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element gets user input
-    ///</summary>
-    public static HtmlAttribute oninput(string value) => new HtmlAttribute(Keys.oninput, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element is invalid
-    ///</summary>
-    public static HtmlAttribute oninvalid(string value) => new HtmlAttribute(Keys.oninvalid, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a user is pressing a key
-    ///</summary>
-    public static HtmlAttribute onkeydown(string value) => new HtmlAttribute(Keys.onkeydown, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a user presses a key
-    ///</summary>
-    public static HtmlAttribute onkeypress(string value) => new HtmlAttribute(Keys.onkeypress, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a user releases a key
-    ///</summary>
-    public static HtmlAttribute onkeyup(string value) => new HtmlAttribute(Keys.onkeyup, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;, &amp;lt;iframe&amp;gt;, &amp;lt;img&amp;gt;, &amp;lt;input&amp;gt;, &amp;lt;link&amp;gt;, &amp;lt;script&amp;gt;, &amp;lt;style&amp;gt;	Script to be run when the element is finished loading
-    ///</summary>
-    public static HtmlAttribute onload(string value) => new HtmlAttribute(Keys.onload, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when media data is loaded
-    ///</summary>
-    public static HtmlAttribute onloadeddata(string value) => new HtmlAttribute(Keys.onloadeddata, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when meta data (like dimensions and duration) are loaded
-    ///</summary>
-    public static HtmlAttribute onloadedmetadata(string value) => new HtmlAttribute(Keys.onloadedmetadata, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run just as the file begins to load before anything is actually loaded
-    ///</summary>
-    public static HtmlAttribute onloadstart(string value) => new HtmlAttribute(Keys.onloadstart, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a mouse button is pressed down on an element
-    ///</summary>
-    public static HtmlAttribute onmousedown(string value) => new HtmlAttribute(Keys.onmousedown, value);
-    ///<summary>
-    /// All visible elements.	Script to be run as long as the  mouse pointer is moving over an element
-    ///</summary>
-    public static HtmlAttribute onmousemove(string value) => new HtmlAttribute(Keys.onmousemove, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a mouse pointer moves out of an element
-    ///</summary>
-    public static HtmlAttribute onmouseout(string value) => new HtmlAttribute(Keys.onmouseout, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a mouse pointer moves over an element
-    ///</summary>
-    public static HtmlAttribute onmouseover(string value) => new HtmlAttribute(Keys.onmouseover, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a mouse button is released over an element
-    ///</summary>
-    public static HtmlAttribute onmouseup(string value) => new HtmlAttribute(Keys.onmouseup, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when a mouse wheel is being scrolled over an element
-    ///</summary>
-    public static HtmlAttribute onmousewheel(string value) => new HtmlAttribute(Keys.onmousewheel, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when the browser starts to work offline
-    ///</summary>
-    public static HtmlAttribute onoffline(string value) => new HtmlAttribute(Keys.onoffline, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when the browser starts to work online
-    ///</summary>
-    public static HtmlAttribute ononline(string value) => new HtmlAttribute(Keys.ononline, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when a user navigates away from a page
-    ///</summary>
-    public static HtmlAttribute onpagehide(string value) => new HtmlAttribute(Keys.onpagehide, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when a user navigates to a page
-    ///</summary>
-    public static HtmlAttribute onpageshow(string value) => new HtmlAttribute(Keys.onpageshow, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the user pastes some content in an element
-    ///</summary>
-    public static HtmlAttribute onpaste(string value) => new HtmlAttribute(Keys.onpaste, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media is paused either by the user or programmatically
-    ///</summary>
-    public static HtmlAttribute onpause(string value) => new HtmlAttribute(Keys.onpause, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has started playing
-    ///</summary>
-    public static HtmlAttribute onplay(string value) => new HtmlAttribute(Keys.onplay, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has started playing
-    ///</summary>
-    public static HtmlAttribute onplaying(string value) => new HtmlAttribute(Keys.onplaying, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when the window's history changes.
-    ///</summary>
-    public static HtmlAttribute onpopstate(string value) => new HtmlAttribute(Keys.onpopstate, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the browser is in the process of getting the media data
-    ///</summary>
-    public static HtmlAttribute onprogress(string value) => new HtmlAttribute(Keys.onprogress, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run each time the playback rate changes (like when a user switches to a slow motion or fast forward mode).
-    ///</summary>
-    public static HtmlAttribute onratechange(string value) => new HtmlAttribute(Keys.onratechange, value);
-    ///<summary>
-    /// &amp;lt;form&amp;gt;	Script to be run when a reset button in a form is clicked.
-    ///</summary>
-    public static HtmlAttribute onreset(string value) => new HtmlAttribute(Keys.onreset, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when the browser window is being resized.
-    ///</summary>
-    public static HtmlAttribute onresize(string value) => new HtmlAttribute(Keys.onresize, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when an element's scrollbar is being scrolled
-    ///</summary>
-    public static HtmlAttribute onscroll(string value) => new HtmlAttribute(Keys.onscroll, value);
-    ///<summary>
-    /// &amp;lt;input&amp;gt;	Script to be run when the user writes something in a search field (for &amp;lt;input type=&amp;quot;search&amp;quot;&amp;gt;)
-    ///</summary>
-    public static HtmlAttribute onsearch(string value) => new HtmlAttribute(Keys.onsearch, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the seeking attribute is set to false indicating that seeking has ended
-    ///</summary>
-    public static HtmlAttribute onseeked(string value) => new HtmlAttribute(Keys.onseeked, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the seeking attribute is set to true indicating that seeking is active
-    ///</summary>
-    public static HtmlAttribute onseeking(string value) => new HtmlAttribute(Keys.onseeking, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the element gets selected
-    ///</summary>
-    public static HtmlAttribute onselect(string value) => new HtmlAttribute(Keys.onselect, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the browser is unable to fetch the media data for whatever reason
-    ///</summary>
-    public static HtmlAttribute onstalled(string value) => new HtmlAttribute(Keys.onstalled, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when a Web Storage area is updated
-    ///</summary>
-    public static HtmlAttribute onstorage(string value) => new HtmlAttribute(Keys.onstorage, value);
-    ///<summary>
-    /// &amp;lt;form&amp;gt;	Script to be run when a form is submitted
-    ///</summary>
-    public static HtmlAttribute onsubmit(string value) => new HtmlAttribute(Keys.onsubmit, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when fetching the media data is stopped before it is completely loaded for whatever reason
-    ///</summary>
-    public static HtmlAttribute onsuspend(string value) => new HtmlAttribute(Keys.onsuspend, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the playing position has changed (like when the user fast forwards to a different point in the media)
-    ///</summary>
-    public static HtmlAttribute ontimeupdate(string value) => new HtmlAttribute(Keys.ontimeupdate, value);
-    ///<summary>
-    /// &amp;lt;details&amp;gt;	Script to be run when the user opens or closes the &amp;lt;details&amp;gt; element
-    ///</summary>
-    public static HtmlAttribute ontoggle(string value) => new HtmlAttribute(Keys.ontoggle, value);
-    ///<summary>
-    /// &amp;lt;body&amp;gt;	Script to be run when a page has unloaded (or the browser window has been closed)
-    ///</summary>
-    public static HtmlAttribute onunload(string value) => new HtmlAttribute(Keys.onunload, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run each time the volume of a video/audio has been changed
-    ///</summary>
-    public static HtmlAttribute onvolumechange(string value) => new HtmlAttribute(Keys.onvolumechange, value);
-    ///<summary>
-    /// &amp;lt;audio&amp;gt;, &amp;lt;video&amp;gt;	Script to be run when the media has paused but is expected to resume (like when the media pauses to buffer more data)
-    ///</summary>
-    public static HtmlAttribute onwaiting(string value) => new HtmlAttribute(Keys.onwaiting, value);
-    ///<summary>
-    /// All visible elements.	Script to be run when the mouse wheel rolls up or down over an element
-    ///</summary>
-    public static HtmlAttribute onwheel(string value) => new HtmlAttribute(Keys.onwheel, value);
     ///<summary>
     /// &amp;lt;details&amp;gt;	Specifies that the details should be visible (open) to the user
     ///</summary>
