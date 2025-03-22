@@ -10,7 +10,7 @@
         <PackageId>CC.CSX.Htmx</PackageId>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageTags>htmx;hypertext;html;web;render;ssr;server side rendering;htmx;c# ui;razor alternative;c# html templates;declarative ui;</PackageTags>
-        <Version>0.1.12</Version>
+        <Version>0.1.35</Version>
         <Authors>Costa Halicea</Authors>
         <Company>CodeChem</Company>
         <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
