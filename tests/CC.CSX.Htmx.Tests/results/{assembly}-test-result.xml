@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuites time="0.010" tests="1" failures="0">
+  <testsuite id="0" name="/mnt/storage/projects/cc/htnet/htnet/tests/CC.CSX.Htmx.Tests/bin/Debug/net9.0/CC.CSX.Htmx.Tests.dll" tests="1" failures="0" time="0.010">
+    <testcase classname="CC.CSX.Tests.MultiHtmlAttributeTests" name="CC.CSX.Tests.MultiHtmlAttributeTests.Should_RenderAll_AttributesTheSameAsIfTheyWereWrittenOneByOne" time="0.0095735" />
+  </testsuite>
+</testsuites>

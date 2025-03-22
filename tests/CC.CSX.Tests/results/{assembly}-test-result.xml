@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuites time="0.060" tests="6" failures="0">
+  <testsuite id="0" name="/mnt/storage/projects/cc/htnet/htnet/tests/CC.CSX.Tests/bin/Debug/net9.0/CC.CSX.Tests.dll" tests="6" failures="0" time="0.060">
+    <testcase classname="CC.CSX.Tests.GeneralRenderingTests" name="CC.CSX.Tests.GeneralRenderingTests.WriteTo_Should_ProduceTheSameOutputAsToString" time="0.0288135" />
+    <testcase classname="CC.CSX.Tests.GeneralRenderingTests" name="CC.CSX.Tests.GeneralRenderingTests.CheckedAttribute_ShouldRenderConditionally" time="0.0011852" />
+    <testcase classname="CC.CSX.Tests.GeneralRenderingTests" name="CC.CSX.Tests.GeneralRenderingTests.Indent_Should_BeRespected" time="0.0022778" />
+    <testcase classname="CC.CSX.Tests.GeneralRenderingTests" name="CC.CSX.Tests.GeneralRenderingTests.AllCreationMethodsShouldWorkProperly" time="0.0013633" />
+    <testcase classname="CC.CSX.Tests.GeneralRenderingTests" name="CC.CSX.Tests.GeneralRenderingTests.MultiAttribute_Should_OnlyRenderItsChildren" time="0.0008974" />
+    <testcase classname="CC.CSX.Tests.MultiHtmlAttributeTests" name="CC.CSX.Tests.MultiHtmlAttributeTests.Should_RenderAll_AttributesTheSameAsIfTheyWereWrittenOneByOne" time="0.0258766" />
+  </testsuite>
+</testsuites>
