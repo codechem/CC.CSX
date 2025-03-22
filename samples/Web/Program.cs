@@ -1,17 +1,16 @@
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSignalR();
 WebApplication app = builder.Build();
 
-
 int counter = 0;
-
 app.MapGet("/", () => Render(
     Master("Counter",
-        Button("-", hxPost("/decrement", target: "#counter")),
-        B(Label(id("counter"), counter)),
-        Button("+", hxPost("/increment", target: "#counter")),
-        "|",
-        Button("Reset", hxPost("/reset", target: "#counter"))
+        Div(
+           Button("-", hxPost("/decrement", target: "#counter")),
+           B(Label(id("counter"), counter)),
+           Button("+", hxPost("/increment", target: "#counter")),
+           "|",
+           Button("Reset", hxPost("/reset", target: "#counter"))
+       )
     )
 ));
 
@@ -19,7 +18,6 @@ app.MapPost("increment", () => Render($"{++counter}"));
 app.MapPost("decrement", () => Render($"{--counter}"));
 app.MapPost("reset", () => Render($"{counter = 0}"));
 app.Run();
-
 static HtmlNode Master(string title, params HtmlNode[] content)
 {
     return Html(
