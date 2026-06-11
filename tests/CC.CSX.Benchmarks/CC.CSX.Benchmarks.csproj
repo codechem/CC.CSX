@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
+    <ProjectReference Include="..\..\src\CC.CSX.Css\CC.CSX.Css.csproj" />
+    <ProjectReference Include="..\..\src\CC.CSX.Css.Tailwind\CC.CSX.Css.Tailwind.csproj" />
   </ItemGroup>
 
 </Project>
