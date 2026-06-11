@@ -1,0 +1,5 @@
+.text-center { text-align: center; }
+.counter { font-size: 1.5rem; padding: 0 0.5rem; }
+.btn { padding: 0.25rem 0.75rem; border-radius: 4px; cursor: pointer; }
+.btn--accent { background: #346beb; color: #fff; }
+.panel { max-width: 24rem; margin: 0 auto; }

@@ -89,10 +89,10 @@ public class MultiHtmlAttribute : HtmlAttribute, IList<HtmlAttribute>
     /// </summary>
     public override void WriteTo(ref TextWriter sb, int indent = 0)
     {
-        for(int i = 0; i < Attributes.Count; i++)
+        for (int i = 0; i < Attributes.Count; i++)
         {
             Attributes[i].WriteTo(ref sb, indent);
-            if(i < Attributes.Count - 1)
+            if (i < Attributes.Count - 1)
                 sb.Write(Space);
         }
     }

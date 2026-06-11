@@ -1,0 +1,102 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+CC.CSX is a C# HTML generation library that allows developers to create HTML declaratively using pure C# code (JSX-like / Hiccup-like). Four NuGet packages live in this repo:
+
+- **CC.CSX** (`src/CC.CSX/`): Core library — HTML element/attribute factories and rendering
+- **CC.CSX.Web** (`src/CC.CSX.Web/`): ASP.NET Core integration — `HtmlResult` (implements `IResult`, `IActionResult`, `IEndpointMetadataProvider`)
+- **CC.CSX.Htmx** (`src/CC.CSX.Htmx/`): HTMX attribute extensions (`hxPost`, `hxGet`, `target`, …) and `HtmxImports`
+- **CC.CSX.Css** (`src/CC.CSX.Css/`): Strongly typed CSS sidecar — `CssClass` (incl. virtual/higher-order composed classes), `CssDeclaration` + lowercase `CssProperties` factories, `CssUnits` (`8.px()`), `CssBundle`/`CssImports`. Ships the `src/CC.CSX.Css.Generator/` source generator (netstandard2.0) which turns `.css` files registered as `AdditionalFiles` into typed members: `Css.<FileName>.<className>` constants, a baked-in `Source` const and a `Bundle`. Convention: elements are PascalCase, styles/classes are lowercase. Plain strings keep working everywhere (`CssClass` ⇄ `string` implicit conversions). Generation chain (regenerate, don't hand-edit): `eng/gen-css-property-keys.py` (MDN data → `CssPropertyKeys.cs`, keeps legacy/at-rule entries) then `eng/gen-css-properties.py` (`CssPropertyKeys.cs` → `CssProperties.cs`, skips at-rules). See `samples/Web` for end-to-end usage and `tests/CC.CSX.Css.Tests` for behavior.
+
+## Common Development Commands
+
+```bash
+# Build the solution (SDK pinned to 10.0.100 in global.json)
+dotnet build
+
+# Run all tests with coverage
+make test
+# or plain: dotnet test
+
+# Run a single test project / single test
+dotnet test tests/CC.CSX.Tests
+dotnet test --filter "FullyQualifiedName~GeneralRenderingTests.MyTestName"
+
+# Benchmarks (BenchmarkDotNet)
+dotnet run -c Release --project tests/CC.CSX.Benchmarks
+
+# Run samples
+make run.simple    # Console sample, prints HTML
+make run.htmx      # HTMX web sample
+make run.web       # ASP.NET Core web sample
+make watch.htmx / make watch.web   # Watch mode
+```
+
+### Packaging and Publishing
+```bash
+make package.all    # Pack all three packages (eng/package-*.sh)
+make publish.all    # Version bump (VERSION file via eng/version-bump.sh) + pack + publish
+```
+
+Versioning is driven by the root `VERSION` file (MAJOR/MINOR/PATCH); `eng/` holds the packaging/publishing scripts.
+
+## Architecture
+
+### Core type hierarchy (src/CC.CSX/Domain/)
+
+Everything derives from the abstract `HtmlItem` (Name + optional Value, abstract `ToString(indent)` / `AppendTo(ref StringBuilder)` / `WriteTo(ref TextWriter)`):
+
+- **HtmlNode**: an element with `Attributes` (List\<HtmlAttribute\>) and `Children` (List\<HtmlNode\>). Constructors take `params HtmlItem[]` — attributes and children are mixed in one list and sorted out at construction.
+- **HtmlTextNode**: text content (with HTML escaping)
+- **Fragment**: renders only its children, no wrapping tag (`Fragment.Empty` singleton)
+- **HtmlNone**: renders nothing
+- **HtmlAttribute** and subclasses: `HtmlClassAttribute` (joins classes with spaces), `HtmlStyleAttribute` (joins `(key, value)` tuples with `;`), `HtmlEventAttribute`, `MultiHtmlAttribute` (an attribute holding a list of attributes — what `HtmlAttribute[]` converts to)
+
+Note: `Domain/Component.cs` and `HtmlElementExtensions.cs` are fully commented out — there is no Component base class despite the file existing.
+
+### Implicit conversions (defined on HtmlItem/HtmlNode)
+
+These make the declarative syntax work; check them before changing signatures:
+- `string`, `int`, `bool`, `float`, `double` → `HtmlTextNode`
+- `(string key, string? value)` tuple → `HtmlAttribute`
+- `HtmlNode[]` / `List<HtmlNode>` → `Fragment`
+- `HtmlAttribute[]` → `MultiHtmlAttribute`
+
+### Static factories and key constants
+
+- **HtmlElements** / **HtmlAttributes**: one static method per HTML element/attribute, intended for `using static` import. Attribute methods are lowercase (`id(...)`, `@class(...)`, `style(...)`).
+- **HtmlElementKeys**, **HtmlAttributeKeys**, **CssPropertyKeys**: large generated-style classes of string constants for element names, attribute names, and CSS property names. CSS support (the `feature/css-support` branch) builds on `CssPropertyKeys` + `HtmlStyleAttribute`.
+
+### Rendering
+
+- Three parallel render paths on every `HtmlItem`: `ToString(indent)`, `AppendTo(ref StringBuilder)`, and `WriteTo(ref TextWriter)` (the streaming path used by the web integration). New node types must implement all three.
+- **RenderOptions** is global static state (`Indent`, `TextNodeOnNewLine`) that affects formatting everywhere — including test expectations.
+- `CC.CSX.Web.HtmlResult` streams via `WriteTo` to the response `BodyWriter` with `Content-Type: text/html`; `Render(...)` extension methods are in `CC.CSX.Web/HtmlNodeExtensions.cs`.
+
+### Usage pattern (what user code looks like)
+
+```csharp
+using static CC.CSX.HtmlElements;
+using static CC.CSX.HtmlAttributes;
+using static CC.CSX.Htmx.HtmxAttributes; // if using HTMX
+
+Div(@class("container"), id("main"),
+    H1("Title"),
+    P("Content here"),
+    ("data-custom", "value")   // tuple → attribute
+)
+```
+
+### Target frameworks
+
+- CC.CSX: net10.0, net10.0-android; CC.CSX.Web / CC.CSX.Htmx: net10.0 only
+- `LangVersion=preview` with preview features enabled across projects
+
+### Other directories
+
+- `tests/`: xUnit tests (`CC.CSX.Tests`, `CC.CSX.Htmx.Tests`) + `CC.CSX.Benchmarks`
+- `samples/`: Simple (console), HtmxSample, Web, CalendarSample
+- `docs/`: DocFX documentation site

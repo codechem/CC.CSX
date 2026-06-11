@@ -664,7 +664,7 @@ public static class HtmlAttributeKeys
     /// &amp;lt;iframe&amp;gt; Specifies a Permissions Policy for the &amp;lt;iframe&amp;gt;. The policy defines what features are available to the &amp;lt;iframe&amp;gt; (for example, access to the microphone, camera, battery, web-share, etc.) based on the origin of the request.
     ///</summary>
     public const string allow = "allow";
-    
+
     ///<summary>
     ///</summary>
     public const string allowfullscreen = "allowfullscreen";

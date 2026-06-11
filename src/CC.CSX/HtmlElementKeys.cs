@@ -47,7 +47,7 @@ public static class HtmlElementKeys
     ///<summary>
     ///  &amp;lt;base&amp;gt; Specifies the base URL/target for all relative URLs in a document
     ///</summary>
-    public const string @base="base";
+    public const string @base = "base";
 
     ///<summary>
     ///  &amp;lt;bdi&amp;gt; Isolates a part of text that might be formatted in a different direction from other text outside it

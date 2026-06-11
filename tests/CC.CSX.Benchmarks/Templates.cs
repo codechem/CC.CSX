@@ -1,4 +1,5 @@
 using CC.CSX;
+
 using static CC.CSX.HtmlAttributes;
 using static CC.CSX.HtmlElements;
 
@@ -29,10 +30,10 @@ public static class Templates
         ])));
 
     public static HtmlNode MainPage(HtmlItem? extraHeaders = null, params HtmlItem[] children) => Html(
-      Head(Title("Hello, World!"), UIKitImports, NunjucksImports, HtmxImports, HtmxJsonEnconde,HtmxNunjucksTemplates, 
+      Head(Title("Hello, World!"), UIKitImports, NunjucksImports, HtmxImports, HtmxJsonEnconde, HtmxNunjucksTemplates,
           extraHeaders ?? None),
       Body(
-        Div([@class("uk-container"), ("hx-ext","client-side-templates"), ..children])));
+        Div([@class("uk-container"), ("hx-ext", "client-side-templates"), .. children])));
 
     public static HtmlNode TailwindImports = Fragment(
         Link(href("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap"), rel("stylesheet")),

@@ -1,8 +1,10 @@
 namespace CC.CSX.Web;
 
 using System.Text;
-using Microsoft.AspNetCore.Mvc;
+
 using CC.CSX;
+
+using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// Represents an <see cref="IResult"/> that when executed will write HTML to the response.

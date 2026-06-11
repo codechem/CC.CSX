@@ -43,7 +43,7 @@ public class HtmlAttribute : HtmlItem
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
         if (string.IsNullOrEmpty(Name)) return;
-        
+
         if (Value is null)
         {
             sb.Append(Name);

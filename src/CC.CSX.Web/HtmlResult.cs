@@ -1,11 +1,13 @@
 namespace CC.CSX.Web;
 
-using System.Text;
-using System.Reflection;
 using System.Net.Mime;
-using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
+using System.Text;
+
 using CC.CSX;
+
 using Microsoft.AspNetCore.Http.Metadata;
+using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// Represents an <see cref="IResult"/> that when executed will write HTML to the response.

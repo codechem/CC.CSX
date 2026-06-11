@@ -2,14 +2,16 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 WebApplication app = builder.Build();
 
 int counter = 0;
+// a virtual (higher-order) class: expands to "btn btn--accent"
+CssClass accentButton = Site.btn + Site.btnAccent;
 app.MapGet("/", () => Render(
     Master("Counter",
-        Div(
-           Button("-", hxPost("/decrement", target: "#counter")),
-           B(Label(id("counter"), counter)),
-           Button("+", hxPost("/increment", target: "#counter")),
+        Div(@class(Site.panel),
+           Button("-", @class(accentButton), hxPost("/decrement", target: "#counter")),
+           B(Label(id("counter"), @class(Site.counter), counter)),
+           Button("+", @class(accentButton), hxPost("/increment", target: "#counter")),
            "|",
-           Button("Reset", hxPost("/reset", target: "#counter"))
+           Button("Reset", @class(Site.btn), hxPost("/reset", target: "#counter"))
        )
     )
 ));
@@ -25,10 +27,14 @@ static HtmlNode Master(string title, params HtmlNode[] content)
         Head(
             Title(title),
             Meta(charset("utf-8")),
-            HtmxImports
+            HtmxImports,
+            CssImports.Inline(Site.Bundle)
         ),
         Body(
-            H1(@class("text-center"), title),
+            style(fontFamily("sans-serif"), CSS.color("#333")),
+            "how are you",
+            H2("this is great"),
+            H1(@class(Site.textCenter), title),
             content,
             Hr()
         )

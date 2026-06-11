@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <RootNamespace>CC.CSX.Css</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <EnablePreviewFeatures>true</EnablePreviewFeatures>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+        <PackageId>CC.CSX.Css</PackageId>
+        <IsPackable>true</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageTags>css;html;web;render;ssr;server side rendering;c# ui;razor alternative;c# html templates;declarative ui;strongly typed css;</PackageTags>
+        <Version>0.1.35</Version>
+        <Authors>Costa Halicea</Authors>
+        <Company>CodeChem</Company>
+        <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
+        <Description>CC.CSX.Css extends CC.CSX with strongly typed CSS classes, declarations and stylesheet bundles. Includes a source generator that turns .css files into typed constants.</Description>
+        <RepositoryUrl>https://github.com/codechem/CC.CSX</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <GenerateRequiresPreviewFeaturesAttribute>False</GenerateRequiresPreviewFeaturesAttribute>
+        <PackRelease>true</PackRelease>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="\" />
+        <None Include="../../LICENSE.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CC.CSX\CC.CSX.csproj" />
+        <!-- Ship the source generator inside this package so installing CC.CSX.Css lights up typed classes from .css AdditionalFiles -->
+        <ProjectReference Include="..\CC.CSX.Css.Generator\CC.CSX.Css.Generator.csproj" ReferenceOutputAssembly="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\CC.CSX.Css.Generator\bin\$(Configuration)\netstandard2.0\CC.CSX.Css.Generator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
+</Project>

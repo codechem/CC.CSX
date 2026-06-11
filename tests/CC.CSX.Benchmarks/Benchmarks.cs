@@ -1,17 +1,19 @@
-﻿using CC.CSX;
-using System.Text;
-using static CC.CSX.HtmlAttributes;
-using static CC.CSX.HtmlElements;
+﻿using System.Text;
 
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
+
+using CC.CSX;
+
+using static CC.CSX.HtmlAttributes;
+using static CC.CSX.HtmlElements;
 
 BenchmarkRunner.Run<Benchmarks>();
 
 [MemoryDiagnoser(false)]
 public class Benchmarks
 {
-    HtmlNode node = Templates.MainPage(null,
+    readonly HtmlNode node = Templates.MainPage(null,
         Div(
             Form(@class("uk-form"), method("post"), action("/test"),
                 Input(type("text"), name("name"), value("test")),

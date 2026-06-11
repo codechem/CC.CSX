@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <LangVersion>preview</LangVersion>
@@ -11,5 +11,12 @@
         <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
         <ProjectReference Include="..\..\src\CC.CSX.Web\CC.CSX.Web.csproj" />
         <ProjectReference Include="..\..\src\CC.CSX.Htmx\CC.CSX.Htmx.csproj" />
+        <ProjectReference Include="..\..\src\CC.CSX.Css\CC.CSX.Css.csproj" />
+        <!-- In-repo analyzer reference; NuGet consumers get the generator with the CC.CSX.Css package -->
+        <ProjectReference Include="..\..\src\CC.CSX.Css.Generator\CC.CSX.Css.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="styles/*.css" />
     </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@ watch.web:
 test:
 	dotnet coverage collect "dotnet test --logger:\"junit;LogFilePath=./results/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose\"" 
 
-package.all: package.core package.web package.htmx
+package.all: package.core package.web package.htmx package.css
 	echo "Package all done"
 
 package.core:
@@ -31,8 +31,11 @@ package.core:
 package.web:
 	bash ./eng/package-web.sh
 
-package.htmx: 
+package.htmx:
 	bash ./eng/package-htmx.sh
+
+package.css:
+	bash ./eng/package-css.sh
 
 publish.all: version.bump package.all
 	bash ./eng/publish-all.sh

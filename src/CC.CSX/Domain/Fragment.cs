@@ -16,11 +16,11 @@ public class Fragment : HtmlNode
     /// Creates a new instance of <see cref="Fragment"/> with the given children.
     /// </summary>
     public Fragment(params HtmlNode[] children) : base("shallow", children) { }
-    
+
     /// <summary>
     /// Creates a new instance of <see cref="Fragment"/> with the given children.
     /// </summary>
-    public Fragment(IEnumerable<HtmlNode> children) : base("shallow", children:children) { }
+    public Fragment(IEnumerable<HtmlNode> children) : base("shallow", children: children) { }
 
     /// <summary>
     /// <inheritdoc/>
@@ -36,7 +36,7 @@ public class Fragment : HtmlNode
         foreach (var child in Children)
         {
             child.AppendTo(ref sb, indent);
-            if(RenderOptions.Indent > 0)
+            if (RenderOptions.Indent > 0)
                 sb.AppendLine();
         }
     }
@@ -47,7 +47,7 @@ public class Fragment : HtmlNode
         foreach (var child in Children)
         {
             child.WriteTo(ref tw, indent);
-            if(RenderOptions.Indent > 0)
+            if (RenderOptions.Indent > 0)
                 tw.WriteLine();
         }
     }
