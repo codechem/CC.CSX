@@ -28,12 +28,13 @@ static HtmlNode Master(string title, params HtmlNode[] content)
             Title(title),
             Meta(charset("utf-8")),
             HtmxImports,
-            CssImports.Inline(Site.Bundle)
+            CssImports.Inline(Site.Bundle),
+            Script(src("https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"))
         ),
         Body(
             style(fontFamily("sans-serif"), CSS.color("#333")),
             "how are you",
-            H2("this is great"),
+            H2(@class(Tw.textCenter, Tw.textSky600, Tw.fontBold, Tw.hover(Tw.underline)), "this is great"),
             H1(@class(Site.textCenter), title),
             content,
             Hr()

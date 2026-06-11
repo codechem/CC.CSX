@@ -1,5 +1,7 @@
 global using CC.CSX;
 global using CC.CSX.Css;
+// qualified Tw.* (a `using static` would collide with CssProperties on names like gap/flex)
+global using CC.CSX.Css.Tailwind;
 
 global using Microsoft.AspNetCore.Mvc;
 

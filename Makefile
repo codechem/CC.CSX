@@ -10,6 +10,9 @@ run.htmx:
 run.web:
 	dotnet run --project ./samples/Web/Web.csproj
 
+run.browser:
+	dotnet run --project ./samples/BrowserSample/BrowserSample.csproj
+
 watch.simple:
 	dotnet watch --project ./samples/Simple/Simple.csproj | bat -l html -p
 
@@ -22,7 +25,7 @@ watch.web:
 test:
 	dotnet coverage collect "dotnet test --logger:\"junit;LogFilePath=./results/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose\"" 
 
-package.all: package.core package.web package.htmx package.css
+package.all: package.core package.web package.htmx package.css package.tailwind
 	echo "Package all done"
 
 package.core:
@@ -36,6 +39,9 @@ package.htmx:
 
 package.css:
 	bash ./eng/package-css.sh
+
+package.tailwind:
+	bash ./eng/package-tailwind.sh
 
 publish.all: version.bump package.all
 	bash ./eng/publish-all.sh
