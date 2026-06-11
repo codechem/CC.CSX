@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <RootNamespace>CC.CSX.Browser</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+        <EnablePreviewFeatures>true</EnablePreviewFeatures>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+        <PackageId>CC.CSX.Browser</PackageId>
+        <IsPackable>true</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PackageTags>html;web;wasm;webassembly;browser;client side rendering;c# ui;declarative ui;</PackageTags>
+        <Version>0.1.35</Version>
+        <Authors>Costa Halicea</Authors>
+        <Company>CodeChem</Company>
+        <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
+        <Description>Run CC.CSX views in the browser via .NET WebAssembly: client-side rendering with DOM morphing, delegate event handlers and htmx-style named actions</Description>
+        <RepositoryUrl>https://github.com/codechem/CC.CSX</RepositoryUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <GenerateRequiresPreviewFeaturesAttribute>False</GenerateRequiresPreviewFeaturesAttribute>
+        <PackRelease>true</PackRelease>
+    </PropertyGroup>
+    <ItemGroup>
+        <SupportedPlatform Include="browser" />
+        <AssemblyAttribute Include="System.Runtime.Versioning.SupportedOSPlatformAttribute">
+            <_Parameter1>browser</_Parameter1>
+        </AssemblyAttribute>
+        <EmbeddedResource Include="ccsx-browser.js" />
+        <ProjectReference Include="../CC.CSX/CC.CSX.csproj" />
+        <None Include="../../README.md" Pack="true" PackagePath="\" />
+        <None Include="../../LICENSE.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+</Project>
