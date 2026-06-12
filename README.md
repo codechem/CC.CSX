@@ -116,6 +116,21 @@ This will generate the following HTML:
 ```
 For existing HTML elements and attributes, you can use the static methods provided by the `HtmlElements` and `HtmlAttributes` classes, if you need to create custom elements you can use the new HtmlNode constructor, and tuple for attributes.
 
+## How it compares to Blazor
+
+Both let you build web UIs in C#, but htnet treats HTML as a plain C# *value* (a function returning `HtmlNode`) while Blazor runs a full component framework. The repo ships a head-to-head benchmark (`tests/CC.CSX.Benchmarks/BlazorComparison.cs`) rendering the same page through both — the Blazor side uses `RenderTreeBuilder` + `HtmlRenderer`, exactly what `.razor` SSR compiles down to:
+
+| Method                | Mean     | Ratio | Allocated |
+|---------------------- |---------:|------:|----------:|
+| htnet (`WriteTo`)     |  2.1 µs  |  1.00 |  12.95 KB |
+| Blazor `HtmlRenderer` | 11.3 µs  |  5.41 |  16.40 KB |
+
+About **5× faster with 27% fewer allocations** — and because views are stateless functions paired with [htmx](https://htmx.org/), there are no per-user SignalR circuits to hold in server memory.
+
+Since views are ordinary C# methods, `dotnet watch` hot reload works out of the box: edit a view body and the running process is patched in place while the open browser tab refreshes itself — no restart, no Razor compiler in between.
+
+See [docs/articles/htnet-vs-blazor.md](docs/articles/htnet-vs-blazor.md) for the full comparison, including an honest "when Blazor is the better choice" section.
+
 ### TODO
 
 - [ ] Project template
