@@ -12,7 +12,12 @@ on_branches:
   script:
     - echo in test job
 
-
+on_both_mr_and_branch:
+  only:
+    - branches
+    - merge_requests
+  script:
+    - echo in a job  that runs on mrs and branches
 on_mr:
   only:
     - merge_requests
