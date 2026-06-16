@@ -11,5 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/CC.CSX.Browser/CC.CSX.Browser.csproj" />
+    <ProjectReference Include="../../src/CC.CSX.Htmx/CC.CSX.Htmx.csproj" />
+    <ProjectReference Include="../../src/CC.CSX.Css/CC.CSX.Css.csproj" />
   </ItemGroup>
 </Project>
