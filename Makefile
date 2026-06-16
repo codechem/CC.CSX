@@ -25,7 +25,7 @@ watch.web:
 test:
 	dotnet coverage collect "dotnet test --logger:\"junit;LogFilePath=./results/{assembly}-test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose\"" 
 
-package.all: package.core package.web package.htmx package.css package.tailwind
+package.all: package.core package.web package.htmx package.css package.tailwind package.browser
 	echo "Package all done"
 
 package.core:
@@ -42,6 +42,9 @@ package.css:
 
 package.tailwind:
 	bash ./eng/package-tailwind.sh
+
+package.browser:
+	bash ./eng/package-browser.sh
 
 publish.all: version.bump package.all
 	bash ./eng/publish-all.sh
