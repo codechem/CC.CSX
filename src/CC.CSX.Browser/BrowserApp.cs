@@ -16,8 +16,9 @@ public static partial class BrowserApp
     static Func<HtmlNode>? view;
     static string rootSelector = "#app";
     static bool mounted;
-    // rooted so the JS-side function proxy never loses its .NET delegate
+    // rooted so the JS-side function proxies never lose their .NET delegates
     static Action<string, string>? dispatchRef;
+    static Action<string>? dispatchHxRef;
 
     /// <summary>
     /// Imports the JS glue module, renders the view into <paramref name="selector"/>
@@ -25,13 +26,26 @@ public static partial class BrowserApp
     /// </summary>
     public static async Task MountAsync(string selector, Func<HtmlNode> viewFn)
     {
-        rootSelector = selector;
         view = viewFn;
+        await InitCoreAsync(selector);
+        Refresh();
+    }
+
+    /// <summary>
+    /// Starts event dispatch and hx interception over the existing DOM under
+    /// <paramref name="selector"/> without mounting a view — for pages whose
+    /// initial HTML is static or server-rendered and driven purely by hx routes.
+    /// </summary>
+    public static Task StartAsync(string selector) => InitCoreAsync(selector);
+
+    static async Task InitCoreAsync(string selector)
+    {
+        rootSelector = selector;
         await ImportRuntimeModuleAsync();
         dispatchRef = Dispatch;
-        Init(selector, dispatchRef);
+        dispatchHxRef = DispatchHx;
+        Init(selector, dispatchRef, dispatchHxRef);
         mounted = true;
-        Refresh();
     }
 
     /// <summary>Registers a stable named action (route-like, htmx-style) usable via <c>htAction("name")</c>.</summary>
@@ -93,7 +107,8 @@ public static partial class BrowserApp
 
     [JSImport("init", ModuleName)]
     static partial void Init(string selector,
-        [JSMarshalAs<JSType.Function<JSType.String, JSType.String>>] Action<string, string> dispatch);
+        [JSMarshalAs<JSType.Function<JSType.String, JSType.String>>] Action<string, string> dispatch,
+        [JSMarshalAs<JSType.Function<JSType.String>>] Action<string> dispatchHx);
 
     [JSImport("ensureListener", ModuleName)]
     static partial void EnsureListener(string eventName);

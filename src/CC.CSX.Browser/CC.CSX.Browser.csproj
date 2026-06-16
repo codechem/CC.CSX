@@ -29,6 +29,7 @@
         <AssemblyAttribute Include="System.Runtime.Versioning.SupportedOSPlatformAttribute">
             <_Parameter1>browser</_Parameter1>
         </AssemblyAttribute>
+        <InternalsVisibleTo Include="CC.CSX.Browser.Tests" />
         <EmbeddedResource Include="ccsx-browser.js" />
         <ProjectReference Include="../CC.CSX/CC.CSX.csproj" />
         <None Include="../../README.md" Pack="true" PackagePath="\" />

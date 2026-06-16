@@ -30,10 +30,17 @@ public sealed record DomEvent
     public bool MetaKey { get; init; }
     /// <summary>The id attribute of the event target, if any.</summary>
     public string? TargetId { get; init; }
+    /// <summary>
+    /// Text payload of the drag operation ("text/plain"). Readable in drop and
+    /// dragstart; null in the other drag events, where the browser protects the data.
+    /// Defaults to the dragged element's id when dragstart sets no data itself.
+    /// </summary>
+    public string? DataTransfer { get; init; }
     public double? ScrollTop { get; init; }
     public double? ScrollLeft { get; init; }
 }
 
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(DomEvent))]
+[JsonSerializable(typeof(HxPayload))]
 internal partial class DomEventJsonContext : JsonSerializerContext;
