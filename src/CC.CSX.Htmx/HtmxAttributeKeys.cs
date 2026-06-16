@@ -72,7 +72,7 @@ public partial class HtmxAttributeKeys
     ///<summary>
     ///  issues a DELETE to the specified URL
     ///</summary>   
-    public const string hxDelete = "hx-delete ";
+    public const string hxDelete = "hx-delete";
     ///<summary>
     /// disables htmx processing for the given node and any children nodes
     ///</summary>
@@ -116,7 +116,7 @@ public partial class HtmxAttributeKeys
     ///<summary>
     /// issues a PATCH to the specified URL
     ///</summary>
-    public const string hxPatch = "hx-patch ";
+    public const string hxPatch = "hx-patch";
     ///<summary>
     /// specifies elements to keep unchanged between requests
     ///</summary>
@@ -128,7 +128,7 @@ public partial class HtmxAttributeKeys
     ///<summary>
     /// issues a PUT to the specified URL
     ///</summary>
-    public const string hxPut = "hx-put ";
+    public const string hxPut = "hx-put";
     ///<summary>
     /// replace the URL in the browser location bar
     ///</summary>
