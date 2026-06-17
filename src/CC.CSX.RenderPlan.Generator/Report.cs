@@ -51,6 +51,13 @@ internal static class Report
                     sb.AppendLine($"{indent}LOOP    each {loop.ItemVar} in {loop.Items}");
                     Walk(loop.Body, sb, indent + "  ", ref s, ref h, ref l, ref o, ref bytes);
                     break;
+                case CondSeg cond:
+                    sb.AppendLine($"{indent}COND    if ({cond.Cond})");
+                    sb.AppendLine($"{indent}  then:");
+                    Walk(cond.Then, sb, indent + "    ", ref s, ref h, ref l, ref o, ref bytes);
+                    sb.AppendLine($"{indent}  else:");
+                    Walk(cond.Else, sb, indent + "    ", ref s, ref h, ref l, ref o, ref bytes);
+                    break;
             }
     }
 
@@ -64,6 +71,7 @@ internal static class Report
                 HoleSeg hole => "{" + hole.Expr + "}",
                 OpaqueSeg op => "{opaque:" + op.Expr + "}",
                 LoopSeg loop => "{each " + loop.ItemVar + " in " + loop.Items + ": " + Template(loop.Body) + "}",
+                CondSeg cond => "{if " + cond.Cond + ": " + Template(cond.Then) + " else: " + Template(cond.Else) + "}",
                 _ => "",
             });
         return sb.ToString();

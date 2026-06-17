@@ -47,6 +47,13 @@ public static class Views
             Badge("online"),          // pure, all-static arg -> fully static
             Badge(userName));         // pure, dynamic arg -> static span scaffold + hole
 
+    // structural conditional: the branches produce different subtrees -> per-branch sub-plans
+    [RenderOptimized]
+    public static HtmlNode Status(bool ok) =>
+        Div(@class("status"),
+            ok ? Span(@class("ok"), "Online")
+               : Span(@class("err"), "Offline"));
+
     // a boundary: calls an unknown/impure helper -> should become an opaque hole
     [RenderOptimized]
     public static HtmlNode WithUnknown(string s) =>

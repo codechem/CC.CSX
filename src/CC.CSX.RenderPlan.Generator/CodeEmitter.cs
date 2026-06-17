@@ -4,9 +4,10 @@ using System.Text;
 namespace CC.CSX.RenderPlan.Generator;
 
 /// <summary>
-/// Emits an optimized writer per [RenderOptimized] method: static runs become baked UTF-8 byte
-/// constants written by memcpy, and only the dynamic holes/loops are evaluated. Generated as a
-/// standalone <c>&lt;Type&gt;__Optimized</c> static class (no interceptors yet).
+/// Emits an optimized builder per [RenderOptimized] method: <c>&lt;Type&gt;__Optimized.&lt;Method&gt;(args)</c>
+/// returns a <see cref="PlanNode"/> whose render writes baked static byte segments (memcpy) plus the
+/// dynamic holes/loops/conditionals. The signature matches the original (returns HtmlNode), so an
+/// interceptor can redirect call sites to it.
 /// </summary>
 internal static class CodeEmitter
 {
@@ -19,15 +20,14 @@ internal static class CodeEmitter
         foreach (var m in methods)
         {
             if (m.Plan is null) continue;
-
             var pars = string.Join(", ", m.Params.ConvertAll(p => $"{p.Type} {p.Name}"));
-            if (pars.Length > 0) pars += ", ";
+
             body.AppendLine($"    /// <summary>Optimized render plan for {Escape(m.Signature)}.</summary>");
-            body.AppendLine($"    public static void {m.MethodName}({pars}global::System.Buffers.IBufferWriter<byte> output)");
-            body.AppendLine("    {");
-            body.AppendLine("        using var w = new global::CC.CSX.Utf8HtmlWriter(output);");
-            EmitSegs(m.Plan, m.MethodName, body, consts, ref constId, "        ");
-            body.AppendLine("    }");
+            body.AppendLine($"    public static global::CC.CSX.HtmlNode {m.MethodName}({pars})");
+            body.AppendLine("        => new global::CC.CSX.PlanNode(__tw =>");
+            body.AppendLine("        {");
+            EmitSegs(m.Plan, m.MethodName, body, consts, ref constId, "            ");
+            body.AppendLine("        });");
             body.AppendLine();
         }
 
@@ -53,20 +53,29 @@ internal static class CodeEmitter
             switch (seg)
             {
                 case StaticSeg st:
-                    string field = $"_{method}_S{id++}";
-                    consts.AppendLine($"    private static readonly byte[] {field} = global::System.Text.Encoding.UTF8.GetBytes(\"{Escape(st.Text)}\");");
-                    body.AppendLine($"{indent}w.WriteRawUtf8({field});");
+                    string sField = $"_{method}_S{id}";
+                    string bField = $"_{method}_B{id}";
+                    id++;
+                    consts.AppendLine($"    private static readonly string {sField} = \"{Escape(st.Text)}\";");
+                    consts.AppendLine($"    private static readonly byte[] {bField} = global::System.Text.Encoding.UTF8.GetBytes({sField});");
+                    body.AppendLine($"{indent}global::CC.CSX.PlanStatics.WriteStatic(__tw, {bField}, {sField});");
                     break;
-                case HoleSeg h:
-                    EmitWrite(h.Expr, h.Kind, body, indent);
-                    break;
-                case OpaqueSeg op:
-                    EmitWrite(op.Expr, op.Kind, body, indent);
-                    break;
+                case HoleSeg h: EmitWrite(h.Expr, h.Kind, body, indent); break;
+                case OpaqueSeg op: EmitWrite(op.Expr, op.Kind, body, indent); break;
                 case LoopSeg loop:
                     body.AppendLine($"{indent}foreach (var {loop.ItemVar} in ({loop.Items}))");
                     body.AppendLine($"{indent}{{");
                     EmitSegs(loop.Body, method, body, consts, ref id, indent + "    ");
+                    body.AppendLine($"{indent}}}");
+                    break;
+                case CondSeg cond:
+                    body.AppendLine($"{indent}if ({cond.Cond})");
+                    body.AppendLine($"{indent}{{");
+                    EmitSegs(cond.Then, method, body, consts, ref id, indent + "    ");
+                    body.AppendLine($"{indent}}}");
+                    body.AppendLine($"{indent}else");
+                    body.AppendLine($"{indent}{{");
+                    EmitSegs(cond.Else, method, body, consts, ref id, indent + "    ");
                     body.AppendLine($"{indent}}}");
                     break;
             }
@@ -78,13 +87,13 @@ internal static class CodeEmitter
         switch (kind)
         {
             case WriteKind.Text:
-                body.AppendLine($"{indent}w.Write({expr});");
+                body.AppendLine($"{indent}__tw.Write({expr});");
                 break;
             case WriteKind.Value:
-                body.AppendLine($"{indent}w.Write(({expr}).ToString());");
+                body.AppendLine($"{indent}__tw.Write(({expr}).ToString());");
                 break;
             case WriteKind.Node:
-                body.AppendLine($"{indent}{{ var __n = ({expr}); if (__n is not null) {{ global::System.IO.TextWriter __tw = w; ((global::CC.CSX.HtmlItem)__n).WriteTo(ref __tw); }} }}");
+                body.AppendLine($"{indent}{{ var __n = ({expr}); if (__n is not null) {{ global::System.IO.TextWriter __t = __tw; ((global::CC.CSX.HtmlItem)__n).WriteTo(ref __t); }} }}");
                 break;
         }
     }

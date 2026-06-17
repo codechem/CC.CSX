@@ -3,8 +3,10 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>12.0</LangVersion>
+    <LangVersion>preview</LangVersion>
     <IsPackable>false</IsPackable>
+    <!-- enable interceptors generated into the CC.CSX.Generated namespace -->
+    <InterceptorsNamespaces>$(InterceptorsNamespaces);CC.CSX.Generated</InterceptorsNamespaces>
     <!-- write the generator's output to disk so the decomposition can be inspected -->
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <CompilerGeneratedFilesOutputPath>generated</CompilerGeneratedFilesOutputPath>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
@@ -50,6 +51,36 @@ public sealed class RenderPlanGenerator : IIncrementalGenerator
                 spc.AddSource($"{group.Key.TypeName}__Optimized.g.cs", SourceText.From(src, Encoding.UTF8));
             }
         });
+
+        // (c) interceptors: redirect call sites of [RenderOptimized] methods to the optimized builder
+        var sites = context.SyntaxProvider.CreateSyntaxProvider(
+                static (n, _) => n is InvocationExpressionSyntax,
+                static (ctx, _) => AnalyzeCallSite(ctx))
+            .Where(static s => s is not null)
+            .Collect();
+
+        context.RegisterSourceOutput(sites, static (spc, all) => InterceptorEmitter.Emit(spc, all!));
+    }
+
+    static readonly SymbolDisplayFormat Fq = SymbolDisplayFormat.FullyQualifiedFormat;
+
+    static CallSite? AnalyzeCallSite(GeneratorSyntaxContext ctx)
+    {
+        var inv = (InvocationExpressionSyntax)ctx.Node;
+        if (ctx.SemanticModel.GetSymbolInfo(inv).Symbol is not IMethodSymbol m) return null;
+        if (!m.IsStatic) return null; // spike: static views only
+        if (!m.GetAttributes().Any(a => a.AttributeClass?.ToDisplayString() == "CC.CSX.RenderOptimizedAttribute"))
+            return null;
+        var loc = ctx.SemanticModel.GetInterceptableLocation(inv);
+        if (loc is null) return null;
+
+        return new CallSite(
+            loc.GetInterceptsLocationAttributeSyntax(),
+            m.ContainingNamespace.IsGlobalNamespace ? "" : m.ContainingNamespace.ToDisplayString(),
+            m.ContainingType.Name,
+            m.Name,
+            m.ReturnType.ToDisplayString(Fq),
+            m.Parameters.Select(p => p.Type.ToDisplayString(Fq)).ToList());
     }
 
     static MethodPlan? Analyze(GeneratorAttributeSyntaxContext ctx)
@@ -102,6 +133,8 @@ internal sealed class HoleSeg(string expr, WriteKind kind) : Segment { public st
 internal sealed class OpaqueSeg(string expr, WriteKind kind) : Segment { public string Expr = expr; public WriteKind Kind = kind; }
 internal sealed class LoopSeg(string items, string itemVar, List<Segment> body) : Segment
 { public string Items = items; public string ItemVar = itemVar; public List<Segment> Body = body; }
+internal sealed class CondSeg(string cond, List<Segment> then, List<Segment> els) : Segment
+{ public string Cond = cond; public List<Segment> Then = then; public List<Segment> Else = els; }
 
 // ---- recursive planner ------------------------------------------------------
 
@@ -124,8 +157,14 @@ internal sealed class Planner(SemanticModel model)
         switch (expr)
         {
             case InvocationExpressionSyntax inv: return PlanInvocation(inv, subst, depth);
+            // structural conditional: branches produce nodes -> decompose each branch into a sub-plan
+            case ConditionalExpressionSyntax cond when KindOf(cond) == WriteKind.Node:
+                return [new CondSeg(
+                    Sub(cond.Condition, subst),
+                    Consolidate(Plan(cond.WhenTrue, subst, depth + 1)),
+                    Consolidate(Plan(cond.WhenFalse, subst, depth + 1)))];
             case IdentifierNameSyntax or MemberAccessExpressionSyntax: return PlanLeaf(expr, subst);
-            default: return [new HoleSeg(Sub(expr, subst), KindOf(expr))];
+            default: return [new HoleSeg(Sub(expr, subst), KindOf(expr))]; // value ternaries land here
         }
     }
 
