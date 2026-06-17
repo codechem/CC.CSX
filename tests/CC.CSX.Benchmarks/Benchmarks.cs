@@ -14,7 +14,7 @@ using static CC.CSX.HtmlElements;
 // run everything: dotnet run -c Release --project tests/CC.CSX.Benchmarks -- --filter *
 // quick pass:     ... -- --filter * --job short
 BenchmarkSwitcher
-    .FromTypes([typeof(RenderBenchmarks), typeof(ScalingBenchmarks), typeof(RequestBenchmarks), typeof(CssCompositionBenchmarks), typeof(BlazorComparisonBenchmarks)])
+    .FromTypes([typeof(RenderBenchmarks), typeof(ScalingBenchmarks), typeof(RequestBenchmarks), typeof(RenderPlanBenchmarks), typeof(RealisticBenchmarks), typeof(CatalogBenchmarks), typeof(CssCompositionBenchmarks), typeof(BlazorComparisonBenchmarks)])
     .Run(args.Length > 0 ? args : ["--filter", "*"]);
 
 /// <summary>
@@ -158,36 +158,163 @@ public class RequestBenchmarks
 
     readonly DiscardBufferWriter sink = new();
 
-    [GlobalSetup]
-    public void Setup() => RenderOptions.Indent = 0;
+    // Static chrome, cached once (Release default). Built lazily on first render at Indent=0.
+    static readonly HtmlNode CachedHead = SiteHead().Cache();
+    static readonly HtmlNode CachedNav = SiteNav().Cache();
+    static readonly HtmlNode CachedFooter = SiteFooter().Cache();
 
-    [Benchmark]
+    [GlobalSetup]
+    public void Setup()
+    {
+        RenderOptions.Indent = 0;
+        FragmentCache.Enabled = true; // benchmark the caching path explicitly
+    }
+
+    [Benchmark(Baseline = true)]
     public long BuildAndRender()
     {
-        HtmlNode page = Page(Rows);
+        HtmlNode page = Html(SiteHead(), Body(SiteNav(), Content(Rows), SiteFooter()));
         sink.Reset();
         page.WriteTo(sink);
         return sink.Count;
     }
 
-    static HtmlNode Page(int rows) =>
-        Html(
-            Head(
-                Title("Report"),
-                Link(rel("stylesheet"), href("/app.css"))),
-            Body(
-                Div(@class("nav"), A(href("/"), "Home"), A(href("/about"), "About")),
-                Div(@class("uk-container"),
-                    H1("Report"),
-                    Table(@class("uk-table"),
-                        Thead(Tr(Th("Id"), Th("Name"), Th("Email"))),
-                        Tbody(Enumerable.Range(0, rows)
-                            .Select(i => Tr(@class(i % 2 == 0 ? "even" : "odd"),
-                                Td(i),
-                                Td($"name-{i}"),
-                                Td($"user{i}@example.com")))
-                            .ToArray()))),
-                Div(@class("footer"), P("(c) 2026"))));
+    [Benchmark]
+    public long BuildAndRender_CachedChrome()
+    {
+        HtmlNode page = Html(CachedHead, Body(CachedNav, Content(Rows), CachedFooter));
+        sink.Reset();
+        page.WriteTo(sink);
+        return sink.Count;
+    }
+
+    // --- representative page parts ---
+
+    static HtmlNode SiteHead() =>
+        Head(
+            Meta(charset("utf-8")),
+            Meta(name("viewport"), content("width=device-width, initial-scale=1")),
+            Title("Report"),
+            Link(rel("stylesheet"), href("/app.css")),
+            Link(rel("preconnect"), href("https://fonts.example.com")),
+            Script(src("/lib/htmx.min.js")),
+            Script(src("/lib/app.js")));
+
+    static HtmlNode SiteNav() =>
+        Div(@class("navbar"),
+            A(@class("brand"), href("/"), "Acme"),
+            A(href("/products"), "Products"),
+            A(href("/pricing"), "Pricing"),
+            A(href("/docs"), "Docs"),
+            A(href("/blog"), "Blog"),
+            A(href("/about"), "About"),
+            A(href("/login"), "Sign in"));
+
+    static HtmlNode SiteFooter() =>
+        Div(@class("footer"),
+            A(href("/terms"), "Terms"),
+            A(href("/privacy"), "Privacy"),
+            A(href("/contact"), "Contact"),
+            P("(c) 2026 Acme, Inc."));
+
+    static HtmlNode Content(int rows) =>
+        Div(@class("uk-container"),
+            H1("Report"),
+            Table(@class("uk-table"),
+                Thead(Tr(Th("Id"), Th("Name"), Th("Email"))),
+                Tbody(Enumerable.Range(0, rows)
+                    .Select(i => Tr(@class(i % 2 == 0 ? "even" : "odd"),
+                        Td(i),
+                        Td($"name-{i}"),
+                        Td($"user{i}@example.com")))
+                    .ToArray())));
+}
+
+/// <summary>
+/// Static/dynamic render plans for the 1000-row table: full live build+render vs a coarse plan
+/// (chrome baked, rows rebuilt live) vs a hand-written fine plan (row scaffold baked, only cell
+/// values written) — the ceiling a [RenderOptimized] generator would target. All write the same
+/// bytes to a discarding sink at Indent 0.
+/// </summary>
+[MemoryDiagnoser]
+public class RenderPlanBenchmarks
+{
+    [Params(10, 100, 1000)]
+    public int Rows { get; set; }
+
+    (int id, string name, string email)[] rows = [];
+    readonly DiscardBufferWriter sink = new();
+    RenderPlan coarse = null!;
+
+    // baked static fragments for the fine plan
+    static readonly byte[] FinePrefix = U8("<table class=\"uk-table\"><thead><tr><th>Id</th><th>Name</th><th>Email</th></tr></thead><tbody>");
+    static readonly byte[] RowClassOpen = U8("<tr class=\"");
+    static readonly byte[] RowAfterClass = U8("\"><td>");
+    static readonly byte[] CellSep = U8("</td><td>");
+    static readonly byte[] RowEnd = U8("</td></tr>");
+    static readonly byte[] FineSuffix = U8("</tbody></table>");
+    static byte[] U8(string s) => Encoding.UTF8.GetBytes(s);
+
+    [GlobalSetup]
+    public void Setup()
+    {
+        RenderOptions.Indent = 0;
+        rows = Enumerable.Range(0, Rows)
+            .Select(i => (i, $"name-{i}", $"user{i}@example.com")).ToArray();
+        coarse = RenderPlan.Compile(BuildTable());
+    }
+
+    // current per-request cost: build the whole tree then stream it
+    [Benchmark(Baseline = true)]
+    public long Live_BuildAndRender()
+    {
+        sink.Reset();
+        BuildTable().WriteTo(sink);
+        return sink.Count;
+    }
+
+    // chrome baked once; rows still rebuilt live each execution
+    [Benchmark]
+    public long Plan_Coarse()
+    {
+        sink.Reset();
+        coarse.WriteTo(sink);
+        return sink.Count;
+    }
+
+    // the generator's target: no HtmlNode tree built at all, only cell values written
+    [Benchmark]
+    public long Plan_Fine_HandWritten()
+    {
+        sink.Reset();
+        using var w = new Utf8HtmlWriter(sink);
+        w.WriteRawUtf8(FinePrefix);
+        Span<char> num = stackalloc char[12];
+        foreach (var r in rows)
+        {
+            w.WriteRawUtf8(RowClassOpen);
+            w.Write((r.id & 1) == 0 ? "even" : "odd");
+            w.WriteRawUtf8(RowAfterClass);
+            r.id.TryFormat(num, out int n);
+            w.Write(num[..n]);
+            w.WriteRawUtf8(CellSep);
+            w.Write(r.name);
+            w.WriteRawUtf8(CellSep);
+            w.Write(r.email);
+            w.WriteRawUtf8(RowEnd);
+        }
+        w.WriteRawUtf8(FineSuffix);
+        w.Flush();
+        return sink.Count;
+    }
+
+    HtmlNode BuildTable() =>
+        Table(@class("uk-table"),
+            Thead(Tr(Th("Id"), Th("Name"), Th("Email"))),
+            Tbody(Each(rows, r => Tr(@class((r.id & 1) == 0 ? "even" : "odd"),
+                Td(r.id),
+                Td(r.name),
+                Td(r.email)))));
 }
 
 /// <summary>

@@ -22,6 +22,13 @@ public static class HtmlNodeExtensions
     }
 
     /// <summary>
+    /// Wraps <paramref name="node"/> so that, when <see cref="FragmentCache.Enabled"/> is set
+    /// (Release by default), it is rendered once and the bytes reused on every subsequent render.
+    /// Intended for static chrome held in a <c>static readonly</c> field; see <see cref="FragmentCache"/>.
+    /// </summary>
+    public static HtmlNode Cache(this HtmlNode node) => new CachedFragment(node);
+
+    /// <summary>
     /// Applies the given action to each node that satisfies the given condition.
     /// The nodes are searched in depth-first order.
     /// </summary>

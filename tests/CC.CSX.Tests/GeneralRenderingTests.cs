@@ -33,6 +33,7 @@ public class GeneralRenderingTests
     [Fact]
     public void WriteTo_Should_ProduceTheSameOutputAsToString()
     {
+        RenderOptions.Indent = 2; // this test asserts the indented form
         var tw = new StringWriter() as TextWriter;
         _sut.WriteTo(ref tw);
         Assert.Equal(_expected, tw.ToString()!.Replace("\r\n", "\n"));

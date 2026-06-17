@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
+    <IsPackable>false</IsPackable>
+    <!-- enable interceptors generated into the CC.CSX.Generated namespace -->
+    <InterceptorsNamespaces>$(InterceptorsNamespaces);CC.CSX.Generated</InterceptorsNamespaces>
+    <!-- write the generator's output to disk so the decomposition can be inspected -->
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- the emitted files are for inspection only; the in-memory generator output is what compiles -->
+    <Compile Remove="generated/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
+    <ProjectReference Include="..\..\src\CC.CSX.Css\CC.CSX.Css.csproj" />
+    <ProjectReference Include="..\..\src\CC.CSX.RenderPlan.Generator\CC.CSX.RenderPlan.Generator.csproj"
+                      OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>

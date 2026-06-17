@@ -81,22 +81,41 @@ These make the declarative syntax work; check them before changing signatures:
 - Three render paths on every `HtmlItem`: `ToString(indent)`, `AppendTo(ref StringBuilder)`, and `WriteTo(ref TextWriter)` (the streaming path used by the web integration). New node types must implement all three. For `HtmlNode` the first two funnel into `WriteTo` (one buffer for the whole subtree — `ToString` builds a `StringBuilder` then calls `AppendTo`, which wraps a `StringWriter`); keep the three outputs byte-identical (pinned by `GeneralRenderingTests.WriteTo_Should_ProduceTheSameOutputAsToString`). Indentation is emitted via the non-allocating `Indentation` helper, not `new string(' ', n)`.
 - Lowest-allocation render: `node.WriteTo(IBufferWriter<byte>)` (extension in `HtmlNodeExtensions`) encodes UTF-8 straight into the buffer via `Utf8HtmlWriter`, streaming in pooled chunks — render allocation is O(1) regardless of page size (no large string, no LOH/Gen2). `CC.CSX.Web.HtmlResult` uses this against the response `PipeWriter`. The browser path is different: `BrowserApp.Refresh()` calls `view().ToString()` and hands the HTML string to the JS `morph`, so the browser benefits from the `ToString` fast path (not the `IBufferWriter` path).
 - `HtmlNode.Attributes`/`Children` backing lists are allocated lazily (leaf nodes allocate neither). Render and traversal read the internal `RawAttributes`/`RawChildren` (nullable) so they never force a list allocation; the public getters allocate on demand for mutation.
+- Fragment caching: `Raw(string)` emits pre-rendered HTML verbatim (caching its UTF-8 bytes for the `Utf8HtmlWriter` path); `node.Cache()` wraps a static subtree so it renders once and reuses the bytes (hold the result in a `static readonly`); `FragmentCache.GetOrAdd(key, factory)` is the keyed variant. Gated by the `FragmentCache.Enabled` flag, which **defaults to true in Release, false in Debug** (`#if DEBUG`) so dev sees fresh output. Caching only takes effect when `RenderOptions.Indent == 0` (indented output depends on nesting depth); otherwise the source renders live. Only cache genuinely-static fragments — a cached fragment holding per-request data serves stale content. Tests mutate this global flag + `RenderOptions`, so `CC.CSX.Tests` disables xUnit parallelization (`AssemblyInfo.cs`).
 - **RenderOptions** is global static state (`Indent`, `TextNodeOnNewLine`) that affects formatting everywhere — including test expectations.
 - `CC.CSX.Web.HtmlResult` streams via `WriteTo` to the response `BodyWriter` with `Content-Type: text/html`; `Render(...)` extension methods are in `CC.CSX.Web/HtmlNodeExtensions.cs`.
 
 ### Usage pattern (what user code looks like)
 
+**Preferred styling: author CSS in a `.css` file and use the generated typed classes** — not raw
+class strings. Register the file as `<AdditionalFiles Include="styles/*.css" />` and reference the
+`CC.CSX.Css.Generator` (NuGet consumers get it with the `CC.CSX.Css` package; in-repo add the
+analyzer ProjectReference). The generator emits `Css.<FileName>.<className>` constants plus a
+`Bundle`, so classes are compile-checked, refactor-safe, and discoverable. Serve the styles with
+`CssImports.Inline(...)`/`StyleSheet(...)`. Use `CssProperties` for typed inline styles and
+`CC.CSX.Css.Tailwind` (`Tw.*`) for typed Tailwind utilities. Reserve plain class strings for one-off
+or third-party class names only.
+
 ```csharp
 using static CC.CSX.HtmlElements;
 using static CC.CSX.HtmlAttributes;
-using static CC.CSX.Htmx.HtmxAttributes; // if using HTMX
+using static CC.CSX.Css.CssImports;        // Inline(...) / StyleSheet(...)
+using static CC.CSX.Htmx.HtmxAttributes;   // if using HTMX
+using static MyApp.Css;                     // generated from your styles/*.css (e.g. site.css -> Site)
 
-Div(@class("container"), id("main"),
-    H1("Title"),
-    P("Content here"),
-    ("data-custom", "value")   // tuple → attribute
+Html(
+    Head(Inline(Site.Bundle)),              // serve the generated stylesheet
+    Body(
+        Div(@class(Site.container), id("main"),   // typed class constant, not a raw "container"
+            H1(@class(Site.title), "Title"),
+            P("Content here"),
+            ("data-custom", "value"))             // tuple → attribute
+    )
 )
 ```
+
+See `samples/Web` (and `samples/CalendarSample`) for the end-to-end `.css` source-generator setup;
+`CssProperties` for typed inline `style(...)`; `Tw.*` for typed Tailwind classes.
 
 ### Target frameworks
 

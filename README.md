@@ -57,7 +57,7 @@ static HtmlNode Master(string title, params HtmlNode[] content)
         Meta(charset("utf-8")),
         HtmxImports),
     Body(
-        H1(@class("text-center"), title),
+        H1(@class(Site.title), title), // prefer typed classes from the CSS generator (see "Styling" below)
         content, // this is the content that will be rendered as a child of the body
         Hr()
     )
@@ -115,6 +115,35 @@ This will generate the following HTML:
 </div>
 ```
 For existing HTML elements and attributes, you can use the static methods provided by the `HtmlElements` and `HtmlAttributes` classes, if you need to create custom elements you can use the new HtmlNode constructor, and tuple for attributes.
+
+## Styling and CSS classes
+
+**The preferred way to author styles and classes is with `CC.CSX.Css` and its source generator —
+not raw class strings.** Write your CSS in a `.css` file, register it as an additional file, and the
+generator turns it into compile-checked, refactor-safe, discoverable typed members:
+
+```cs
+// site.css is registered via <AdditionalFiles Include="styles/*.css" /> and the
+// CC.CSX.Css.Generator (shipped with the CC.CSX.Css package).
+using static CC.CSX.Css.CssImports; // Inline(...) / StyleSheet(...)
+using static MyApp.Css;             // generated: site.css -> Site.<className> + Site.Bundle
+
+Html(
+    Head(Inline(Site.Bundle)),                  // serve the generated stylesheet
+    Body(
+        Div(@class(Site.container),             // typed class constant, not the raw string "container"
+            H1(@class(Site.title), "Title"))
+    )
+);
+```
+
+- **Typed CSS classes** from your `.css` files via the generator — the recommended default.
+- **`CssProperties`** for typed inline styles: `style(background("silver"), padding(8.px()))`.
+- **`CC.CSX.Css.Tailwind`** (`Tw.*`) for typed Tailwind utility classes.
+- Plain class strings still work everywhere (`CssClass` ⇄ `string`), but reserve them for one-off or
+  third-party class names.
+
+See `samples/Web` and `samples/CalendarSample` for the end-to-end `.css` generator setup.
 
 ## How it compares to Blazor
 
