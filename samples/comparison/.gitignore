@@ -1,0 +1,6 @@
+# build artifacts
+**/bin/
+**/obj/
+**/node_modules/
+react/dist/
+**/publish-out/

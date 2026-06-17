@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Starts the app in Debug, opens a debug-enabled browser, and attaches
+      // the .NET WASM debugger so you can set C# breakpoints in Program.cs.
+      // NOTE: stop any already-running `dotnet run` on port 5210 first, since
+      // this config starts the app itself.
+      "name": "Debug htnet WASM (Chrome)",
+      "type": "blazorwasm",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "url": "http://localhost:5210",
+      "browser": "chrome"
+    }
+  ]
+}

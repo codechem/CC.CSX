@@ -1,0 +1,115 @@
+/* ============================================================================
+   Pulse Dashboard — SHARED STYLE GUIDE
+   This exact file is used unchanged by all three implementations
+   (Blazor, React, htnet). Do NOT edit it inside an implementation.
+   Build your markup using ONLY the class names defined here so the three
+   apps are visually identical and comparable. Dynamic values (bar heights,
+   delta sign) are passed via inline style / class toggles as noted.
+   ============================================================================ */
+
+:root {
+  --bg:        #0f1420;
+  --surface:   #181f2e;
+  --surface-2: #1f2838;
+  --border:    #2a3550;
+  --text:      #e6ebf5;
+  --muted:     #8b97b0;
+  --primary:   #5b8cff;
+  --primary-d: #3f6fe0;
+  --success:   #34d399;
+  --danger:    #f87171;
+  --warning:   #fbbf24;
+  --radius:    12px;
+  --gap:       16px;
+  --shadow:    0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.25);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ---- App shell ---- */
+.app        { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+.topbar     { display: flex; align-items: center; justify-content: space-between; gap: var(--gap); margin-bottom: 28px; flex-wrap: wrap; }
+.brand      { display: flex; align-items: baseline; gap: 10px; }
+.brand h1   { font-size: 22px; font-weight: 700; margin: 0; letter-spacing: -.02em; }
+.brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--primary); display: inline-block; }
+.brand small{ color: var(--muted); font-size: 13px; }
+.controls   { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* ---- Buttons & form controls ---- */
+.btn {
+  appearance: none; border: 1px solid var(--border); background: var(--surface-2);
+  color: var(--text); padding: 8px 14px; border-radius: 8px; font-size: 14px;
+  cursor: pointer; transition: background .15s, border-color .15s;
+}
+.btn:hover        { background: #27324a; }
+.btn-primary      { background: var(--primary); border-color: var(--primary); color: #0b1020; font-weight: 600; }
+.btn-primary:hover{ background: var(--primary-d); border-color: var(--primary-d); }
+
+.select {
+  appearance: none; border: 1px solid var(--border); background: var(--surface-2);
+  color: var(--text); padding: 8px 30px 8px 12px; border-radius: 8px; font-size: 14px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%238b97b0' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center;
+}
+
+/* ---- Cards / panels ---- */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+
+/* ---- KPI grid ---- */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); margin-bottom: 28px; }
+@media (max-width: 800px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.kpi        { padding: 18px 18px 16px; }
+.kpi-label  { color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; margin: 0 0 8px; }
+.kpi-value  { font-size: 28px; font-weight: 700; letter-spacing: -.02em; margin: 0; }
+.kpi-delta  { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; margin-top: 8px; }
+.kpi-delta.up   { color: var(--success); }
+.kpi-delta.down { color: var(--danger); }
+
+/* ---- Section ---- */
+.section        { margin-bottom: 28px; }
+.section-head   { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: var(--gap); flex-wrap: wrap; }
+.section-title  { font-size: 16px; font-weight: 600; margin: 0; }
+
+/* ---- Bar chart (heights set via inline style: height: NN%) ---- */
+.chart        { display: flex; align-items: flex-end; gap: 10px; height: 200px; padding: 18px; }
+.bar-col      { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
+.bar          { width: 100%; max-width: 46px; background: linear-gradient(180deg, var(--primary), var(--primary-d)); border-radius: 6px 6px 0 0; transition: height .3s ease; min-height: 2px; }
+.bar-label    { color: var(--muted); font-size: 12px; }
+
+/* ---- Filter tabs ---- */
+.filter-tabs  { display: inline-flex; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; padding: 3px; }
+.filter-tab   { appearance: none; border: 0; background: transparent; color: var(--muted); padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+.filter-tab.active { background: var(--primary); color: #0b1020; font-weight: 600; }
+
+/* ---- Table ---- */
+.table        { width: 100%; border-collapse: collapse; }
+.table th     { text-align: left; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.table th.sortable { cursor: pointer; user-select: none; }
+.table th.sortable:hover { color: var(--text); }
+.table th .arrow { font-size: 10px; margin-left: 4px; }
+.table td     { padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.table tbody tr:last-child td { border-bottom: 0; }
+.table tbody tr:hover { background: var(--surface-2); }
+.table .num   { text-align: right; font-variant-numeric: tabular-nums; }
+.mono         { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); }
+
+/* ---- Status badges ---- */
+.badge        { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.badge.paid     { background: rgba(52,211,153,.15); color: var(--success); }
+.badge.pending  { background: rgba(251,191,36,.15); color: var(--warning); }
+.badge.refunded { background: rgba(248,113,113,.15); color: var(--danger); }
+
+.empty { padding: 40px; text-align: center; color: var(--muted); }

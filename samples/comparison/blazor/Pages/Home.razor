@@ -1,0 +1,231 @@
+@page "/"
+@using System.Globalization
+<PageTitle>Pulse — Blazor</PageTitle>
+
+<div class="app">
+    <div class="topbar">
+        <div class="brand">
+            <span class="dot"></span>
+            <h1>Pulse</h1>
+            <small>Analytics overview</small>
+        </div>
+        <div class="controls">
+            <select class="select" value="@_range" @onchange="OnRangeChanged">
+                @foreach (var r in Ranges)
+                {
+                    <option value="@r.Key">@r.Value</option>
+                }
+            </select>
+            <button class="btn btn-primary" @onclick="Refresh">Refresh</button>
+        </div>
+    </div>
+
+    <div class="kpi-grid">
+        @foreach (var kpi in _kpis)
+        {
+            <div class="card kpi">
+                <p class="kpi-label">@kpi.Label</p>
+                <p class="kpi-value">@kpi.Value</p>
+                <span class="kpi-delta @(kpi.Up ? "up" : "down")">
+                    @(kpi.Up ? "▲" : "▼") @kpi.Delta.ToString("0.0", CultureInfo.InvariantCulture)%
+                </span>
+            </div>
+        }
+    </div>
+
+    <div class="section">
+        <div class="section-head">
+            <h2 class="section-title">Revenue over time</h2>
+        </div>
+        <div class="card">
+            <div class="chart">
+                @{
+                    var max = _chart.Count > 0 ? _chart.Max(p => p.Value) : 0;
+                }
+                @foreach (var point in _chart)
+                {
+                    var height = max > 0 ? (int)Math.Round(point.Value * 100.0 / max) : 0;
+                    <div class="bar-col">
+                        <div class="bar" style="height:@(height)%"></div>
+                        <span class="bar-label">@point.Label</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-head">
+            <h2 class="section-title">Recent orders</h2>
+            <div class="filter-tabs">
+                @foreach (var status in Statuses)
+                {
+                    <button class="filter-tab @(_filter == status ? "active" : "")"
+                            @onclick="() => SetFilter(status)">@status</button>
+                }
+            </div>
+        </div>
+        <div class="card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Status</th>
+                        <th class="num sortable" @onclick="ToggleSort">
+                            Amount
+                            @if (_sortDir != 0)
+                            {
+                                <span class="arrow">@(_sortDir > 0 ? "▲" : "▼")</span>
+                            }
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var rows = VisibleOrders();
+                    }
+                    @if (rows.Count == 0)
+                    {
+                        <tr><td class="empty" colspan="4">No orders</td></tr>
+                    }
+                    else
+                    {
+                        @foreach (var o in rows)
+                        {
+                            <tr>
+                                <td class="mono">#@o.Id</td>
+                                <td>@o.Customer</td>
+                                <td><span class="badge @o.Status.ToLowerInvariant()">@o.Status</span></td>
+                                <td class="num">@Currency(o.Amount)</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@code {
+    record Kpi(string Label, string Value, double Delta, bool Up);
+    record ChartPoint(string Label, double Value);
+    record Order(int Id, string Customer, string Status, int Amount);
+
+    static readonly Dictionary<string, string> Ranges = new()
+    {
+        ["today"] = "Today",
+        ["7d"] = "Last 7 days",
+        ["30d"] = "Last 30 days",
+    };
+    static readonly string[] Statuses = { "All", "Paid", "Pending", "Refunded" };
+    static readonly string[] OrderStatuses = { "Paid", "Pending", "Refunded" };
+    static readonly string[] Customers =
+    {
+        "Ada Lovelace", "Alan Turing", "Grace Hopper", "Linus Torvalds",
+        "Margaret Hamilton", "Dennis Ritchie", "Barbara Liskov", "Ken Thompson",
+        "Donald Knuth", "Katherine Johnson", "Tim Berners-Lee", "Edsger Dijkstra",
+    };
+
+    readonly Random _rng = new();
+
+    string _range = "7d";
+    string _filter = "All";
+    int _sortDir = 0; // 0 none, 1 asc, -1 desc
+
+    List<Kpi> _kpis = new();
+    List<ChartPoint> _chart = new();
+    List<Order> _orders = new();
+
+    protected override void OnInitialized() => Regenerate();
+
+    void OnRangeChanged(ChangeEventArgs e)
+    {
+        _range = e.Value?.ToString() ?? "7d";
+        Regenerate();
+    }
+
+    void Refresh() => Regenerate();
+
+    void SetFilter(string status) => _filter = status;
+
+    void ToggleSort() => _sortDir = _sortDir == 1 ? -1 : 1;
+
+    void Regenerate()
+    {
+        _kpis = BuildKpis();
+        _chart = BuildChart();
+        _orders = BuildOrders();
+    }
+
+    List<Kpi> BuildKpis()
+    {
+        // distinct base scales per range
+        var (revBase, ordBase, visBase) = _range switch
+        {
+            "today" => (6_000, 90, 2_000),
+            "30d" => (210_000, 3_400, 78_000),
+            _ => (48_000, 760, 18_000),
+        };
+
+        int revenue = revBase + _rng.Next(-revBase / 8, revBase / 8);
+        int orders = ordBase + _rng.Next(-ordBase / 8, ordBase / 8);
+        int visitors = visBase + _rng.Next(-visBase / 8, visBase / 8);
+        double conversion = Math.Round(orders * 100.0 / visitors, 1);
+
+        return new()
+        {
+            new("Revenue", "$" + revenue.ToString("N0", CultureInfo.InvariantCulture), RandDelta(), CoinFlip()),
+            new("Orders", orders.ToString("N0", CultureInfo.InvariantCulture), RandDelta(), CoinFlip()),
+            new("Visitors", visitors.ToString("N0", CultureInfo.InvariantCulture), RandDelta(), CoinFlip()),
+            new("Conversion", conversion.ToString("0.0", CultureInfo.InvariantCulture) + "%", RandDelta(), CoinFlip()),
+        };
+    }
+
+    List<ChartPoint> BuildChart()
+    {
+        string[] labels = _range switch
+        {
+            "today" => new[] { "8a", "10a", "12p", "2p", "4p", "6p", "8p" },
+            "30d" => new[] { "W1", "W2", "W3", "W4" },
+            _ => new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" },
+        };
+        int scale = _range switch { "today" => 1_500, "30d" => 60_000, _ => 9_000 };
+
+        var list = new List<ChartPoint>();
+        foreach (var label in labels)
+            list.Add(new ChartPoint(label, scale / 2 + _rng.Next(scale)));
+        return list;
+    }
+
+    List<Order> BuildOrders()
+    {
+        var list = new List<Order>();
+        var pool = Customers.OrderBy(_ => _rng.Next()).ToList();
+        for (int i = 0; i < 10; i++)
+        {
+            list.Add(new Order(
+                10_400 + _rng.Next(600),
+                pool[i % pool.Count],
+                OrderStatuses[_rng.Next(OrderStatuses.Length)],
+                40 + _rng.Next(1_960)));
+        }
+        return list;
+    }
+
+    List<Order> VisibleOrders()
+    {
+        IEnumerable<Order> q = _orders;
+        if (_filter != "All")
+            q = q.Where(o => o.Status == _filter);
+        if (_sortDir == 1)
+            q = q.OrderBy(o => o.Amount);
+        else if (_sortDir == -1)
+            q = q.OrderByDescending(o => o.Amount);
+        return q.ToList();
+    }
+
+    double RandDelta() => Math.Round(_rng.NextDouble() * 18 + 0.5, 1);
+    bool CoinFlip() => _rng.Next(2) == 0;
+    static string Currency(int amount) => "$" + amount.ToString("N0", CultureInfo.InvariantCulture);
+}
