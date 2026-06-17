@@ -163,11 +163,18 @@ public class HtmlNode : HtmlItem
             tw.WriteLine();
         }
 
+        // <script>/<style> are raw-text elements: their text content must NOT be HTML-escaped
+        // (e.g. CSS `a > b {}` or JS `a < b`), so write text children verbatim.
+        bool rawText = Name is "script" or "style";
+
         if (children is not null)
         {
             foreach (HtmlNode? child in children)
             {
-                child?.WriteTo(ref tw, indent + RenderOptions.Indent);
+                if (rawText && child is HtmlTextNode { Value: { } raw })
+                    tw.Write(raw);
+                else
+                    child?.WriteTo(ref tw, indent + RenderOptions.Indent);
                 if (newLines)
                 {
                     if (child is HtmlTextNode)

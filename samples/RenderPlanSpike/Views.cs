@@ -54,6 +54,15 @@ public static class Views
             ok ? Span(@class("ok"), "Online")
                : Span(@class("err"), "Offline"));
 
+    // escaping: a constant with special chars (baked escaped) + dynamic text and attribute holes
+    // (escaped at runtime) — must match the live renderer exactly.
+    [RenderOptimized]
+    public static HtmlNode Escaped(string user, string note) =>
+        Div(@class("box"),
+            P("a < b & \"c\""),     // constant special chars
+            P(user),                 // dynamic text hole
+            Span(title(note), "ok")); // dynamic attribute-value hole
+
     // a boundary: calls an unknown/impure helper -> should become an opaque hole
     [RenderOptimized]
     public static HtmlNode WithUnknown(string s) =>

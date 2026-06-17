@@ -54,6 +54,18 @@ public class GoldenTests
     [Fact]
     public void OptimizedBuilder_ReturnsPlanNode()
         => Assert.IsType<PlanNode>(Views__Optimized.UserRow(1, "a", "b"));
+
+    [Fact]
+    public void Escaped_Matches_AndActuallyEscapes()
+    {
+        const string user = "<script>alert('x')&</script>";
+        const string note = "a\"b&c<";
+        var live = Render(Views.Escaped(user, note));
+        var opt = Render(Views__Optimized.Escaped(user, note));
+        Assert.Equal(live, opt);                       // plan escapes identically to live
+        Assert.Contains("&lt;script&gt;", live);       // and it really is escaped
+        Assert.DoesNotContain("<script>", live);
+    }
 }
 
 // complex / dynamic-heavy page (loop + structural conditional + nested loop + inlined component)

@@ -15,24 +15,24 @@ public class HtmlTextNode(in string value) : HtmlNode(TextNodeKey, value)
     /// <summary>
     /// Creates a new instance of <see cref="HtmlTextNode"/> with the given value.
     /// </summary>
-    public override string ToString()
-    {
-        return Value ?? "";
-    }
+    public override string ToString() => HtmlEscape.Escape(Value);
 
     ///<summary>
     ///<inheritdoc/>
     ///</summary>
     public override string ToString(int indent = 0)
     {
-        return (new string(' ', indent) + Value) ?? "";
+        var sb = new StringBuilder();
+        if (indent > 0) Indentation.AppendTo(sb, indent);
+        HtmlEscape.AppendEscaped(sb, Value);
+        return sb.ToString();
     }
 
     ///<inheritdoc/>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
         if (indent > 0) Indentation.AppendTo(sb, indent);
-        sb.Append(Value);
+        HtmlEscape.AppendEscaped(sb, Value);
     }
 
     ///<inheritdoc/>
@@ -41,7 +41,7 @@ public class HtmlTextNode(in string value) : HtmlNode(TextNodeKey, value)
         if (Value is not null)
         {
             if (indent > 0) Indentation.WriteTo(tw, indent);
-            tw.Write(Value);
+            HtmlEscape.WriteEscaped(tw, Value);
         }
     }
 }
