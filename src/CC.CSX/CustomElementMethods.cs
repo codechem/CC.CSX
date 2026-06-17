@@ -70,5 +70,17 @@ public static partial class HtmlElements
     /// </summary>
     public static RawHtml Raw(string html) => new(html);
 
+    /// <summary>
+    /// Marks a dynamic hole: <paramref name="produce"/> is evaluated on each render. Surrounding
+    /// static markup can be baked by <see cref="RenderPlan"/>; without a plan it renders inline.
+    /// </summary>
+    public static DynNode Dyn(Func<HtmlNode> produce) => new(produce);
+
+    /// <summary>
+    /// Marks a repeated dynamic region: renders <paramref name="render"/> for each of
+    /// <paramref name="items"/>. Compiles to a loop hole in a <see cref="RenderPlan"/>.
+    /// </summary>
+    public static EachNode<T> Each<T>(IEnumerable<T> items, Func<T, HtmlNode> render) => new(items, render);
+
 
 }
