@@ -64,5 +64,11 @@ public static partial class HtmlElements
     /// </summary>
     public static HtmlNone None => HtmlNone.Instance;
 
+    /// <summary>
+    /// A node that renders the given pre-rendered HTML verbatim (no escaping). Use only for trusted
+    /// HTML; see <see cref="FragmentCache"/> for caching dynamically-built fragments.
+    /// </summary>
+    public static RawHtml Raw(string html) => new(html);
+
 
 }

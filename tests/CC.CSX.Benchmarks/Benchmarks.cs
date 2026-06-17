@@ -158,36 +158,76 @@ public class RequestBenchmarks
 
     readonly DiscardBufferWriter sink = new();
 
-    [GlobalSetup]
-    public void Setup() => RenderOptions.Indent = 0;
+    // Static chrome, cached once (Release default). Built lazily on first render at Indent=0.
+    static readonly HtmlNode CachedHead = SiteHead().Cache();
+    static readonly HtmlNode CachedNav = SiteNav().Cache();
+    static readonly HtmlNode CachedFooter = SiteFooter().Cache();
 
-    [Benchmark]
+    [GlobalSetup]
+    public void Setup()
+    {
+        RenderOptions.Indent = 0;
+        FragmentCache.Enabled = true; // benchmark the caching path explicitly
+    }
+
+    [Benchmark(Baseline = true)]
     public long BuildAndRender()
     {
-        HtmlNode page = Page(Rows);
+        HtmlNode page = Html(SiteHead(), Body(SiteNav(), Content(Rows), SiteFooter()));
         sink.Reset();
         page.WriteTo(sink);
         return sink.Count;
     }
 
-    static HtmlNode Page(int rows) =>
-        Html(
-            Head(
-                Title("Report"),
-                Link(rel("stylesheet"), href("/app.css"))),
-            Body(
-                Div(@class("nav"), A(href("/"), "Home"), A(href("/about"), "About")),
-                Div(@class("uk-container"),
-                    H1("Report"),
-                    Table(@class("uk-table"),
-                        Thead(Tr(Th("Id"), Th("Name"), Th("Email"))),
-                        Tbody(Enumerable.Range(0, rows)
-                            .Select(i => Tr(@class(i % 2 == 0 ? "even" : "odd"),
-                                Td(i),
-                                Td($"name-{i}"),
-                                Td($"user{i}@example.com")))
-                            .ToArray()))),
-                Div(@class("footer"), P("(c) 2026"))));
+    [Benchmark]
+    public long BuildAndRender_CachedChrome()
+    {
+        HtmlNode page = Html(CachedHead, Body(CachedNav, Content(Rows), CachedFooter));
+        sink.Reset();
+        page.WriteTo(sink);
+        return sink.Count;
+    }
+
+    // --- representative page parts ---
+
+    static HtmlNode SiteHead() =>
+        Head(
+            Meta(charset("utf-8")),
+            Meta(name("viewport"), content("width=device-width, initial-scale=1")),
+            Title("Report"),
+            Link(rel("stylesheet"), href("/app.css")),
+            Link(rel("preconnect"), href("https://fonts.example.com")),
+            Script(src("/lib/htmx.min.js")),
+            Script(src("/lib/app.js")));
+
+    static HtmlNode SiteNav() =>
+        Div(@class("navbar"),
+            A(@class("brand"), href("/"), "Acme"),
+            A(href("/products"), "Products"),
+            A(href("/pricing"), "Pricing"),
+            A(href("/docs"), "Docs"),
+            A(href("/blog"), "Blog"),
+            A(href("/about"), "About"),
+            A(href("/login"), "Sign in"));
+
+    static HtmlNode SiteFooter() =>
+        Div(@class("footer"),
+            A(href("/terms"), "Terms"),
+            A(href("/privacy"), "Privacy"),
+            A(href("/contact"), "Contact"),
+            P("(c) 2026 Acme, Inc."));
+
+    static HtmlNode Content(int rows) =>
+        Div(@class("uk-container"),
+            H1("Report"),
+            Table(@class("uk-table"),
+                Thead(Tr(Th("Id"), Th("Name"), Th("Email"))),
+                Tbody(Enumerable.Range(0, rows)
+                    .Select(i => Tr(@class(i % 2 == 0 ? "even" : "odd"),
+                        Td(i),
+                        Td($"name-{i}"),
+                        Td($"user{i}@example.com")))
+                    .ToArray())));
 }
 
 /// <summary>

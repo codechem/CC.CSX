@@ -67,6 +67,16 @@ public sealed class Utf8HtmlWriter : TextWriter
         _pos += value.Length;
     }
 
+    /// <summary>
+    /// Writes already-encoded UTF-8 bytes straight to the underlying buffer (after draining any
+    /// pending chars). Used by <see cref="RawHtml"/> to emit a cached fragment without re-encoding.
+    /// </summary>
+    public void WriteRawUtf8(ReadOnlySpan<byte> utf8)
+    {
+        FlushBuffer();
+        _output.Write(utf8);
+    }
+
     /// <inheritdoc/>
     public override void Flush() => FlushBuffer();
 
