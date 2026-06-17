@@ -87,17 +87,35 @@ These make the declarative syntax work; check them before changing signatures:
 
 ### Usage pattern (what user code looks like)
 
+**Preferred styling: author CSS in a `.css` file and use the generated typed classes** — not raw
+class strings. Register the file as `<AdditionalFiles Include="styles/*.css" />` and reference the
+`CC.CSX.Css.Generator` (NuGet consumers get it with the `CC.CSX.Css` package; in-repo add the
+analyzer ProjectReference). The generator emits `Css.<FileName>.<className>` constants plus a
+`Bundle`, so classes are compile-checked, refactor-safe, and discoverable. Serve the styles with
+`CssImports.Inline(...)`/`StyleSheet(...)`. Use `CssProperties` for typed inline styles and
+`CC.CSX.Css.Tailwind` (`Tw.*`) for typed Tailwind utilities. Reserve plain class strings for one-off
+or third-party class names only.
+
 ```csharp
 using static CC.CSX.HtmlElements;
 using static CC.CSX.HtmlAttributes;
-using static CC.CSX.Htmx.HtmxAttributes; // if using HTMX
+using static CC.CSX.Css.CssImports;        // Inline(...) / StyleSheet(...)
+using static CC.CSX.Htmx.HtmxAttributes;   // if using HTMX
+using static MyApp.Css;                     // generated from your styles/*.css (e.g. site.css -> Site)
 
-Div(@class("container"), id("main"),
-    H1("Title"),
-    P("Content here"),
-    ("data-custom", "value")   // tuple → attribute
+Html(
+    Head(Inline(Site.Bundle)),              // serve the generated stylesheet
+    Body(
+        Div(@class(Site.container), id("main"),   // typed class constant, not a raw "container"
+            H1(@class(Site.title), "Title"),
+            P("Content here"),
+            ("data-custom", "value"))             // tuple → attribute
+    )
 )
 ```
+
+See `samples/Web` (and `samples/CalendarSample`) for the end-to-end `.css` source-generator setup;
+`CssProperties` for typed inline `style(...)`; `Tw.*` for typed Tailwind classes.
 
 ### Target frameworks
 
