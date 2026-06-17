@@ -14,7 +14,7 @@ using static CC.CSX.HtmlElements;
 // run everything: dotnet run -c Release --project tests/CC.CSX.Benchmarks -- --filter *
 // quick pass:     ... -- --filter * --job short
 BenchmarkSwitcher
-    .FromTypes([typeof(RenderBenchmarks), typeof(ScalingBenchmarks), typeof(RequestBenchmarks), typeof(RenderPlanBenchmarks), typeof(RealisticBenchmarks), typeof(CssCompositionBenchmarks), typeof(BlazorComparisonBenchmarks)])
+    .FromTypes([typeof(RenderBenchmarks), typeof(ScalingBenchmarks), typeof(RequestBenchmarks), typeof(RenderPlanBenchmarks), typeof(RealisticBenchmarks), typeof(CatalogBenchmarks), typeof(CssCompositionBenchmarks), typeof(BlazorComparisonBenchmarks)])
     .Run(args.Length > 0 ? args : ["--filter", "*"]);
 
 /// <summary>

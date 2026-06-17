@@ -35,7 +35,7 @@ discarding output at `Indent = 0`:
 declarative C# view. Versus the **best** Blazor configuration it is **~7× faster** and allocates
 **~17× less**.
 
-## Full results
+## Scenario 1 — data table (static-heavy)
 
 `net10.0` · AMD Ryzen 9 5900X · BenchmarkDotNet (ShortRun) · lower is better.
 
@@ -71,6 +71,25 @@ declarative C# view. Versus the **best** Blazor configuration it is **~7× faste
 | Blazor · ToString | 598,432 ns | 694,536 B |
 | Blazor · WriteTo | 470,617 ns | 376,002 B |
 | Blazor · Markup+WriteTo | 612,449 ns | 703,552 B |
+
+## Scenario 2 — product catalog (dynamic-heavy)
+
+A loop of product cards, each with a conditional CSS class, a computed price string, a **structural
+conditional** (the SALE badge → `if`/`else`), and a **nested loop** (tags), plus an inlined
+`[HtmlPure]` component. A much higher dynamic:static ratio than the table — a more honest test.
+
+| Method | 10 items | 100 items | 1,000 items |
+|---|--:|--:|--:|
+| **Htnet · RenderPlan** | **1.32 µs · 504 B** | **12.99 µs · 3,648 B** | **133.8 µs · 39,648 B** |
+| Htnet · Live | 7.62 µs · 22,232 B | 71.6 µs · 207,720 B | 779.9 µs · 2,064,129 B |
+| Blazor · ToString | 17.1 µs · 19,040 B | 121.1 µs · 146,504 B | 1,042.8 µs · 1,230,811 B |
+| Blazor · WriteTo *(best Blazor)* | 13.75 µs · 11,488 B | 94.75 µs · 86,312 B | 704.4 µs · 696,711 B |
+
+The render plan's lead **narrows** vs the static table (the holes now do real work — string
+interpolation for price, nested tag lists) but holds: **~5–10× faster and ~18–24× less memory than
+the best Blazor**. Note that here optimized Blazor (`WriteTo`) actually edges out htnet's *live tree*
+path on time (704 µs vs 780 µs at 1,000 items) — Blazor's flat `RenderTreeFrame[]` handles a deep,
+dynamic page well — so the compiled render plan, not the tree, is what keeps htnet ahead in production.
 
 ## Interesting observations
 

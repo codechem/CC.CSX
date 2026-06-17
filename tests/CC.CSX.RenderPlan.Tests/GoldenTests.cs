@@ -55,3 +55,27 @@ public class GoldenTests
     public void OptimizedBuilder_ReturnsPlanNode()
         => Assert.IsType<PlanNode>(Views__Optimized.UserRow(1, "a", "b"));
 }
+
+// complex / dynamic-heavy page (loop + structural conditional + nested loop + inlined component)
+public class CatalogGoldenTests
+{
+    public CatalogGoldenTests() => RenderOptions.Indent = 0;
+
+    static string Render(HtmlNode node)
+    {
+        var b = new ArrayBufferWriter<byte>();
+        node.WriteTo(b);
+        return Encoding.UTF8.GetString(b.WrittenSpan);
+    }
+
+    static readonly Product[] Products =
+    [
+        new("Widget", 9.99m, true, true, ["new", "hot"]),
+        new("Gadget", 19.50m, false, false, ["clearance"]),
+        new("Gizmo", 4.00m, true, false, []),
+    ];
+
+    [Fact]
+    public void Catalog_Matches()
+        => Assert.Equal(Render(CatalogViews.Catalog(Products)), Render(CatalogViews__Optimized.Catalog(Products)));
+}

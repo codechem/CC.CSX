@@ -1,7 +1,9 @@
 # htnet vs Blazor — production SSR comparison
 
-A production-grade, apples-to-apples comparison of the two **optimized** server-side rendering paths
-for the same page (a report with a table of *N* rows):
+A production-grade, apples-to-apples comparison of the two **optimized** server-side rendering paths,
+across two scenarios: a **static-heavy data table** and a **dynamic-heavy product catalog** (loop of
+cards with a conditional class, a computed price, a structural conditional badge, and a nested tag
+loop). The two ends of the spectrum:
 
 - **htnet (optimized)** — a `[RenderOptimized]` view compiled to a render plan: static markup baked to
   `byte[]` and written by memcpy, only the dynamic values written per request.
@@ -20,31 +22,36 @@ then render" path is intentionally excluded — this is a best-vs-best, producti
 
 ## Conclusions
 
-**In production-grade configuration, htnet's render plan is roughly 7–14× faster than the
-best-optimized Blazor SSR, and uses on the order of 17–240× less memory per render.** In plain terms:
+**In production-grade configuration, across both a static-heavy and a dynamic-heavy page, htnet's
+render plan is roughly 5–14× faster than the best-optimized Blazor SSR, and uses on the order of
+17–240× less memory per render.** The advantage is largest on static-heavy pages and narrows — but
+stays a multiple — as pages get more dynamic.
 
-- **Big table (1,000 rows).** htnet renders it in **~66 µs using ~23 KB**; optimized Blazor takes
-  **~471 µs using ~376 KB**. So htnet is about **7× faster** and uses about **17× less memory**.
-- **Medium page (100 rows).** htnet: **~6 µs / ~0.2 KB**. Optimized Blazor: **~49 µs / ~44 KB**.
-  About **8× faster** and **~240× less memory** — htnet's allocation is essentially flat; it doesn't
-  grow with the row count the way Blazor's does.
-- **Small page (10 rows).** htnet: **~0.6 µs / ~0.2 KB**. Optimized Blazor: **~8.6 µs / ~6.3 KB**.
-  About **14× faster** and **~34× less memory** — the advantage is there even on tiny pages, not just
-  big tables.
+In plain terms:
 
-**Why it matters in production:** htnet's per-render allocation stays near-constant (~0.2 KB, rising
-only to ~23 KB on the biggest page), while Blazor's grows with page size (44 KB → 376 KB). Under load
-that's the difference between being CPU-bound and being GC-bound — fewer/cheaper garbage collections,
-flatter tail latencies, and a higher requests-per-second ceiling on the same hardware.
+- **Big page (1,000 items).** Data table: htnet **~66 µs / ~23 KB** vs Blazor **~471 µs / ~376 KB**
+  (~7× faster, ~17× less memory). Dynamic catalog: htnet **~134 µs / ~40 KB** vs Blazor
+  **~704 µs / ~697 KB** (~5× faster, ~18× less memory).
+- **Medium page (100 items).** Table: ~8× faster, ~240× less memory. Catalog: ~7× faster, ~24× less
+  memory.
+- **Small page (10 items).** Table: ~14× faster, ~34× less memory. Catalog: ~10× faster, ~23× less
+  memory. The advantage is there on tiny pages too, not just big lists.
 
-**And it tracks the hand-written floor.** The render plan renders in essentially the same time as a
-hand-written byte writer (66 µs vs 67 µs at 1,000 rows) — there's effectively no overhead left to
-remove — while you still write plain, declarative C# views.
+**Why it matters in production:** htnet's per-render allocation stays small and grows slowly
+(~0.2–40 KB), while Blazor's grows with page size into hundreds of KB. Under load that's the
+difference between being CPU-bound and being GC-bound — fewer/cheaper garbage collections, flatter
+tail latencies, and a higher requests-per-second ceiling on the same hardware.
+
+**And it tracks the hand-written floor.** On the table the render plan renders in essentially the
+same time as a hand-written byte writer (66 µs vs 67 µs at 1,000 rows) — there's effectively no
+overhead left to remove — while you still write plain, declarative C# views.
 
 ## Numbers
 
 `net10.0` · AMD Ryzen 9 5900X · BenchmarkDotNet (ShortRun) · lower is better.
-"htnet advantage" = optimized Blazor ÷ htnet.
+"htnet advantage" = optimized Blazor ÷ htnet. "Blazor (optimized)" = `HtmlRenderer.WriteHtmlTo(TextWriter)`.
+
+### Scenario 1 — data table (static-heavy)
 
 | Rows | htnet (optimized) | Blazor (optimized) | hand-written (floor) | htnet advantage |
 |---:|---|---|---|---|
@@ -52,9 +59,18 @@ remove — while you still write plain, declarative C# views.
 | 100 | **6.13 µs · 184 B** | 48.78 µs · 44,288 B | 6.67 µs · 64 B | **8× faster · 240× less mem** |
 | 1000 | **66.0 µs · 22,584 B** | 470.6 µs · 376,002 B | 67.1 µs · 64 B | **7× faster · 17× less mem** |
 
-"Blazor (optimized)" is `HtmlRenderer.WriteHtmlTo(TextWriter)` — Blazor's fastest SSR path. (Typical
-Blazor via `.ToHtmlString()` is slower still: ~598 µs / 695 KB at 1,000 rows. Blazor's
-`AddMarkupContent` "raw markup" technique did **not** help — see the full report.)
+### Scenario 2 — product catalog (dynamic-heavy: conditional class, computed price, structural conditional badge, nested tag loop)
+
+| Items | htnet (optimized) | Blazor (optimized) | htnet advantage |
+|---:|---|---|---|
+| 10 | **1.32 µs · 504 B** | 13.75 µs · 11,488 B | **10× faster · 23× less mem** |
+| 100 | **12.99 µs · 3,648 B** | 94.75 µs · 86,312 B | **7× faster · 24× less mem** |
+| 1000 | **133.8 µs · 39,648 B** | 704.4 µs · 696,711 B | **5× faster · 18× less mem** |
+
+Typical Blazor via `.ToHtmlString()` is slower still (e.g. table 598 µs / 695 KB, catalog 1,043 µs /
+1,231 KB at the largest size). One honest note from the dynamic scenario: optimized Blazor's flat
+frame array actually edges out htnet's *unoptimized live tree* path there (704 µs vs 780 µs at 1,000
+items) — which is exactly why the compiled render plan, not the tree, is the production path.
 
 ## How htnet's render plan works (one paragraph)
 

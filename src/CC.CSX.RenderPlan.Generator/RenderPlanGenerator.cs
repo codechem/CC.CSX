@@ -94,13 +94,18 @@ public sealed class RenderPlanGenerator : IIncrementalGenerator
             .Select(p => (Type: p.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), p.Name))
             .ToList();
 
+        // replicate the view file's using directives so hole expressions (unqualified factory calls
+        // like Span(...) / @class(...) / None) resolve in the generated file
+        var usings = decl.SyntaxTree.GetRoot().DescendantNodes()
+            .OfType<UsingDirectiveSyntax>().Select(u => u.ToString()).ToList();
+
         var ret = ReturnExpression(decl);
         if (ret is null)
-            return new MethodPlan(ns, typeName, method.Name, pars, null);
+            return new MethodPlan(ns, typeName, method.Name, pars, null, usings);
 
         var planner = new Planner(ctx.SemanticModel);
         var segs = Planner.Consolidate(planner.Plan(ret, ImmutableDictionary<string, string>.Empty, 0));
-        return new MethodPlan(ns, typeName, method.Name, pars, segs);
+        return new MethodPlan(ns, typeName, method.Name, pars, segs, usings);
     }
 
     static ExpressionSyntax? ReturnExpression(MethodDeclarationSyntax decl)
@@ -112,13 +117,14 @@ public sealed class RenderPlanGenerator : IIncrementalGenerator
 }
 
 internal sealed class MethodPlan(string ns, string typeName, string methodName,
-    List<(string Type, string Name)> pars, List<Segment>? plan)
+    List<(string Type, string Name)> pars, List<Segment>? plan, List<string> usings)
 {
     public string Namespace { get; } = ns;
     public string TypeName { get; } = typeName;
     public string MethodName { get; } = methodName;
     public List<(string Type, string Name)> Params { get; } = pars;
     public List<Segment>? Plan { get; } = plan;
+    public List<string> Usings { get; } = usings;
     public string Signature => $"{MethodName}({string.Join(", ", Params.Select(p => $"{Short(p.Type)} {p.Name}"))})";
     static string Short(string t) { int i = t.LastIndexOf('.'); return i < 0 ? t : t.Substring(i + 1); }
 }
@@ -263,7 +269,8 @@ internal sealed class Planner(SemanticModel model)
 
     WriteKind KindOf(ExpressionSyntax e)
     {
-        var t = _model.GetTypeInfo(e).Type;
+        var ti = _model.GetTypeInfo(e);
+        var t = ti.Type ?? ti.ConvertedType; // ternaries whose branches share only HtmlItem have no natural Type
         if (t is null) return WriteKind.Text;
         if (t.SpecialType == SpecialType.System_String) return WriteKind.Text;
         if (Inherits(t, "CC.CSX.HtmlNode") || Inherits(t, "CC.CSX.HtmlItem")) return WriteKind.Node;
