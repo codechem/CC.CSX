@@ -31,11 +31,11 @@ public class HtmlResult : IResult, IActionResult
     public Task ExecuteAsync(HttpContext context)
     {
         var res = context.Response;
-        var stream = res.BodyWriter.AsStream();
         res.ContentType = "text/html";
-        var writer = new StreamWriter(stream, Encoding.UTF8) as TextWriter;
-        Node.WriteTo(ref writer);
-        return writer.FlushAsync();
+        // PipeWriter is an IBufferWriter<byte>; render UTF-8 straight into it (no Stream/StreamWriter
+        // wrapper, no large intermediate string) and flush once.
+        Node.WriteTo(res.BodyWriter);
+        return res.BodyWriter.FlushAsync().AsTask();
     }
 
     /// <inheritdoc />

@@ -1,0 +1,18 @@
+/*
+ * Safelist for CC.CSX.Components' DaisyUiTheme.
+ *
+ * The component classes are assembled in C# at runtime, so a Tailwind build cannot
+ * discover them by scanning your source. Pull this file into your Tailwind v4 entry
+ * stylesheet so every class the default theme can emit is always generated:
+ *
+ *     @import "tailwindcss";
+ *     @plugin  "daisyui";
+ *     @import  "<path-to>/daisyui.safelist.css";   // e.g. via the NuGet contentFiles path
+ *
+ * If you ship a custom IComponentTheme, replace this with a safelist of your own classes.
+ * Requires Tailwind CSS v4.1+ (the @source inline(...) directive).
+ */
+@source inline("btn btn-{primary,secondary,accent,info,success,warning,error,ghost} btn-{xs,sm,lg}");
+@source inline("badge badge-{primary,secondary,accent,info,success,warning,error,ghost} badge-{xs,sm,lg}");
+@source inline("alert alert-{info,success,warning,error}");
+@source inline("card card-body card-title bg-base-100 shadow-md");

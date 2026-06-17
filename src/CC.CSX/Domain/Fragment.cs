@@ -28,12 +28,14 @@ public class Fragment : HtmlNode
     /// <remarks>
     /// Because Shallow does not render itself, it does not take into account the indentation, and just passes it to its children.
     /// </remarks>
-    public override string ToString(int indent = 0) => string.Join("", Children.Select(x => x.ToString(indent)));
+    public override string ToString(int indent = 0) =>
+        RawChildren is { } children ? string.Join("", children.Select(x => x.ToString(indent))) : string.Empty;
 
     ///<inheritdoc/>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
-        foreach (var child in Children)
+        if (RawChildren is not { } children) return;
+        foreach (var child in children)
         {
             child.AppendTo(ref sb, indent);
             if (RenderOptions.Indent > 0)
@@ -44,7 +46,8 @@ public class Fragment : HtmlNode
     ///<inheritdoc/>
     public override void WriteTo(ref TextWriter tw, int indent = 0)
     {
-        foreach (var child in Children)
+        if (RawChildren is not { } children) return;
+        foreach (var child in children)
         {
             child.WriteTo(ref tw, indent);
             if (RenderOptions.Indent > 0)

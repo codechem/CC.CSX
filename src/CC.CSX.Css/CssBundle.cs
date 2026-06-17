@@ -28,6 +28,15 @@ public sealed class CssBundle(string name, string content) : ICssBundle
     /// <inheritdoc/>
     public string Content { get; } = content;
     /// <inheritdoc/>
-    public string ContentHash => hash ??= Convert.ToHexStringLower(
-        SHA256.HashData(Encoding.UTF8.GetBytes(Content)))[..12];
+    public string ContentHash => hash ??= ComputeHash(Content);
+
+    static string ComputeHash(string content)
+    {
+        var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(content));
+#if NET9_0_OR_GREATER
+        return Convert.ToHexStringLower(bytes)[..12];
+#else
+        return Convert.ToHexString(bytes).ToLowerInvariant()[..12];
+#endif
+    }
 }

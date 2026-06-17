@@ -2,20 +2,20 @@
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
-        <RootNamespace>CC.CSX.Css</RootNamespace>
+        <RootNamespace>CC.CSX.Components</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>12.0</LangVersion>
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-        <PackageId>CC.CSX.Css</PackageId>
+        <PackageId>CC.CSX.Components</PackageId>
         <IsPackable>true</IsPackable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <PackageTags>css;html;web;render;ssr;server side rendering;c# ui;razor alternative;c# html templates;declarative ui;strongly typed css;</PackageTags>
-        <Version>0.1.35</Version>
+        <PackageTags>components;ui;daisyui;tailwind;html;web;render;ssr;c# ui;declarative ui;design system;themeable;</PackageTags>
+        <Version>0.1.0</Version>
         <Authors>Costa Halicea</Authors>
         <Company>CodeChem</Company>
         <PackageProjectUrl>https://github.com/codechem/CC.CSX</PackageProjectUrl>
-        <Description>CC.CSX.Css extends CC.CSX with strongly typed CSS classes, declarations and stylesheet bundles. Includes a source generator that turns .css files into typed constants.</Description>
+        <Description>CC.CSX.Components provides ready-to-use, themeable UI components (Button, Card, Alert, Badge, ...) for CC.CSX. Visuals are supplied by a swappable IComponentTheme; the default theme renders daisyUI/Tailwind markup.</Description>
         <RepositoryUrl>https://github.com/codechem/CC.CSX</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -24,15 +24,11 @@
     <ItemGroup>
         <None Include="../../README.md" Pack="true" PackagePath="\" />
         <None Include="../../LICENSE.md" Pack="true" PackagePath="\" />
+        <!-- Tailwind safelist for DaisyUiTheme — consumers @import this into their Tailwind entry -->
+        <None Include="daisyui.safelist.css" Pack="true" PackagePath="tailwind/" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\CC.CSX\CC.CSX.csproj" />
-        <!-- Ship the source generator inside this package so installing CC.CSX.Css lights up typed classes from .css AdditionalFiles -->
-        <ProjectReference Include="..\CC.CSX.Css.Generator\CC.CSX.Css.Generator.csproj" ReferenceOutputAssembly="false" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="..\CC.CSX.Css.Generator\bin\$(Configuration)\netstandard2.0\CC.CSX.Css.Generator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <ProjectReference Include="..\CC.CSX.Css\CC.CSX.Css.csproj" />
     </ItemGroup>
 </Project>

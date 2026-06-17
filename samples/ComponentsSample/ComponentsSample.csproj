@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>12.0</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <StaticWebAssetFingerprintPattern Include="JS" Pattern="*.js" Expression="#[.{fingerprint}]!" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
+        <ProjectReference Include="..\..\src\CC.CSX.Css\CC.CSX.Css.csproj" />
+        <ProjectReference Include="..\..\src\CC.CSX.Components\CC.CSX.Components.csproj" />
+        <ProjectReference Include="..\..\src\CC.CSX.Browser\CC.CSX.Browser.csproj" />
+    </ItemGroup>
+
+    <!--
+      Production CSS pipeline: compile Tailwind + daisyUI into wwwroot/app.css.
+      Runs automatically before build *only if* dependencies are installed (node_modules present),
+      so a plain `dotnet build` of the solution never requires Node. To set up / regenerate:
+        npm install      (once)
+        npm run build:css
+      The generated wwwroot/app.css is committed so the sample runs without the toolchain.
+    -->
+    <Target Name="BuildTailwindCss" BeforeTargets="BeforeBuild"
+            Condition="Exists('$(MSBuildProjectDirectory)/node_modules')">
+        <Exec Command="npm run build:css" WorkingDirectory="$(MSBuildProjectDirectory)" />
+    </Target>
+</Project>

@@ -1,0 +1,15 @@
+{
+  "name": "components-sample-styles",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Tailwind + daisyUI build for CC.CSX.Components ComponentsSample",
+  "scripts": {
+    "build:css": "tailwindcss -i ./styles/app.css -o ./wwwroot/app.css --minify",
+    "watch:css": "tailwindcss -i ./styles/app.css -o ./wwwroot/app.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "daisyui": "^5.0.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

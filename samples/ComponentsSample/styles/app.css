@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake, synthwave;
+}
+
+/*
+ * Component classes are built in C#, so Tailwind can't find them by scanning sources.
+ * Safelist exactly what CC.CSX.Components' DaisyUiTheme can emit. (In a real consumer
+ * project you would @import the daisyui.safelist.css shipped in the NuGet package instead
+ * of inlining these; this sample references the package by project, so we list them here.)
+ */
+@source inline("btn btn-{primary,secondary,accent,info,success,warning,error,ghost} btn-{xs,sm,lg}");
+@source inline("badge badge-{primary,secondary,accent,info,success,warning,error,ghost} badge-{xs,sm,lg}");
+@source inline("alert alert-{info,success,warning,error}");
+@source inline("card card-body card-title bg-base-100 shadow-md");
+
+/* Plain Tailwind utility classes used in Program.cs are auto-detected from the .cs files. */
+@source "./..";

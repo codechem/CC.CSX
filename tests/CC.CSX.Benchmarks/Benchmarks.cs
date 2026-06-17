@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Text;
 
 using BenchmarkDotNet.Attributes;
@@ -13,7 +14,7 @@ using static CC.CSX.HtmlElements;
 // run everything: dotnet run -c Release --project tests/CC.CSX.Benchmarks -- --filter *
 // quick pass:     ... -- --filter * --job short
 BenchmarkSwitcher
-    .FromTypes([typeof(RenderBenchmarks), typeof(ScalingBenchmarks), typeof(CssCompositionBenchmarks), typeof(BlazorComparisonBenchmarks)])
+    .FromTypes([typeof(RenderBenchmarks), typeof(ScalingBenchmarks), typeof(RequestBenchmarks), typeof(CssCompositionBenchmarks), typeof(BlazorComparisonBenchmarks)])
     .Run(args.Length > 0 ? args : ["--filter", "*"]);
 
 /// <summary>
@@ -110,15 +111,27 @@ public class ScalingBenchmarks
         table = BuildTable();
     }
 
+    readonly DiscardBufferWriter sink = new();
+
     [Benchmark]
     public HtmlNode Build_Table() => BuildTable();
 
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public string Render_Table()
     {
         var tw = new StringWriter() as TextWriter;
         table.WriteTo(ref tw);
         return tw.ToString()!;
+    }
+
+    // The production-shaped path: stream UTF-8 into an IBufferWriter<byte> (like a response PipeWriter),
+    // so the output is never held as one growing string/LOH buffer.
+    [Benchmark]
+    public long Render_Table_Utf8()
+    {
+        sink.Reset();
+        table.WriteTo(sink);
+        return sink.Count;
     }
 
     HtmlNode BuildTable() =>
@@ -130,6 +143,71 @@ public class ScalingBenchmarks
                     Td($"name-{i}"),
                     Td($"user{i}@example.com")))
                 .ToArray()));
+}
+
+/// <summary>
+/// The full per-request cycle a server pays: build the view tree, then stream it as UTF-8 into
+/// the response (modelled by an <see cref="IBufferWriter{T}"/>). Allocated-per-op is the per-request
+/// GC pressure that sets the throughput ceiling; from it, RPS_ceiling ≈ (GC-budget bytes/s) / Allocated.
+/// </summary>
+[MemoryDiagnoser]
+public class RequestBenchmarks
+{
+    [Params(10, 100, 1000)]
+    public int Rows { get; set; }
+
+    readonly DiscardBufferWriter sink = new();
+
+    [GlobalSetup]
+    public void Setup() => RenderOptions.Indent = 0;
+
+    [Benchmark]
+    public long BuildAndRender()
+    {
+        HtmlNode page = Page(Rows);
+        sink.Reset();
+        page.WriteTo(sink);
+        return sink.Count;
+    }
+
+    static HtmlNode Page(int rows) =>
+        Html(
+            Head(
+                Title("Report"),
+                Link(rel("stylesheet"), href("/app.css"))),
+            Body(
+                Div(@class("nav"), A(href("/"), "Home"), A(href("/about"), "About")),
+                Div(@class("uk-container"),
+                    H1("Report"),
+                    Table(@class("uk-table"),
+                        Thead(Tr(Th("Id"), Th("Name"), Th("Email"))),
+                        Tbody(Enumerable.Range(0, rows)
+                            .Select(i => Tr(@class(i % 2 == 0 ? "even" : "odd"),
+                                Td(i),
+                                Td($"name-{i}"),
+                                Td($"user{i}@example.com")))
+                            .ToArray()))),
+                Div(@class("footer"), P("(c) 2026"))));
+}
+
+/// <summary>
+/// An <see cref="IBufferWriter{T}"/> that discards output into one reused pooled-ish scratch
+/// buffer (just counting bytes). Models streaming to a response without measuring the cost of
+/// storing the output — so render allocations reflect the renderer itself, not the sink.
+/// </summary>
+public sealed class DiscardBufferWriter : IBufferWriter<byte>
+{
+    byte[] _scratch = new byte[64 * 1024];
+    public long Count { get; private set; }
+    public void Reset() => Count = 0;
+    public void Advance(int count) => Count += count;
+    public Memory<byte> GetMemory(int sizeHint = 0) => Ensure(sizeHint);
+    public Span<byte> GetSpan(int sizeHint = 0) => Ensure(sizeHint);
+    byte[] Ensure(int sizeHint)
+    {
+        if (sizeHint > _scratch.Length) _scratch = new byte[sizeHint];
+        return _scratch;
+    }
 }
 
 /// <summary>

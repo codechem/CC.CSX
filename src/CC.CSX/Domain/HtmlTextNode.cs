@@ -31,11 +31,8 @@ public class HtmlTextNode(in string value) : HtmlNode(TextNodeKey, value)
     ///<inheritdoc/>
     public override void AppendTo(ref StringBuilder sb, int indent = 0)
     {
-        _ = indent switch
-        {
-            <= 0 => sb.Append(Value),
-            _ => sb.Append(new string(' ', indent)).Append(Value),
-        };
+        if (indent > 0) Indentation.AppendTo(sb, indent);
+        sb.Append(Value);
     }
 
     ///<inheritdoc/>
@@ -43,15 +40,8 @@ public class HtmlTextNode(in string value) : HtmlNode(TextNodeKey, value)
     {
         if (Value is not null)
         {
-            if (indent > 0)
-            {
-                tw.Write(new string(' ', indent));
-                tw.Write(Value);
-            }
-            else
-            {
-                tw.Write(Value);
-            }
+            if (indent > 0) Indentation.WriteTo(tw, indent);
+            tw.Write(Value);
         }
     }
 }

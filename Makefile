@@ -13,6 +13,17 @@ run.web:
 run.browser:
 	dotnet run --project ./samples/BrowserSample/BrowserSample.csproj
 
+# Components sample: builds the Tailwind+daisyUI CSS, then runs the server.
+run.components: css.components
+	dotnet run --project ./samples/ComponentsSample/ComponentsSample.csproj
+
+# Install the CSS toolchain and compile wwwroot/app.css (Tailwind + daisyUI).
+css.components:
+	cd ./samples/ComponentsSample && npm install && npm run build:css
+
+watch.components:
+	cd ./samples/ComponentsSample && npm run watch:css
+
 watch.simple:
 	dotnet watch --project ./samples/Simple/Simple.csproj | bat -l html -p
 

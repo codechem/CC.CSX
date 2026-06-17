@@ -50,7 +50,7 @@ public class HtmlAttribute : HtmlItem
         }
         else
         {
-            sb.Append(Name).Append('=').Append(Value);
+            sb.Append(Name).Append(CharEqual).Append(CharQuote).Append(Value).Append(CharQuote);
         }
     }
 

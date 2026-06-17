@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
         <RootNamespace>CC.CSX.Browser</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>preview</LangVersion>
-        <EnablePreviewFeatures>true</EnablePreviewFeatures>
+        <LangVersion>12.0</LangVersion>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <PackageId>CC.CSX.Browser</PackageId>
@@ -21,7 +20,6 @@
         <RepositoryUrl>https://github.com/codechem/CC.CSX</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <GenerateRequiresPreviewFeaturesAttribute>False</GenerateRequiresPreviewFeaturesAttribute>
         <PackRelease>true</PackRelease>
     </PropertyGroup>
     <ItemGroup>

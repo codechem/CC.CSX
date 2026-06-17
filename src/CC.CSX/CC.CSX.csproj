@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Library</OutputType>
-        <TargetFrameworks>net10.0;net10.0-android</TargetFrameworks>
+        <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
         <RootNamespace>CC.CSX</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <LangVersion>preview</LangVersion>
-        <EnablePreviewFeatures>true</EnablePreviewFeatures>
+        <LangVersion>12.0</LangVersion>
         <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
         <PackageId>CC.CSX</PackageId>
         <IsPackable>true</IsPackable>
@@ -20,7 +19,6 @@
         <RepositoryUrl>https://github.com/codechem/CC.CSX</RepositoryUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <GenerateRequiresPreviewFeaturesAttribute>False</GenerateRequiresPreviewFeaturesAttribute>
         <PackRelease>true</PackRelease>
     </PropertyGroup>
     <ItemGroup>

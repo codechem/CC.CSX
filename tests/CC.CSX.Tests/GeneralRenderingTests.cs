@@ -39,6 +39,19 @@ public class GeneralRenderingTests
     }
 
     [Fact]
+    public void WriteTo_IBufferWriter_Should_ProduceSameUtf8AsToString()
+    {
+        foreach (var indent in new[] { 0, 2 })
+        {
+            RenderOptions.Indent = indent;
+            var buffer = new System.Buffers.ArrayBufferWriter<byte>();
+            _sut.WriteTo(buffer);
+            var fromBytes = System.Text.Encoding.UTF8.GetString(buffer.WrittenSpan).Replace("\r\n", "\n");
+            Assert.Equal(_sut.ToString().Replace("\r\n", "\n"), fromBytes);
+        }
+    }
+
+    [Fact]
     public void MultiAttribute_Should_OnlyRenderItsChildren()
     {
         var sut = new MultiHtmlAttribute("#test", new[] { new HtmlAttribute("test", "test"), new HtmlAttribute("test2", "test2") });
