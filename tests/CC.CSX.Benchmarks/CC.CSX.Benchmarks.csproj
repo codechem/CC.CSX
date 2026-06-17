@@ -20,6 +20,8 @@
     <ProjectReference Include="..\..\src\CC.CSX\CC.CSX.csproj" />
     <ProjectReference Include="..\..\src\CC.CSX.Css\CC.CSX.Css.csproj" />
     <ProjectReference Include="..\..\src\CC.CSX.Css.Tailwind\CC.CSX.Css.Tailwind.csproj" />
+    <!-- the render-plan generated optimized builders (Views__Optimized) for the comparison -->
+    <ProjectReference Include="..\..\samples\RenderPlanSpike\RenderPlanSpike.csproj" />
   </ItemGroup>
 
 </Project>
