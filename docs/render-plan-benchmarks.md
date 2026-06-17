@@ -1,34 +1,39 @@
 # CC.CSX render-plan benchmarks
 
 How fast can a C# HTML library render a realistic, data-heavy page — and what does compiling
-the view into a **static/dynamic render plan** buy you?
+the view into a **static/dynamic render plan** buy you, versus building an object tree, versus
+Blazor SSR (including Blazor's own optimizations)?
 
-This compares four ways of rendering the **same page** (a report with a table of *N* rows),
-all writing UTF‑8 to a discarding `IBufferWriter<byte>` at `Indent = 0`:
+All approaches render the **same page** (a report with a table of *N* rows), writing to a
+discarding output at `Indent = 0`:
 
 | Approach | What it is |
 |---|---|
 | **HandWritten** | Direct byte writing — the theoretical floor |
 | **Htnet · RenderPlan** | The generated `[RenderOptimized]` builder: static markup baked to `byte[]`, only dynamic values written |
 | **Htnet · Live** | Building the CC.CSX `HtmlNode` tree, then `WriteTo` (the current default path) |
-| **Blazor · SSR** | The same page as a Blazor component rendered via `HtmlRenderer` — i.e. what a `.razor` compiles to |
+| **Blazor · ToString** | The page as a Blazor component via `HtmlRenderer`, `.ToHtmlString()` — typical SSR |
+| **Blazor · WriteTo** | Same component, but `WriteHtmlTo(TextWriter)` — Blazor opt #1 (no output string) |
+| **Blazor · Markup+WriteTo** | Static HTML as raw markup (`AddMarkupContent`) + `WriteHtmlTo` — Blazor opt #2 (the hand-tuned analog of baked chunks) |
 
 > The page: `<div class="uk-container"><h1>Report</h1><table class="uk-table"><thead>…</thead><tbody>` +
-> *N* rows of `<tr class="even|odd"><td>{id}</td><td>{name}</td><td>{email}</td></tr>`. All four
-> approaches emit byte‑identical HTML (the htnet ones are pinned by golden tests).
+> *N* rows of `<tr class="even|odd"><td>{id}</td><td>{name}</td><td>{email}</td></tr>`. The htnet
+> approaches emit byte-identical HTML (pinned by golden tests).
 
-## Headline (1,000‑row table)
+## Headline (1,000-row table)
 
-| Approach | Time | Allocated | vs Live (time) | vs Live (alloc) |
-|---|--:|--:|--:|--:|
-| HandWritten (floor) | **66.8 µs** | **64 B** | 5.2× faster | 17,000× less |
-| **Htnet · RenderPlan** | **66.5 µs** | **22.6 KB** | **5.2× faster** | **48× less** |
-| Htnet · Live | 348.0 µs | 1,097 KB | 1.0× | 1.0× |
-| Blazor · SSR | 623.1 µs | 695 KB | 0.55× (1.8× slower) | 0.63× |
+| Approach | Time | Allocated | vs Live |
+|---|--:|--:|--:|
+| HandWritten (floor) | **67.1 µs** | **64 B** | 5.5× faster |
+| **Htnet · RenderPlan** | **66.0 µs** | **22.6 KB** | **5.6× faster, 49× less mem** |
+| Htnet · Live | 370.9 µs | 1,097 KB | baseline |
+| Blazor · ToString | 598.4 µs | 695 KB | 0.62× (1.6× slower) |
+| **Blazor · WriteTo** *(best Blazor)* | 470.6 µs | 376 KB | 0.79× (1.3× slower) |
+| Blazor · Markup+WriteTo | 612.4 µs | 704 KB | 0.61× |
 
-**The render plan matches the hand‑written floor on time and gets within a rounding error on
-allocation — while producing identical HTML from a plain, declarative C# view.** Versus Blazor SSR
-it is **~9× faster** and allocates **~31× less**.
+**The render plan matches the hand-written floor** while producing identical HTML from a plain,
+declarative C# view. Versus the **best** Blazor configuration it is **~7× faster** and allocates
+**~17× less**.
 
 ## Full results
 
@@ -38,79 +43,82 @@ it is **~9× faster** and allocates **~31× less**.
 
 | Method | Mean | Allocated |
 |---|--:|--:|
-| HandWritten | 741 ns | 64 B |
-| **Htnet · RenderPlan** | **616 ns** | **184 B** |
-| Htnet · Live | 4,082 ns | 13,096 B |
-| Blazor · SSR | 10,659 ns | 10,760 B |
+| HandWritten | 718 ns | 64 B |
+| **Htnet · RenderPlan** | **613 ns** | **184 B** |
+| Htnet · Live | 3,905 ns | 13,096 B |
+| Blazor · ToString | 10,768 ns | 10,760 B |
+| Blazor · WriteTo | 8,561 ns | 6,288 B |
+| Blazor · Markup+WriteTo | 9,033 ns | 6,192 B |
 
 ### 100 rows
 
 | Method | Mean | Allocated |
 |---|--:|--:|
-| HandWritten | 6,764 ns | 64 B |
-| **Htnet · RenderPlan** | **5,954 ns** | **184 B** |
-| Htnet · Live | 32,368 ns | 110,000 B |
-| Blazor · SSR | 61,781 ns | 76,904 B |
+| HandWritten | 6,670 ns | 64 B |
+| **Htnet · RenderPlan** | **6,130 ns** | **184 B** |
+| Htnet · Live | 32,343 ns | 110,000 B |
+| Blazor · ToString | 61,537 ns | 76,904 B |
+| Blazor · WriteTo | 48,784 ns | 44,288 B |
+| Blazor · Markup+WriteTo | 59,264 ns | 44,192 B |
 
 ### 1,000 rows
 
 | Method | Mean | Allocated |
 |---|--:|--:|
-| HandWritten | 66,794 ns | 64 B |
-| **Htnet · RenderPlan** | **66,512 ns** | **22,584 B** |
-| Htnet · Live | 348,041 ns | 1,097,208 B |
-| Blazor · SSR | 623,070 ns | 694,536 B |
+| HandWritten | 67,147 ns | 64 B |
+| **Htnet · RenderPlan** | **65,975 ns** | **22,584 B** |
+| Htnet · Live | 370,909 ns | 1,097,208 B |
+| Blazor · ToString | 598,432 ns | 694,536 B |
+| Blazor · WriteTo | 470,617 ns | 376,002 B |
+| Blazor · Markup+WriteTo | 612,449 ns | 703,552 B |
 
 ## Interesting observations
 
-- **The render plan tracks the hand‑written floor at every size.** At 1,000 rows it's 66.5 µs vs the
-  floor's 66.8 µs — the cost of building/walking an object tree is gone entirely; what's left is the
-  actual byte writing.
-- **Allocation collapses to near‑constant.** Live rendering allocates ~1.1 KB **per row** (the
-  `HtmlNode`/`HtmlTextNode`/list objects); the render plan allocates a flat ~184 B regardless of size,
-  rising only to ~22.6 KB at 1,000 rows — and that residual is entirely `int.ToString()` on the `id`
-  cell (the hand‑written version avoids it with `TryFormat`; emitting that in codegen would close the
-  last gap).
-- **This is a throughput story, not just a microbenchmark.** ~1.1 MB/request (Live) vs ~22 KB/request
-  (RenderPlan) is the difference between being GC‑bound and CPU‑bound under load. At, say, a 4 GB/s
-  gen0 budget the big page tops out near ~3.6k req/s on allocation alone with the tree path, versus
-  far higher with the plan.
-- **htnet's tree path already beats Blazor SSR** on time (1.8–2.6×), though Blazor's flat
-  `RenderTreeFrame[]` allocates a bit less than htnet's object tree. The render plan then beats *both*
-  by a wide margin (9–17× faster than Blazor across sizes).
-- **The win holds at small sizes too** — even a 10‑row page is 6.6× faster and 71× lighter with the
-  plan, so this isn't only a giant‑table effect.
+- **The render plan tracks the hand-written floor at every size** (66.0 µs vs 67.1 µs at 1,000 rows).
+  The cost of building/walking an object tree is gone; what's left is the actual byte writing.
+- **Allocation collapses to near-constant.** Live rendering allocates ~1.1 KB **per row**; the plan
+  allocates a flat ~184 B regardless of size, rising only to ~22.6 KB at 1,000 rows — and that
+  residual is entirely `int.ToString()` on the id cell (the hand-written version avoids it with
+  `TryFormat`; emitting that in codegen would close the last gap).
+- **Blazor's own optimizations help — partly.** Rendering to a `TextWriter` (`WriteHtmlTo`) instead of
+  `ToHtmlString()` is a real win: ~21% faster and ~46% less allocation at 1,000 rows (598→471 µs,
+  695→376 KB), because it skips materializing the output string. **Using `AddMarkupContent` for the
+  static HTML did *not* help** — it was slightly slower and allocated *more* than the plain element
+  component (612 µs / 704 KB vs 471 µs / 376 KB). Blazor's renderer still builds and walks a
+  `RenderTreeFrame[]` either way; there's no SSR path that skips the tree the way a compiled plan does.
+- **htnet's plain tree path already beats even optimized Blazor on time** (1.3× faster than
+  `Blazor · WriteTo`), though optimized Blazor allocates less than htnet's object tree. The render plan
+  then beats *everything* — ~7× faster and ~17× less memory than the best Blazor across the table.
+- **This is a throughput story.** ~1.1 MB/request (Live) vs ~22 KB/request (RenderPlan) is the
+  difference between being GC-bound and CPU-bound under load.
+- **The win holds at small sizes too** — a 10-row page is still ~14× faster and ~34× lighter than the
+  best Blazor.
 
 ## How it works (one paragraph)
 
 A view marked `[RenderOptimized]` is analyzed at compile time. Because the CC.CSX element/attribute
-factories are *pure functions of their arguments*, a Roslyn source generator can recursively split the
-view into **static chunks** (baked to `static readonly byte[]` and written via memcpy) and **dynamic
-holes** (the values that read parameters). `Select`/`foreach` become real loops with the per‑row
-scaffold baked; node‑producing conditionals become `if`/`else` with per‑branch sub‑plans. A C#
+factories are *pure functions of their arguments*, a Roslyn source generator recursively splits the
+view into **static chunks** (baked to `static readonly byte[]`, written via memcpy) and **dynamic
+holes** (the values that read parameters). `Select`/`foreach` become real loops with the per-row
+scaffold baked; node-producing conditionals become `if`/`else` with per-branch sub-plans. A C#
 **interceptor** then transparently redirects each call site to the generated builder, which returns a
 lightweight `PlanNode` — so existing call sites get the speedup with no code change. Anything the
-analyzer can't prove static (unknown/impure calls) falls back to rendering live, so correctness is
-never traded for speed.
+analyzer can't prove static falls back to rendering live, so correctness is never traded for speed.
 
 ## Methodology & caveats
 
-- Results are **BenchmarkDotNet ShortRun** (3 iterations) — fine for the order‑of‑magnitude ratios
-  here; re‑run without `--job short` for publication‑grade confidence intervals.
-- All approaches render to a reused, discarding `IBufferWriter<byte>` so the numbers reflect the
-  *renderer*, not output storage. In production the htnet path writes straight to the response
-  `PipeWriter`.
+- Results are **BenchmarkDotNet ShortRun** (3 iterations) — fine for the order-of-magnitude ratios
+  here; re-run without `--job short` for publication-grade confidence intervals.
+- htnet renders UTF-8 bytes to a reused, discarding `IBufferWriter<byte>`; Blazor `WriteTo` variants
+  render to `TextWriter.Null`; `ToString` builds the string. So the numbers reflect the *renderer*,
+  not output storage. In production the htnet path writes straight to the response `PipeWriter`.
 - `RenderOptions.Indent = 0` (production shape). Render plans apply only at `Indent = 0`.
-- The render‑plan generator is currently a spike (`CC.CSX.RenderPlan.Generator`); see the
-  `feature/render-plan` branch. Numbers will only improve as codegen polish lands (e.g. `TryFormat`
-  for numeric holes removes the last allocation).
+- The render-plan generator is a spike (`CC.CSX.RenderPlan.Generator`, branch `feature/render-plan`).
+  Numbers only improve as codegen polish lands (e.g. `TryFormat` for numeric holes removes the last
+  allocation).
 
 ## Reproduce
 
 ```bash
-# all realistic-page benchmarks
-dotnet run -c Release --project tests/CC.CSX.Benchmarks -- --filter "*RealisticBenchmarks*"
-
-# quick pass (what produced the tables above)
 dotnet run -c Release --project tests/CC.CSX.Benchmarks -- --filter "*RealisticBenchmarks*" --job short
 ```

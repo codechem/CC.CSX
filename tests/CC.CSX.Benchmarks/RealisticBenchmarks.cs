@@ -100,10 +100,30 @@ public class RealisticBenchmarks
         return sink.Count;
     }
 
+    // typical Blazor SSR: builds the full HTML string
     [Benchmark]
-    public string Blazor_SSR()
+    public string Blazor_ToString()
         => renderer.Dispatcher.InvokeAsync(async () =>
             (await renderer.RenderComponentAsync<ReportComponent>()).ToHtmlString()).GetAwaiter().GetResult();
+
+    // Blazor optimization 1: render straight to a TextWriter (no output string materialized)
+    [Benchmark]
+    public void Blazor_WriteTo()
+        => renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var root = await renderer.RenderComponentAsync<ReportComponent>();
+            root.WriteHtmlTo(System.IO.TextWriter.Null);
+        }).GetAwaiter().GetResult();
+
+    // Blazor optimization 2: static HTML as raw markup (AddMarkupContent) — fewer/cheaper frames,
+    // the hand-tuned analog of baked static chunks — also written to a TextWriter
+    [Benchmark]
+    public void Blazor_Markup_WriteTo()
+        => renderer.Dispatcher.InvokeAsync(async () =>
+        {
+            var root = await renderer.RenderComponentAsync<ReportComponentMarkup>();
+            root.WriteHtmlTo(System.IO.TextWriter.Null);
+        }).GetAwaiter().GetResult();
 }
 
 /// <summary>The same data-table page as a Blazor component (hand-lowered .razor equivalent).</summary>
@@ -138,5 +158,31 @@ public class ReportComponent : ComponentBase
         b.CloseElement(); // tbody
         b.CloseElement(); // table
         b.CloseElement(); // div
+    }
+}
+
+/// <summary>
+/// The same page, hand-optimized the way a Blazor dev would for SSR throughput: static HTML emitted
+/// as raw markup via <see cref="RenderTreeBuilder.AddMarkupContent"/> (one cheap frame, no escaping),
+/// only the dynamic values via AddContent — the Blazor analog of baked static chunks.
+/// </summary>
+public class ReportComponentMarkup : ComponentBase
+{
+    protected override void BuildRenderTree(RenderTreeBuilder b)
+    {
+        b.AddMarkupContent(0, "<div class=\"uk-container\"><h1>Report</h1><table class=\"uk-table\"><thead><tr><th>Id</th><th>Name</th><th>Email</th></tr></thead><tbody>");
+        foreach (var r in RealisticBenchmarks.Data)
+        {
+            b.AddMarkupContent(1, "<tr class=\"");
+            b.AddContent(2, (r.id & 1) == 0 ? "even" : "odd");
+            b.AddMarkupContent(3, "\"><td>");
+            b.AddContent(4, r.id);
+            b.AddMarkupContent(5, "</td><td>");
+            b.AddContent(6, r.name);
+            b.AddMarkupContent(7, "</td><td>");
+            b.AddContent(8, r.email);
+            b.AddMarkupContent(9, "</td></tr>");
+        }
+        b.AddMarkupContent(10, "</tbody></table></div>");
     }
 }
