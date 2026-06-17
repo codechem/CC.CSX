@@ -31,7 +31,7 @@ public class HtmlAttribute : HtmlItem
     /// <summary>
     /// Renders the attribute to HTML by taking into account the indentation.
     /// </summary>
-    public override string ToString(int indent = 0) => string.IsNullOrEmpty(Name) ? string.Empty : Value is null ? Name : $"{Name}=\"{Value}\"";
+    public override string ToString(int indent = 0) => string.IsNullOrEmpty(Name) ? string.Empty : Value is null ? Name : $"{Name}=\"{HtmlEscape.Escape(Value)}\"";
     /// <summary>
     /// Renders the attribute to HTML by taking into account the indentation.
     /// </summary>
@@ -50,7 +50,9 @@ public class HtmlAttribute : HtmlItem
         }
         else
         {
-            sb.Append(Name).Append(CharEqual).Append(CharQuote).Append(Value).Append(CharQuote);
+            sb.Append(Name).Append(CharEqual).Append(CharQuote);
+            HtmlEscape.AppendEscaped(sb, Value);
+            sb.Append(CharQuote);
         }
     }
 
@@ -70,7 +72,7 @@ public class HtmlAttribute : HtmlItem
             sb.Write(Name);
             sb.Write(CharEqual);
             sb.Write(CharQuote);
-            sb.Write(Value);
+            HtmlEscape.WriteEscaped(sb, Value);
             sb.Write(CharQuote);
         }
     }

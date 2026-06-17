@@ -158,7 +158,9 @@ internal sealed class Planner(SemanticModel model)
         if (depth > MaxDepth) return [new OpaqueSeg(Sub(expr, subst), KindOf(expr))];
 
         var cv = _model.GetConstantValue(expr);
-        if (cv.HasValue) return [new StaticSeg(cv.Value?.ToString() ?? "")];
+        // constant content (text or attribute value) is baked, so escape it here exactly as the
+        // live renderer would; structural markup segments are produced elsewhere and never escaped.
+        if (cv.HasValue) return [new StaticSeg(HtmlEscape(cv.Value?.ToString() ?? ""))];
 
         switch (expr)
         {
@@ -313,6 +315,25 @@ internal sealed class Planner(SemanticModel model)
             s = Regex.Replace(s, $@"\b{Regex.Escape(kv.Key)}\b", kv.Value.Replace("$", "$$"));
         return s;
     }
+
+    // mirrors CC.CSX.HtmlEscape (entities for & < > " ') so baked constants match the live renderer
+    static string HtmlEscape(string s)
+    {
+        if (s.IndexOfAny(EscapeChars) < 0) return s;
+        var sb = new StringBuilder(s.Length + 16);
+        foreach (char c in s)
+            sb.Append(c switch
+            {
+                '&' => "&amp;",
+                '<' => "&lt;",
+                '>' => "&gt;",
+                '"' => "&quot;",
+                '\'' => "&#39;",
+                _ => c.ToString(),
+            });
+        return sb.ToString();
+    }
+    static readonly char[] EscapeChars = ['&', '<', '>', '"', '\''];
 
     public static List<Segment> Consolidate(List<Segment> segs)
     {

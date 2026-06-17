@@ -93,9 +93,10 @@ internal static class CodeEmitter
         switch (kind)
         {
             case WriteKind.Text:
-                body.AppendLine($"{indent}__tw.Write({expr});");
+                body.AppendLine($"{indent}global::CC.CSX.HtmlEscape.WriteEscaped(__tw, {expr});");
                 break;
             case WriteKind.Value:
+                // numeric/bool ToString cannot contain HTML-special chars, so no escaping needed
                 body.AppendLine($"{indent}__tw.Write(({expr}).ToString());");
                 break;
             case WriteKind.Node:
